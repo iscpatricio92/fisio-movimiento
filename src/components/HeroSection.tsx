@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Calendar, Phone, MapPin, Award, Star, Video } from 'lucide-react';
 import therapistImage from '@/assets/therapist-portrait_2.jpg';
+import { trackCTAClick, trackPhoneClick } from '@/lib/analytics';
 
 export const HeroSection = () => {
   return (
@@ -77,9 +78,7 @@ export const HeroSection = () => {
                   href="tel:+525565053202"
                   onClick={() => {
                     trackCTAClick('Llamar Ahora', 'Hero Section');
-                    import('@/lib/analytics').then(({ trackPhoneClick }) => 
-                      trackPhoneClick('+525565053202', 'Hero Section')
-                    );
+                    trackPhoneClick('+525565053202', 'Hero Section');
                   }}
                 >
                   <Phone className="w-5 h-5" />
