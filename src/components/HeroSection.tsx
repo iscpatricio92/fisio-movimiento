@@ -55,7 +55,7 @@ export const HeroSection = () => {
                   Calificación
                 </div>
               </div>
-              <div className="text-center bg-primary-foreground/10 backdrop-blur-sm px-6 py-4 rounded-2xl border border-primary-foreground/20 shadow-soft hover:scale-105 transition-transform duration-300">
+              <div className="text-center  bg-primary-foreground/10 backdrop-blur-sm px-6 py-4 rounded-2xl border border-primary-foreground/20 shadow-soft hover:scale-105 transition-transform duration-300">
                 <div className="text-4xl font-extrabold text-accent mb-1">500+</div>
                 <div className="text-sm font-medium opacity-90">Pacientes atendidos</div>
               </div>
