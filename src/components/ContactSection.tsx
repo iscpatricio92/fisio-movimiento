@@ -1,5 +1,6 @@
 import { MapPin, Phone, Clock, Mail, MessageCircle, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DoctoraliaCalendarWidget } from '@/components/DoctoraliaCalendarWidget';
 
 const locations = [
   {
@@ -77,6 +78,11 @@ export const ContactSection = () => {
               <p className="text-sm text-muted-foreground">{method.description}</p>
             </a>
           ))}
+        </div>
+
+        {/* Doctoralia Calendar Widget */}
+        <div className="mb-16">
+          <DoctoraliaCalendarWidget />
         </div>
 
         {/* Locations */}

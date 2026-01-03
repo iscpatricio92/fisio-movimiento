@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -112,6 +113,10 @@ export default {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        "pulse-dots": {
+          "0%, 100%": { opacity: "0.3" },
+          "50%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -120,6 +125,7 @@ export default {
         "fade-in": "fade-in 0.8s ease-out forwards",
         "slide-in-left": "slide-in-left 0.5s ease-out forwards",
         "pulse-soft": "pulse-soft 2s ease-in-out infinite",
+        "pulse-dots": "pulse-dots 1.4s ease-in-out infinite",
         "float": "float 4s ease-in-out infinite",
         "shimmer": "shimmer 3s infinite",
         "scale-in": "scale-in 0.4s ease-out forwards",
@@ -128,5 +134,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

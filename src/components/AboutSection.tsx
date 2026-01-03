@@ -1,21 +1,33 @@
-import { GraduationCap, Globe, Award, Heart } from 'lucide-react';
+import { GraduationCap, Globe, Award, Heart, Languages, Clock, Check } from 'lucide-react';
 import clinicImage from '@/assets/clinic-hero.jpg';
+
+interface Credential {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  completed: boolean;
+  inProgress?: boolean;
+  inProgressText?: string;
+}
 
 const credentials = [
   {
     icon: GraduationCap,
     title: 'Universidad Europea de Madrid',
     description: 'Fisioterapia (España, 2015)',
+    completed: true,
   },
   {
     icon: GraduationCap,
     title: 'Universidad del Valle de México',
     description: 'Licenciatura en Fisioterapia (México, 2017)',
+    completed: true,
   },
   {
     icon: Award,
     title: 'Instituto Nacional de Neurología',
-    description: 'Diplomado en Abordaje Integral del Dolor',
+    description: 'Diplomado en Abordaje Integral del Dolor (México,2024)',
+    completed: true,
   },
 ];
 
@@ -34,6 +46,21 @@ const values = [
     icon: Award,
     title: 'Basado en Evidencia',
     description: 'Tratamientos respaldados por la ciencia más actual.',
+  },
+];
+
+const languages = [
+  {
+    name: 'Español',
+    level: 'Nativo',
+    flag: '🇲🇽',
+    description: 'Idioma materno',
+  },
+  {
+    name: 'Inglés',
+    level: 'Avanzado',
+    flag: '🇬🇧',
+    description: 'Comunicación profesional fluida',
   },
 ];
 
@@ -107,11 +134,30 @@ export const AboutSection = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {credentials.map((credential, index) => (
+            {credentials.map((credential: Credential, index) => (
               <div
                 key={index}
-                className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
+                className="group relative p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
               >
+                {/* Badge "En curso" */}
+                {credential?.inProgress && (
+                  <div className="absolute -top-3 -right-3 z-10">
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full gradient-cta text-accent-foreground text-xs font-bold shadow-lg border-2 border-accent-foreground/20">
+                      <Clock className="w-3 h-3" />
+                      <span>{credential.inProgressText}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Icono de completado (opcional) */}
+                {credential.completed && !credential.inProgress && (
+                  <div className="absolute -top-2 -right-2 z-10">
+                    <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-md">
+                      <Check className="w-4 h-4 text-primary-foreground" />
+                    </div>
+                  </div>
+                )}
+
                 <div className="w-14 h-14 rounded-2xl gradient-hero flex items-center justify-center mb-4 group-hover:scale-110 group-hover:shadow-glow transition-all duration-300">
                   <credential.icon className="w-7 h-7 text-primary-foreground" />
                 </div>
@@ -119,6 +165,59 @@ export const AboutSection = () => {
                   {credential.title}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">{credential.description}</p>
+                
+                {/* Indicador adicional si está en curso */}
+                {credential.inProgress && (
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    <div className="flex items-center gap-2 text-sm">
+                      <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                      <span className="text-muted-foreground font-medium">Formación continua</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Languages Section */}
+        <div className="mt-24">
+          <div className="text-center mb-12">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+              Idiomas
+            </span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
+              Comunicación <span className="text-primary">Multilingüe</span>
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+              Atiendo pacientes en múltiples idiomas para brindar la mejor experiencia de comunicación
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            {languages.map((language, index) => (
+              <div
+                key={index}
+                className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-16 h-16 rounded-2xl gradient-hero flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    {language.flag}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-display font-bold text-xl text-foreground">
+                        {language.name}
+                      </h3>
+                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold border border-primary/20">
+                        {language.level}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {language.description}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

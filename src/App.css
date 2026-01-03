@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.widget-well[data-v-4aace310]{
+  height: 100%;
+  min-height: 750px;
+  width: 100%;
+  max-width: 100%;
+}

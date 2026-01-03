@@ -1,5 +1,6 @@
-import { Check } from 'lucide-react';
+import { Check, Bone, Zap, Activity, Target, Brain, Sparkles, Heart, Users, Stethoscope, Dumbbell, Hand } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 const plans = [
   {
@@ -40,13 +41,123 @@ const plans = [
   },
 ];
 
-const additionalServices = [
-  { name: 'Ejercicios Hipopresivos', price: '500' },
-  { name: 'Fisioterapia ATM', price: '500' },
-  { name: 'Fisioterapia para Dolor', price: '500' },
-  { name: 'Fisioterapia Ortopédica', price: '500' },
-  { name: 'Fisioterapia Post-Quirúrgica', price: '500' },
-  { name: 'Masaje de Descarga Muscular', price: '800' },
+// Función helper para obtener icono basado en el nombre del servicio
+const getServiceIcon = (serviceName: string) => {
+  const name = serviceName.toLowerCase();
+  if (name.includes('consulta') || name.includes('primera vez')) return Stethoscope;
+  if (name.includes('columna') || name.includes('cervical') || name.includes('lumbar')) return Bone;
+  if (name.includes('atm') || name.includes('temporomandibular')) return Brain;
+  if (name.includes('dolor')) return Heart;
+  if (name.includes('deportiv') || name.includes('readaptación')) return Target;
+  if (name.includes('adulto mayor') || name.includes('caídas')) return Users;
+  if (name.includes('ejercicio') || name.includes('fortalecimiento')) return Dumbbell;
+  if (name.includes('hipopresiv')) return Sparkles;
+  if (name.includes('masaje') || name.includes('descarga')) return Hand;
+  if (name.includes('ortopédic') || name.includes('quirúrgic')) return Bone;
+  return Activity; // Icono por defecto
+};
+
+// Servicios organizados por categorías
+const serviceCategories = [
+  {
+    title: 'Consultas',
+    id: 'consultas',
+    services: [
+      { 
+        name: 'Cita de primera vez Fisioterapia', 
+        price: '600',
+        description: 'Evaluación completa inicial con diagnóstico y plan de tratamiento'
+      },
+      { 
+        name: 'Consulta subsecuente', 
+        price: '500',
+        description: 'Seguimiento y ajuste del plan de tratamiento'
+      },
+    ],
+  },
+  {
+    title: 'Tratamientos Generales',
+    id: 'generales',
+    services: [
+      { 
+        name: 'Sesión de fisioterapia subsecuente', 
+        price: '500',
+        description: 'Tratamiento continuo personalizado'
+      },
+      { 
+        name: 'Visita Fisioterapia', 
+        price: '500',
+        description: 'Sesión de fisioterapia estándar'
+      },
+      { 
+        name: 'Fisioterapia Ortopédica', 
+        price: '500',
+        description: 'Tratamiento de lesiones musculoesqueléticas'
+      },
+      { 
+        name: 'Fisioterapia Post-Quirúrgica', 
+        price: '500',
+        description: 'Rehabilitación después de cirugía'
+      },
+    ],
+  },
+  {
+    title: 'Tratamientos Especializados',
+    id: 'especializados',
+    services: [
+      { 
+        name: 'Rehabilitación de Columna (Cervical, Dorsal, Lumbar)', 
+        price: '500',
+        description: 'Tratamiento especializado para problemas de columna'
+      },
+      { 
+        name: 'Fisioterapia ATM', 
+        price: '500',
+        description: 'Terapia para articulación temporomandibular y bruxismo'
+      },
+      { 
+        name: 'Fisioterapia para Dolor', 
+        price: '500',
+        description: 'Manejo integral del dolor agudo y crónico'
+      },
+      { 
+        name: 'Terapia física y readaptación deportiva', 
+        price: '500',
+        description: 'Recuperación funcional para deportistas'
+      },
+      { 
+        name: 'Prevención de caídas en adulto mayor', 
+        price: '500',
+        description: 'Programa de fortalecimiento y equilibrio'
+      },
+    ],
+  },
+  {
+    title: 'Ejercicios y Técnicas',
+    id: 'ejercicios',
+    services: [
+      { 
+        name: 'Ejercicio terapéutico individualizado', 
+        price: '500',
+        description: 'Programa de ejercicios personalizado'
+      },
+      { 
+        name: 'Ejercicios de fortalecimiento muscular', 
+        price: '500',
+        description: 'Rutina de fortalecimiento adaptada'
+      },
+      { 
+        name: 'Ejercicios Hipopresivos', 
+        price: '500',
+        description: 'Técnica para suelo pélvico y faja abdominal'
+      },
+      { 
+        name: 'Masaje de Descarga Muscular', 
+        price: '800',
+        description: 'Masaje terapéutico profundo para relajación muscular'
+      },
+    ],
+  },
 ];
 
 export const PricingSection = () => {
@@ -141,22 +252,59 @@ export const PricingSection = () => {
           ))}
         </div>
 
-        {/* Additional Services */}
-        <div className="bg-secondary/50 rounded-3xl p-8 md:p-12">
-          <h3 className="font-display text-2xl font-bold text-foreground text-center mb-8">
-            Servicios Adicionales
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {additionalServices.map((service, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-4 rounded-xl bg-card hover:shadow-soft transition-shadow"
-              >
-                <span className="font-medium text-foreground">{service.name}</span>
-                <span className="font-bold text-primary">${service.price} MXN</span>
-              </div>
+        {/* Additional Services by Category with Tabs */}
+        <div className="bg-secondary/50 rounded-3xl p-6 md:p-8">
+          <Tabs defaultValue={serviceCategories[0].id} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8 bg-background/50 p-1 h-auto">
+              {serviceCategories.map((category) => (
+                <TabsTrigger
+                  key={category.id}
+                  value={category.id}
+                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-300"
+                >
+                  {category.title}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {serviceCategories.map((category) => (
+              <TabsContent key={category.id} value={category.id} className="mt-0">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {category.services.map((service, serviceIndex) => {
+                    const ServiceIcon = getServiceIcon(service.name);
+                    return (
+                      <div
+                        key={serviceIndex}
+                        className="group p-5 rounded-xl bg-card hover:shadow-glow hover:border-primary/50 border border-border/50 transition-all duration-300 hover:-translate-y-1"
+                      >
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className="w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center shrink-0 transition-colors duration-300">
+                            <ServiceIcon className="w-5 h-5 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-foreground text-sm leading-snug mb-1">
+                              {service.name}
+                            </h4>
+                            {service.description && (
+                              <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                                {service.description}
+                              </p>
+                            )}
+                            <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/30">
+                              <span className="font-bold text-primary text-lg">
+                                ${service.price}
+                              </span>
+                              <span className="text-xs text-muted-foreground">MXN</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
         </div>
       </div>
     </section>

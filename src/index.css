@@ -274,6 +274,15 @@
     }
   }
 
+  @keyframes pulse-dots {
+    0%, 100% {
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
   .animate-float {
     animation: float 4s ease-in-out infinite;
   }
@@ -329,4 +338,13 @@
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
+
+  /* Estilos para iframe de Doctoralia - intentar afectar contenido interno */
+  iframe.big_with_calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Nota: Los estilos dentro del iframe no se pueden modificar directamente
+     debido a políticas CORS, pero podemos intentar inyectarlos via JavaScript */
 }

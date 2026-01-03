@@ -6,7 +6,8 @@ import {
   Zap, 
   Users, 
   Target,
-  Sparkles 
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
 
 const specialties = [
@@ -14,41 +15,49 @@ const specialties = [
     icon: Bone,
     title: 'Traumatológica',
     description: 'Rehabilitación de lesiones musculoesqueléticas, fracturas y post-operatorios.',
+    priceFrom: '500',
   },
   {
     icon: Zap,
     title: 'Electroterapia',
     description: 'Uso de corrientes eléctricas para aliviar el dolor y acelerar la recuperación.',
+    priceFrom: '500',
   },
   {
     icon: Activity,
     title: 'Terapias Manuales',
     description: 'Técnicas de masaje, movilización articular y tratamiento de tejidos blandos.',
+    priceFrom: '500',
   },
   {
     icon: Target,
     title: 'Readaptación Deportiva',
     description: 'Recuperación funcional para deportistas y prevención de lesiones.',
+    priceFrom: '500',
   },
   {
     icon: Brain,
     title: 'Tratamiento ATM',
     description: 'Terapia para disfunciones de la articulación temporomandibular y bruxismo.',
+    priceFrom: '500',
   },
   {
     icon: Sparkles,
     title: 'Hipopresivos',
     description: 'Ejercicios para fortalecer el suelo pélvico y la faja abdominal.',
+    priceFrom: '500',
   },
   {
     icon: Heart,
     title: 'Manejo del Dolor',
     description: 'Tratamiento integral del dolor crónico y agudo basado en evidencia.',
+    priceFrom: '500',
   },
   {
     icon: Users,
     title: 'Adulto Mayor',
     description: 'Prevención de caídas y mantenimiento de la funcionalidad.',
+    priceFrom: '500',
   },
 ];
 
@@ -58,17 +67,20 @@ const conditions = [
   'Tendinitis',
   'Dolor muscular',
   'Contractura cervical',
-  'Manguito rotador',
-  'Pinzamiento de hombro',
+  'Tendinitis del manguito de los rotadores',
+  'Síndrome de pinzamiento del hombro',
   'Radiculopatía lumbar',
   'Dolor de cuello',
   'Dolor de espalda',
-  'Cefalea cervical',
-  'Prótesis de cadera/rodilla',
-  'Bruxismo (ATM)',
+  'Cefalea de origen cervical',
+  'Prótesis de cadera y rodilla',
+  'Articulación temporomandibular (ATM) (bruxismo)',
+  'Prevención de caidas en adulto mayor',
   'Dolor crónico',
   'Parálisis facial',
+  'Hipopresivos',
   'Reeducación postural',
+  'Lesiones de hombro',
 ];
 
 export const ServicesSection = () => {
@@ -90,11 +102,11 @@ export const ServicesSection = () => {
         </div>
 
         {/* Specialties Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {specialties.map((specialty, index) => (
             <div
               key={index}
-              className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
+              className="group relative p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-14 h-14 rounded-2xl bg-primary/10 group-hover:gradient-hero flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow">
@@ -103,11 +115,33 @@ export const ServicesSection = () => {
               <h3 className="font-display font-bold text-lg text-foreground mb-2">
                 {specialty.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                 {specialty.description}
               </p>
+              {specialty.priceFrom && (
+                <div className="mt-3 pt-3 border-t border-border/30">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold border border-primary/20">
+                    Desde ${specialty.priceFrom} MXN
+                  </span>
+                </div>
+              )}
             </div>
           ))}
+        </div>
+
+        {/* CTA to Pricing */}
+        <div className="text-center mb-20">
+          <a
+            href="#precios"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 group"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('precios')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Ver todos los precios
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
         </div>
 
         {/* Conditions Treated */}
