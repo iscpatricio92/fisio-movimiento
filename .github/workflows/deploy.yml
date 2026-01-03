@@ -5,13 +5,13 @@ on:
     branches:
       - main
 
-# Permisos necesarios para GitHub Pages
+# Permissions required for GitHub Pages deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Permite solo una ejecución concurrente por rama
+# Allow only one concurrent deployment per branch
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -21,25 +21,101 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout código
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: Instalar dependencias
+      - name: Verify Node.js and npm versions
+        run: |
+          echo "Node.js version: $(node --version)"
+          echo "npm version: $(npm --version)"
+
+      - name: Install dependencies
         run: npm ci
+        continue-on-error: false
 
-      - name: Build del proyecto
+      - name: Verify dependencies installation
+        run: |
+          if [ ! -d "node_modules" ]; then
+            echo "Error: node_modules directory not found"
+            exit 1
+          fi
+          echo "Dependencies installed successfully"
+
+      - name: Clean previous build (if exists)
+        run: |
+          if [ -d "dist" ]; then
+            echo "Cleaning previous build directory..."
+            rm -rf dist
+          fi
+
+      - name: Build project
         run: npm run build
+        continue-on-error: false
 
-      - name: Configurar Pages
+      - name: Display build summary
+        run: |
+          echo "📦 Build Summary:"
+          echo "  - Build command: npm run build"
+          echo "  - Build completed successfully"
+          if [ -d "dist" ]; then
+            echo "  - Output directory: dist/"
+            echo "  - Total files in dist: $(find dist -type f | wc -l)"
+          fi
+
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ]; then
+            echo "❌ Error: dist directory not found after build"
+            exit 1
+          fi
+          
+          if [ ! -f "dist/index.html" ]; then
+            echo "❌ Error: dist/index.html not found"
+            exit 1
+          fi
+          
+          # Check that index.html references .js files, not .tsx
+          if grep -q "main.tsx" dist/index.html; then
+            echo "❌ Error: index.html still references .tsx files instead of compiled .js"
+            echo "This indicates the build did not process index.html correctly"
+            echo ""
+            echo "Current index.html content:"
+            cat dist/index.html
+            exit 1
+          fi
+          
+          # Verify that JavaScript files exist
+          JS_COUNT=$(find dist -name "*.js" -type f | wc -l)
+          if [ "$JS_COUNT" -eq 0 ]; then
+            echo "❌ Error: No JavaScript files found in dist/"
+            exit 1
+          fi
+          
+          # List dist contents for debugging
+          echo "✅ Build output verification:"
+          echo "  - dist/ directory exists"
+          echo "  - dist/index.html exists"
+          echo "  - index.html references compiled .js files (not .tsx)"
+          echo "  - Found $JS_COUNT JavaScript file(s)"
+          echo ""
+          echo "Build output structure:"
+          ls -la dist/ | head -20
+          echo ""
+          echo "JavaScript files in dist:"
+          find dist -name "*.js" -type f | head -10
+          echo ""
+          echo "✅ Build verification passed"
+
+      - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Subir artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
@@ -52,7 +128,7 @@ jobs:
     needs: build
     
     steps:
-      - name: Desplegar a GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
