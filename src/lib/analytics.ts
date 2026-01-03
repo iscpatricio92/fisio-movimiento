@@ -1,119 +1,61 @@
 /**
- * Analytics and Event Tracking
+ * Analytics and Event Tracking using Google Tag Manager (GTM)
  * 
  * This module provides utilities for tracking user interactions and events.
- * Configure your Google Analytics 4 Measurement ID in the environment variables.
+ * Uses Google Tag Manager for reliable event tracking.
  * 
  * Usage:
  * - Import: import { trackEvent, trackPageView } from '@/lib/analytics'
  * - Track event: trackEvent('button_click', { button_name: 'Reservar Cita' })
  * - Track page view: trackPageView('/page-path')
+ * 
+ * Setup:
+ * 1. Get your GTM Container ID from https://tagmanager.google.com/
+ * 2. Replace 'GTM-XXXXXXX' below with your actual GTM Container ID
+ * 3. Configure GTM to send events to Google Analytics 4 (GA4)
  */
 
-// Google Analytics 4 Measurement ID
-// Configured directly here for GitHub Pages deployment
-// Get your Measurement ID from: https://analytics.google.com/
+import TagManager from 'react-gtm-module';
+
+// Google Tag Manager Container ID
+// Get your GTM Container ID from: https://tagmanager.google.com/
+// Format: GTM-XXXXXXX
+const GTM_ID = 'GTM-WJGH3SVR'; // TODO: Replace with your actual GTM Container ID
+
+// Google Analytics 4 Measurement ID (for reference, configured in GTM)
+// This is kept for documentation purposes
 const GA_MEASUREMENT_ID = 'G-3L9C8QMNZV';
 
 // Check if analytics is enabled
 // Only enable in production (not in development mode)
-// import.meta.env.PROD is automatically set by Vite: true in production, false in development
 const isAnalyticsEnabled = () => {
-  const isProduction = true;
-  return typeof window !== 'undefined' && Boolean(GA_MEASUREMENT_ID) && isProduction;
+  const isProduction = import.meta.env.PROD;
+  return typeof window !== 'undefined' && Boolean(GTM_ID) && GTM_ID !== 'GTM-WJGH3SVR' && isProduction;
 };
 
-// Initialize Google Analytics
+// Initialize Google Tag Manager
 export const initAnalytics = () => {
   if (!isAnalyticsEnabled()) {
     if (import.meta.env.DEV) {
       console.log('Analytics: Disabled in development mode');
+    } else if (GTM_ID === 'GTM-WJGH3SVR') {
+      console.log('Analytics: GTM Container ID not configured. Please set GTM_ID in src/lib/analytics.ts');
     } else {
-      console.log('Analytics: Not configured (Measurement ID not set)');
+      console.log('Analytics: Not configured');
     }
     return;
   }
 
-  // Initialize dataLayer BEFORE loading the script (required by GA4)
-  // This ensures events are queued even if the script hasn't loaded yet
-  const windowWithDataLayer = window as typeof window & { 
-    dataLayer?: unknown[]; 
-    gtag?: (...args: unknown[]) => void;
-  };
-  
-  // Initialize dataLayer if it doesn't exist (must be before script loads)
-  if (!windowWithDataLayer.dataLayer) {
-    windowWithDataLayer.dataLayer = [];
+  try {
+    // Initialize Google Tag Manager
+    TagManager.initialize({
+      gtmId: GTM_ID,
+    });
+    
+    console.log('Analytics: Google Tag Manager initialized with ID', GTM_ID);
+  } catch (error) {
+    console.error('Analytics: Failed to initialize Google Tag Manager:', error);
   }
-  
-  // Define gtag function that pushes to dataLayer
-  // This will be replaced by the official gtag when the script loads
-  function gtag(...args: unknown[]) {
-    if (windowWithDataLayer.dataLayer) {
-      // Push the arguments as an array to dataLayer
-      // Format: ['command', 'target', {params}] or ['event', 'eventName', {params}]
-      windowWithDataLayer.dataLayer.push(args);
-    }
-  }
-  
-  // Make gtag available globally (will be replaced by official gtag when script loads)
-  windowWithDataLayer.gtag = gtag;
-
-  // Configure GA4 BEFORE loading the script (goes into dataLayer)
-  // The official script will process these when it loads
-  gtag('js', new Date());
-  gtag('config', GA_MEASUREMENT_ID, {
-    send_page_view: false, // We'll track page views manually
-  });
-
-  // Load Google Analytics script
-  const script1 = document.createElement('script');
-  script1.async = true;
-  script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  
-  // Wait for script to load
-  script1.onload = () => {
-    // Small delay to ensure the official gtag is fully initialized
-    setTimeout(() => {
-      // The official gtag function should now be available and will process the dataLayer
-      const officialGtag = (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag;
-      if (officialGtag) {
-        console.log('Analytics: Script loaded successfully with ID', GA_MEASUREMENT_ID);
-        console.log('Analytics: dataLayer entries:', windowWithDataLayer.dataLayer?.length || 0);
-        
-        // Verify dataLayer content
-        if (windowWithDataLayer.dataLayer && windowWithDataLayer.dataLayer.length > 0) {
-          console.log('Analytics: dataLayer content (first 5 entries):', 
-            windowWithDataLayer.dataLayer.slice(0, 5));
-        }
-        
-        // Test that gtag is working by sending a test event
-        try {
-          officialGtag('event', 'analytics_ready', {
-            debug_mode: true,
-            test_event: true
-          });
-          console.log('Analytics: Test event sent to verify gtag is working');
-        } catch (error) {
-          console.error('Analytics: Error sending test event:', error);
-        }
-        
-        // Check if we can see network requests to Google Analytics
-        console.log('Analytics: To verify events are being sent, check Network tab for requests to google-analytics.com');
-      } else {
-        console.warn('Analytics: Script loaded but gtag function not found');
-      }
-    }, 200);
-  };
-  
-  script1.onerror = () => {
-    console.error('Analytics: Failed to load Google Analytics script. Check Measurement ID:', GA_MEASUREMENT_ID);
-  };
-  
-  document.head.appendChild(script1);
-
-  console.log('Analytics: Initialized with ID', GA_MEASUREMENT_ID);
-  console.log('Analytics: Script URL:', script1.src);
 };
 
 // Track page view
@@ -125,34 +67,20 @@ export const trackPageView = (path: string, title?: string) => {
     return;
   }
 
-  const windowWithGtag = window as typeof window & { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] };
-  const gtag = windowWithGtag.gtag;
-  
-  if (gtag) {
-    try {
-      gtag('event', 'page_view', {
+  try {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: 'page_view',
         page_path: path,
         page_title: title || document.title,
-      });
-      if (import.meta.env.DEV) {
-        console.log('Analytics: Page view sent:', path, title || document.title);
-      }
-    } catch (error) {
-      console.error('Analytics: Error sending page view:', error);
+      },
+    });
+    
+    if (import.meta.env.DEV) {
+      console.log('Analytics: Page view sent:', path, title || document.title);
     }
-  } else {
-    // Fallback: push directly to dataLayer if gtag is not available yet
-    if (windowWithGtag.dataLayer) {
-      windowWithGtag.dataLayer.push(['event', 'page_view', {
-        page_path: path,
-        page_title: title || document.title,
-      }]);
-      if (import.meta.env.DEV) {
-        console.log('Analytics: Page view queued (gtag not ready):', path);
-      }
-    } else {
-      console.warn('Analytics: dataLayer not available for page view:', path);
-    }
+  } catch (error) {
+    console.error('Analytics: Error sending page view:', error);
   }
 };
 
@@ -168,46 +96,19 @@ export const trackEvent = (
     return;
   }
 
-  const windowWithGtag = window as typeof window & { 
-    gtag?: (...args: unknown[]) => void; 
-    dataLayer?: unknown[];
-  };
-  
-  // Always use gtag if available (preferred method)
-  const gtag = windowWithGtag.gtag;
-  
-  if (gtag) {
-    try {
-      // Use gtag with proper format: gtag('event', eventName, eventParams)
-      gtag('event', eventName, eventParams || {});
-      
-      // Debug logging
-      if (import.meta.env.DEV) {
-        console.log('Analytics: Event sent via gtag:', eventName, eventParams);
-        // Also log dataLayer for debugging
-        if (windowWithGtag.dataLayer) {
-          console.log('Analytics: dataLayer length:', windowWithGtag.dataLayer.length);
-          console.log('Analytics: Last dataLayer entry:', windowWithGtag.dataLayer[windowWithGtag.dataLayer.length - 1]);
-        }
-      }
-    } catch (error) {
-      console.error('Analytics: Error sending event via gtag:', error);
-      // Fallback to dataLayer
-      if (windowWithGtag.dataLayer) {
-        windowWithGtag.dataLayer.push(['event', eventName, eventParams || {}]);
-        console.log('Analytics: Event sent via dataLayer fallback:', eventName);
-      }
+  try {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: eventName,
+        ...eventParams,
+      },
+    });
+    
+    if (import.meta.env.DEV) {
+      console.log('Analytics: Event sent:', eventName, eventParams);
     }
-  } else {
-    // Fallback: push directly to dataLayer if gtag is not available
-    if (windowWithGtag.dataLayer) {
-      windowWithGtag.dataLayer.push(['event', eventName, eventParams || {}]);
-      if (import.meta.env.DEV) {
-        console.log('Analytics: Event queued via dataLayer (gtag not ready):', eventName, eventParams);
-      }
-    } else {
-      console.warn('Analytics: Neither gtag nor dataLayer available for event:', eventName);
-    }
+  } catch (error) {
+    console.error('Analytics: Error sending event:', error);
   }
 };
 
@@ -285,4 +186,3 @@ export const trackFAQInteraction = (question: string, action: 'expand' | 'collap
     action: action,
   });
 };
-

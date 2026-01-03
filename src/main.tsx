@@ -6,9 +6,9 @@ import { initAnalytics, trackPageView } from "./lib/analytics";
 // Initialize analytics
 initAnalytics();
 
-// Track initial page view after a short delay to ensure gtag is ready
+// Track initial page view
 if (typeof window !== 'undefined') {
-  // Use setTimeout to ensure the script has time to load
+  // Small delay to ensure GTM is initialized
   setTimeout(() => {
     trackPageView(window.location.pathname, document.title);
   }, 100);
