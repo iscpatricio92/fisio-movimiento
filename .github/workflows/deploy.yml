@@ -35,8 +35,6 @@ jobs:
 
       - name: Build del proyecto
         run: npm run build
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
 
       - name: Configurar Pages
         uses: actions/configure-pages@v4

@@ -31,21 +31,22 @@ El workflow está configurado en `.github/workflows/deploy.yml` y se ejecuta aut
 
 ### Base Path
 
-El proyecto está configurado para funcionar tanto en desarrollo local como en GitHub Pages:
+El proyecto está configurado para funcionar tanto en desarrollo local como en GitHub Pages con dominio personalizado:
 
 - **Desarrollo local**: Usa `/` como base
-- **GitHub Pages**: Usa automáticamente el nombre del repositorio como base path
+- **Producción (GitHub Pages)**: Usa `/` como base porque está configurado con dominio personalizado
 
-Si tu repositorio se llama `fisiolaura-reyes-clone-enhance`, la URL será:
-```
-https://[usuario].github.io/fisiolaura-reyes-clone-enhance/
-```
+**URL del sitio:** https://fisio-movimiento.com/
 
-### Si quieres usar un dominio personalizado
+### Dominio Personalizado
 
-1. Agrega un archivo `CNAME` en la carpeta `public/` con tu dominio
-2. Configura el DNS según las instrucciones de GitHub Pages
-3. Actualiza `vite.config.ts` para usar `/` como base cuando esté en producción
+El proyecto está configurado para usar el dominio personalizado `fisio-movimiento.com`:
+
+1. ✅ Archivo `CNAME` en `public/` con el dominio configurado
+2. ✅ `vite.config.ts` configurado para usar `/` como base path
+3. ✅ `App.tsx` usa `import.meta.env.BASE_URL` que será `/` en ambos entornos
+
+**Nota:** Asegúrate de que el DNS esté configurado correctamente según las instrucciones de GitHub Pages.
 
 ### React Router
 
