@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin, Instagram, Facebook } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Facebook, Youtube } from 'lucide-react';
+import { ShareButtons } from './ShareButtons';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -21,7 +22,7 @@ export const Footer = () => {
                 href="https://www.instagram.com/physioholisticmx/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-glow"
+                className="w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-glow"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
@@ -30,10 +31,19 @@ export const Footer = () => {
                 href="https://www.facebook.com/fisio.movimiento.mx"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-glow"
+                className="w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-[#1877F2] hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-glow"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.youtube.com/@tu-canal"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-12 h-12 rounded-full bg-primary-foreground/10 hover:bg-[#FF0000] hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-glow"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -42,7 +52,7 @@ export const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-lg mb-4">Navegación</h4>
             <ul className="space-y-3">
-              {['Inicio', 'Sobre mí', 'Servicios', 'Precios', 'Opiniones', 'Contacto'].map((item) => (
+              {['Inicio', 'Sobre mí', 'Servicios', 'Precios', 'Opiniones', 'FAQs', 'Contacto'].map((item) => (
                 <li key={item}>
                   <a
                     href={`#${item.toLowerCase().replace(' ', '-')}`}
@@ -78,8 +88,16 @@ export const Footer = () => {
           </div>
         </div>
 
+        {/* Share Buttons */}
+        <div className="mt-12 pt-8 border-t border-primary-foreground/10">
+          <ShareButtons 
+            variant="compact" 
+            className="justify-center"
+          />
+        </div>
+
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-8 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-primary-foreground/50">
             © {currentYear} Lic. Analaura Reyes Priego. Todos los derechos reservados.
           </p>

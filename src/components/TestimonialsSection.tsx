@@ -1,4 +1,5 @@
 import { Star, Quote, ExternalLink } from 'lucide-react';
+import { ScrollAnimated } from './ScrollAnimated';
 
 // Testimonios destacados seleccionados manualmente del sitio de Doctoralia
 // Estos se actualizarán periódicamente con testimonios recientes y relevantes
@@ -97,23 +98,23 @@ export const TestimonialsSection = () => {
         </div>
 
         {/* Featured Testimonials - Testimonios Destacados */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
-              Testimonios <span className="text-primary">Destacados</span>
-            </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Reseñas seleccionadas de nuestros pacientes. Cada testimonio refleja la dedicación y profesionalismo en cada tratamiento.
-            </p>
-          </div>
+        <ScrollAnimated animation="fade-up" delay={200}>
+          <div className="mb-16">
+            <ScrollAnimated animation="fade-up" delay={300}>
+              <div className="text-center mb-12">
+                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  Testimonios <span className="text-primary">Destacados</span>
+                </h3>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Reseñas seleccionadas de nuestros pacientes. Cada testimonio refleja la dedicación y profesionalismo en cada tratamiento.
+                </p>
+              </div>
+            </ScrollAnimated>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredTestimonials.slice(0, 6).map((testimonial, index) => (
-              <div
-                key={index}
-                className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30 animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredTestimonials.slice(0, 6).map((testimonial, index) => (
+                <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
+                  <div className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">
                 {/* Quote icon */}
                 <div className="mb-4">
                   <Quote className="w-10 h-10 text-primary/20 group-hover:text-primary/30 transition-colors duration-300" />
@@ -150,19 +151,21 @@ export const TestimonialsSection = () => {
                     {testimonial.name.charAt(0)}
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Ver más testimonios destacados */}
-          {featuredTestimonials.length > 6 && (
-            <div className="text-center mt-8">
-              <p className="text-sm text-muted-foreground mb-4">
-                Mostrando 6 de {featuredTestimonials.length} testimonios destacados
-              </p>
+                  </div>
+                </ScrollAnimated>
+              ))}
             </div>
-          )}
-        </div>
+
+            {/* Ver más testimonios destacados */}
+            {featuredTestimonials.length > 6 && (
+              <div className="text-center mt-8">
+                <p className="text-sm text-muted-foreground mb-4">
+                  Mostrando 6 de {featuredTestimonials.length} testimonios destacados
+                </p>
+              </div>
+            )}
+          </div>
+        </ScrollAnimated>
 
        
 

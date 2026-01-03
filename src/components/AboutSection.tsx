@@ -1,5 +1,6 @@
 import { GraduationCap, Globe, Award, Heart, Languages, Clock, Check } from 'lucide-react';
 import clinicImage from '@/assets/clinic-hero.jpg';
+import { ScrollAnimated } from './ScrollAnimated';
 
 interface Credential {
   icon: React.ElementType;
@@ -68,12 +69,15 @@ export const AboutSection = () => {
   return (
     <section id="sobre-mi" className="py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image */}
-          <div className="relative">
+        <ScrollAnimated animation="fade-up" delay={0}>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Image */}
+            <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-card">
               <img
                 src={clinicImage}
+                loading="lazy"
+                decoding="async"
                 alt="Consultorio de fisioterapia moderno"
                 className="w-full h-auto object-cover"
               />
@@ -105,10 +109,8 @@ export const AboutSection = () => {
             {/* Values */}
             <div className="grid gap-4">
               {values.map((value, index) => (
-                <div
-                  key={index}
-                  className="flex items-start gap-4 p-5 rounded-xl bg-secondary/50 hover:bg-secondary hover:shadow-medium transition-all duration-300 hover:-translate-y-1 border border-border/30"
-                >
+                <ScrollAnimated key={index} animation="slide-in-left" delay={index * 100}>
+                  <div className="flex items-start gap-4 p-5 rounded-xl bg-secondary/50 hover:bg-secondary hover:shadow-medium transition-all duration-300 hover:-translate-y-1 border border-border/30">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 hover:bg-primary/20 flex items-center justify-center shrink-0 transition-colors duration-300">
                     <value.icon className="w-6 h-6 text-primary" />
                   </div>
@@ -116,29 +118,32 @@ export const AboutSection = () => {
                     <h3 className="font-bold text-foreground mb-1">{value.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
                   </div>
-                </div>
+                  </div>
+                </ScrollAnimated>
               ))}
             </div>
           </div>
-        </div>
+          </div>
+        </ScrollAnimated>
 
         {/* Credentials */}
-        <div className="mt-24">
-          <div className="text-center mb-12">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Formación Académica
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
-              Credenciales y Educación
-            </h2>
-          </div>
+        <ScrollAnimated animation="fade-up" delay={0}>
+          <div className="mt-24">
+            <ScrollAnimated animation="fade-up" delay={100}>
+              <div className="text-center mb-12">
+                <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+                  Formación Académica
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
+                  Credenciales y Educación
+                </h2>
+              </div>
+            </ScrollAnimated>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {credentials.map((credential: Credential, index) => (
-              <div
-                key={index}
-                className="group relative p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
-              >
+            <div className="grid md:grid-cols-3 gap-6">
+              {credentials.map((credential: Credential, index) => (
+                <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
+                  <div className="group relative p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">
                 {/* Badge "En curso" */}
                 {credential?.inProgress && (
                   <div className="absolute -top-3 -right-3 z-10">
@@ -175,31 +180,34 @@ export const AboutSection = () => {
                     </div>
                   </div>
                 )}
-              </div>
-            ))}
+                  </div>
+                </ScrollAnimated>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollAnimated>
 
         {/* Languages Section */}
-        <div className="mt-24">
-          <div className="text-center mb-12">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Idiomas
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
-              Comunicación <span className="text-primary">Multilingüe</span>
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-              Atiendo pacientes en múltiples idiomas para brindar la mejor experiencia de comunicación
-            </p>
-          </div>
+        <ScrollAnimated animation="fade-up" delay={0}>
+          <div className="mt-24">
+            <ScrollAnimated animation="fade-up" delay={100}>
+              <div className="text-center mb-12">
+                <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+                  Idiomas
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
+                  Comunicación <span className="text-primary">Multilingüe</span>
+                </h2>
+                <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+                  Atiendo pacientes en múltiples idiomas para brindar la mejor experiencia de comunicación
+                </p>
+              </div>
+            </ScrollAnimated>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            {languages.map((language, index) => (
-              <div
-                key={index}
-                className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30"
-              >
+            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              {languages.map((language, index) => (
+                <ScrollAnimated key={index} animation="slide-up" delay={index * 100}>
+                  <div className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 rounded-2xl gradient-hero flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 shadow-md">
                     {language.flag}
@@ -217,11 +225,13 @@ export const AboutSection = () => {
                       {language.description}
                     </p>
                   </div>
-                </div>
-              </div>
-            ))}
+                  </div>
+                  </div>
+                </ScrollAnimated>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollAnimated>
       </div>
     </section>
   );

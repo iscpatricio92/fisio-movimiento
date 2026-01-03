@@ -1,6 +1,8 @@
 import { MapPin, Phone, Clock, Mail, MessageCircle, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DoctoraliaCalendarWidget } from '@/components/DoctoraliaCalendarWidget';
+import { ScrollAnimated } from './ScrollAnimated';
+import { trackCTAClick, trackPhoneClick, trackWhatsAppClick, trackExternalLink } from '@/lib/analytics';
 
 const locations = [
   {
@@ -46,28 +48,31 @@ export const ContactSection = () => {
     <section id="contacto" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Contacto
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
-            Agenda tu <span className="text-primary">Cita</span>
-          </h2>
-          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-            Estoy aquí para ayudarte. Contáctame por el medio que prefieras.
-          </p>
-        </div>
+        <ScrollAnimated animation="fade-up" delay={0}>
+          <div className="text-center mb-16">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+              Contacto
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
+              Agenda tu <span className="text-primary">Cita</span>
+            </h2>
+            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+              Estoy aquí para ayudarte. Contáctame por el medio que prefieras.
+            </p>
+          </div>
+        </ScrollAnimated>
 
         {/* Contact Methods */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {contactMethods.map((method, index) => (
-            <a
-              key={index}
-              href={method.href}
-              target={method.href.startsWith('http') ? '_blank' : undefined}
-              rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30 text-center"
-            >
+        <ScrollAnimated animation="fade-up" delay={100}>
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {contactMethods.map((method, index) => (
+              <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
+                <a
+                  href={method.href}
+                  target={method.href.startsWith('http') ? '_blank' : undefined}
+                  rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className=" shadow-soft transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30 text-center"
+                >
               <div className="w-16 h-16 rounded-2xl gradient-hero flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:shadow-glow transition-all duration-300">
                 <method.icon className="w-8 h-8 text-primary-foreground" />
               </div>
@@ -75,25 +80,28 @@ export const ContactSection = () => {
                 {method.label}
               </h3>
               <p className="text-primary font-semibold mb-2">{method.value}</p>
-              <p className="text-sm text-muted-foreground">{method.description}</p>
-            </a>
-          ))}
-        </div>
+                  <p className="text-sm text-muted-foreground">{method.description}</p>
+                </a>
+              </ScrollAnimated>
+            ))}
+          </div>
+        </ScrollAnimated>
 
         {/* Doctoralia Calendar Widget */}
-        <div className="mb-16">
-          <DoctoraliaCalendarWidget />
-        </div>
+        <ScrollAnimated animation="fade-up" delay={200}>
+          <div className="mb-16">
+            <DoctoraliaCalendarWidget />
+          </div>
+        </ScrollAnimated>
 
         {/* Locations */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {locations.map((location, index) => (
-            <div
-              key={index}
-              className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-glow border border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
-            >
-              {/* Map Placeholder */}
-              <div className="h-64 bg-secondary relative">
+        <ScrollAnimated animation="fade-up" delay={300}>
+          <div className="grid md:grid-cols-2 gap-8">
+            {locations.map((location, index) => (
+              <ScrollAnimated key={index} animation="slide-up" delay={index * 150}>
+                <div className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-glow border border-border/50 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1">
+                  {/* Map Placeholder */}
+                  <div className="h-64 bg-secondary relative">
                 <iframe
                   src={location.embedUrl}
                   width="100%"
@@ -104,9 +112,9 @@ export const ContactSection = () => {
                   referrerPolicy="no-referrer-when-downgrade"
                   title={location.name}
                 />
-              </div>
+                  </div>
 
-              <div className="p-6">
+                  <div className="p-6">
                 <h3 className="font-display text-xl font-bold text-foreground mb-2">
                   {location.name}
                 </h3>
@@ -120,24 +128,45 @@ export const ContactSection = () => {
                   <span>Lun - Vie: 9:00 AM - 7:00 PM</span>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <Button variant="default" className="flex-1" asChild>
-                    <a href="tel:+525565053202">
+                    <a 
+                      href="tel:+525565053202"
+                      onClick={() => trackPhoneClick('+525565053202', location.name)}
+                    >
                       <Phone className="w-4 h-4" />
                       Llamar
                     </a>
                   </Button>
+                  <Button variant="cta" className="flex-1" asChild>
+                    <a 
+                      href={`https://wa.me/525565053202?text=Hola,%20me%20gustaría%20agendar%20una%20cita%20en%20${encodeURIComponent(location.name)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackWhatsAppClick(`Cita en ${location.name}`, location.name)}
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      WhatsApp
+                    </a>
+                  </Button>
                   <Button variant="outline" className="flex-1" asChild>
-                    <a href={location.mapUrl} target="_blank" rel="noopener noreferrer">
+                    <a 
+                      href={location.mapUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackExternalLink(location.mapUrl, `Ver Mapa - ${location.name}`)}
+                    >
                       <MapPin className="w-4 h-4" />
                       Ver Mapa
                     </a>
                   </Button>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+                  </div>
+                </div>
+              </ScrollAnimated>
+            ))}
+          </div>
+        </ScrollAnimated>
 
         {/* Online Consultation Banner */}
         <div className="mt-16 gradient-hero rounded-3xl p-8 md:p-12 text-center text-primary-foreground">
@@ -149,8 +178,14 @@ export const ContactSection = () => {
               Ofrezco consultas virtuales por videollamada. Recibe atención profesional 
               desde la comodidad de tu hogar.
             </p>
-            <Button variant="hero" size="xl" asChild>
-              <a href="https://wa.me/525565053202?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20en%20línea">
+            <Button variant="hero" size="xl" className="text-base md:text-lg" asChild>
+              <a 
+                href="https://wa.me/525565053202?text=Hola,%20me%20gustaría%20agendar%20una%20consulta%20en%20línea"
+                onClick={() => {
+                  trackCTAClick('Agendar Consulta Online', 'Contact Section');
+                  trackWhatsAppClick('Consulta en línea', 'Contact Section');
+                }}
+              >
                 <MessageCircle className="w-5 h-5" />
                 Agendar Consulta Online
               </a>

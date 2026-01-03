@@ -62,15 +62,26 @@ export const HeroSection = () => {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-nowrap md:flex-wrap gap-4">
               <Button variant="hero" size="xl" asChild>
-                <a href="#contacto">
+                <a 
+                  href="#contacto"
+                  onClick={() => trackCTAClick('Reservar Cita', 'Hero Section')}
+                >
                   <Calendar className="w-5 h-5" />
                   Reservar Cita
                 </a>
               </Button>
               <Button variant="heroOutline" size="xl" asChild>
-                <a href="tel:+525565053202">
+                <a 
+                  href="tel:+525565053202"
+                  onClick={() => {
+                    trackCTAClick('Llamar Ahora', 'Hero Section');
+                    import('@/lib/analytics').then(({ trackPhoneClick }) => 
+                      trackPhoneClick('+525565053202', 'Hero Section')
+                    );
+                  }}
+                >
                   <Phone className="w-5 h-5" />
                   Llamar Ahora
                 </a>
@@ -103,6 +114,8 @@ export const HeroSection = () => {
                   src={therapistImage}
                   alt="Lic. Analaura Reyes Priego - Fisioterapeuta"
                   className="w-full h-auto object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
               </div>

@@ -1,6 +1,7 @@
 import { Check, Bone, Zap, Activity, Target, Brain, Sparkles, Heart, Users, Stethoscope, Dumbbell, Hand } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { ScrollAnimated } from './ScrollAnimated';
 
 const plans = [
   {
@@ -165,29 +166,30 @@ export const PricingSection = () => {
     <section id="precios" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Planes y Precios
-          </span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
-            Precios <span className="text-primary">Transparentes</span>
-          </h2>
-          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-            Tarifas claras y accesibles para todos mis servicios de fisioterapia
-          </p>
-        </div>
+        <ScrollAnimated animation="fade-up" delay={0}>
+          <div className="text-center mb-16">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+              Planes y Precios
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
+              Precios <span className="text-primary">Transparentes</span>
+            </h2>
+            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+              Tarifas claras y accesibles para todos mis servicios de fisioterapia
+            </p>
+          </div>
+        </ScrollAnimated>
 
         {/* Main Plans */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {plans.map((plan, index) => (
-            <div
-              key={index}
-              className={`relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 ${
-                plan.popular
-                  ? 'gradient-hero text-primary-foreground shadow-glow-strong border-2 border-primary-foreground/20'
-                  : 'bg-card shadow-soft border border-border/50 hover:shadow-glow hover:border-primary/30'
-              }`}
-            >
+        <ScrollAnimated animation="fade-up" delay={100}>
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {plans.map((plan, index) => (
+              <ScrollAnimated key={index} animation="scale-in" delay={index * 150}>
+                <div className={`relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 ${
+                  plan.popular
+                    ? 'gradient-hero text-primary-foreground shadow-glow-strong border-2 border-primary-foreground/20'
+                    : 'bg-card shadow-soft border border-border/50 hover:shadow-glow hover:border-primary/30'
+                }`}>
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="gradient-cta text-accent-foreground text-sm font-semibold px-4 py-1 rounded-full">
@@ -248,9 +250,11 @@ export const PricingSection = () => {
               >
                 <a href="#contacto">Reservar Cita</a>
               </Button>
-            </div>
-          ))}
-        </div>
+              </div>
+                </ScrollAnimated>
+              ))}
+          </div>
+        </ScrollAnimated>
 
         {/* Additional Services by Category with Tabs */}
         <div className="bg-secondary/50 rounded-3xl p-6 md:p-8">

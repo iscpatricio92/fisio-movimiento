@@ -1,3 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+# Robots.txt optimizado para FisioAnalaura
+
+# Permitir acceso a todos los bots principales
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +14,13 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+# Permitir acceso general
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://www.fisioanalaurareyes.com/sitemap.xml
+
+# Disallow admin o private areas if any (comentado por ahora)
+# Disallow: /admin/
+# Disallow: /private/
