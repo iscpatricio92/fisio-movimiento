@@ -19,7 +19,7 @@ const GA_MEASUREMENT_ID = 'G-3L9C8QMNZV';
 // Only enable in production (not in development mode)
 // import.meta.env.PROD is automatically set by Vite: true in production, false in development
 const isAnalyticsEnabled = () => {
-  const isProduction = import.meta.env.PROD;
+  const isProduction = true;
   return typeof window !== 'undefined' && Boolean(GA_MEASUREMENT_ID) && isProduction;
 };
 
@@ -34,34 +34,86 @@ export const initAnalytics = () => {
     return;
   }
 
-  // Initialize dataLayer and gtag function BEFORE loading the script
+  // Initialize dataLayer BEFORE loading the script (required by GA4)
   // This ensures events are queued even if the script hasn't loaded yet
-  const windowWithDataLayer = window as typeof window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void };
-  windowWithDataLayer.dataLayer = windowWithDataLayer.dataLayer || [];
+  const windowWithDataLayer = window as typeof window & { 
+    dataLayer?: unknown[]; 
+    gtag?: (...args: unknown[]) => void;
+  };
+  
+  // Initialize dataLayer if it doesn't exist (must be before script loads)
+  if (!windowWithDataLayer.dataLayer) {
+    windowWithDataLayer.dataLayer = [];
+  }
   
   // Define gtag function that pushes to dataLayer
+  // This will be replaced by the official gtag when the script loads
   function gtag(...args: unknown[]) {
     if (windowWithDataLayer.dataLayer) {
+      // Push the arguments as an array to dataLayer
+      // Format: ['command', 'target', {params}] or ['event', 'eventName', {params}]
       windowWithDataLayer.dataLayer.push(args);
     }
   }
   
-  // Make gtag available globally
+  // Make gtag available globally (will be replaced by official gtag when script loads)
   windowWithDataLayer.gtag = gtag;
 
-  // Load Google Analytics script
-  const script1 = document.createElement('script');
-  script1.async = true;
-  script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(script1);
-
-  // Configure GA4
+  // Configure GA4 BEFORE loading the script (goes into dataLayer)
+  // The official script will process these when it loads
   gtag('js', new Date());
   gtag('config', GA_MEASUREMENT_ID, {
     send_page_view: false, // We'll track page views manually
   });
 
+  // Load Google Analytics script
+  const script1 = document.createElement('script');
+  script1.async = true;
+  script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  
+  // Wait for script to load
+  script1.onload = () => {
+    // Small delay to ensure the official gtag is fully initialized
+    setTimeout(() => {
+      // The official gtag function should now be available and will process the dataLayer
+      const officialGtag = (window as typeof window & { gtag?: (...args: unknown[]) => void }).gtag;
+      if (officialGtag) {
+        console.log('Analytics: Script loaded successfully with ID', GA_MEASUREMENT_ID);
+        console.log('Analytics: dataLayer entries:', windowWithDataLayer.dataLayer?.length || 0);
+        
+        // Verify dataLayer content
+        if (windowWithDataLayer.dataLayer && windowWithDataLayer.dataLayer.length > 0) {
+          console.log('Analytics: dataLayer content (first 5 entries):', 
+            windowWithDataLayer.dataLayer.slice(0, 5));
+        }
+        
+        // Test that gtag is working by sending a test event
+        try {
+          officialGtag('event', 'analytics_ready', {
+            debug_mode: true,
+            test_event: true
+          });
+          console.log('Analytics: Test event sent to verify gtag is working');
+        } catch (error) {
+          console.error('Analytics: Error sending test event:', error);
+        }
+        
+        // Check if we can see network requests to Google Analytics
+        console.log('Analytics: To verify events are being sent, check Network tab for requests to google-analytics.com');
+      } else {
+        console.warn('Analytics: Script loaded but gtag function not found');
+      }
+    }, 200);
+  };
+  
+  script1.onerror = () => {
+    console.error('Analytics: Failed to load Google Analytics script. Check Measurement ID:', GA_MEASUREMENT_ID);
+  };
+  
+  document.head.appendChild(script1);
+
   console.log('Analytics: Initialized with ID', GA_MEASUREMENT_ID);
+  console.log('Analytics: Script URL:', script1.src);
 };
 
 // Track page view
@@ -116,27 +168,45 @@ export const trackEvent = (
     return;
   }
 
-  const windowWithGtag = window as typeof window & { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] };
+  const windowWithGtag = window as typeof window & { 
+    gtag?: (...args: unknown[]) => void; 
+    dataLayer?: unknown[];
+  };
+  
+  // Always use gtag if available (preferred method)
   const gtag = windowWithGtag.gtag;
   
   if (gtag) {
     try {
-      gtag('event', eventName, eventParams);
+      // Use gtag with proper format: gtag('event', eventName, eventParams)
+      gtag('event', eventName, eventParams || {});
+      
+      // Debug logging
       if (import.meta.env.DEV) {
-        console.log('Analytics: Event sent:', eventName, eventParams);
+        console.log('Analytics: Event sent via gtag:', eventName, eventParams);
+        // Also log dataLayer for debugging
+        if (windowWithGtag.dataLayer) {
+          console.log('Analytics: dataLayer length:', windowWithGtag.dataLayer.length);
+          console.log('Analytics: Last dataLayer entry:', windowWithGtag.dataLayer[windowWithGtag.dataLayer.length - 1]);
+        }
       }
     } catch (error) {
-      console.error('Analytics: Error sending event:', error);
+      console.error('Analytics: Error sending event via gtag:', error);
+      // Fallback to dataLayer
+      if (windowWithGtag.dataLayer) {
+        windowWithGtag.dataLayer.push(['event', eventName, eventParams || {}]);
+        console.log('Analytics: Event sent via dataLayer fallback:', eventName);
+      }
     }
   } else {
-    // Fallback: push directly to dataLayer if gtag is not available yet
+    // Fallback: push directly to dataLayer if gtag is not available
     if (windowWithGtag.dataLayer) {
-      windowWithGtag.dataLayer.push(['event', eventName, eventParams]);
+      windowWithGtag.dataLayer.push(['event', eventName, eventParams || {}]);
       if (import.meta.env.DEV) {
-        console.log('Analytics: Event queued (gtag not ready):', eventName, eventParams);
+        console.log('Analytics: Event queued via dataLayer (gtag not ready):', eventName, eventParams);
       }
     } else {
-      console.warn('Analytics: dataLayer not available for event:', eventName);
+      console.warn('Analytics: Neither gtag nor dataLayer available for event:', eventName);
     }
   }
 };
