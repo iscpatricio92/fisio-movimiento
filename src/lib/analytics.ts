@@ -1,8 +1,8 @@
 /**
- * Analytics and Event Tracking using Google Tag Manager (GTM)
+ * Analytics and Event Tracking using Google Analytics 4 (GA4)
  * 
  * This module provides utilities for tracking user interactions and events.
- * Uses Google Tag Manager for reliable event tracking.
+ * Uses Google Analytics 4 directly via gtag.js.
  * 
  * Usage:
  * - Import: import { trackEvent, trackPageView } from '@/lib/analytics'
@@ -10,52 +10,43 @@
  * - Track page view: trackPageView('/page-path')
  * 
  * Setup:
- * 1. Get your GTM Container ID from https://tagmanager.google.com/
- * 2. Replace 'GTM-XXXXXXX' below with your actual GTM Container ID
- * 3. Configure GTM to send events to Google Analytics 4 (GA4)
+ * The GA4 script is loaded directly in index.html
+ * Measurement ID: G-3L9C8QMNZV
  */
 
-import TagManager from 'react-gtm-module';
-
-// Google Tag Manager Container ID
-// Get your GTM Container ID from: https://tagmanager.google.com/
-// Format: GTM-XXXXXXX
-const GTM_ID = 'GTM-WJGH3SVR'; // TODO: Replace with your actual GTM Container ID
-
-// Google Analytics 4 Measurement ID (for reference, configured in GTM)
-// This is kept for documentation purposes
+// Google Analytics 4 Measurement ID
+// This is loaded via the script tag in index.html
 const GA_MEASUREMENT_ID = 'G-3L9C8QMNZV';
+
+// Declare gtag function type
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+  }
+}
 
 // Check if analytics is enabled
 // Only enable in production (not in development mode)
 const isAnalyticsEnabled = () => {
   const isProduction = import.meta.env.PROD;
-  return typeof window !== 'undefined' && Boolean(GTM_ID) && GTM_ID !== 'GTM-WJGH3SVR' && isProduction;
+  return typeof window !== 'undefined' && Boolean(window.gtag) && isProduction;
 };
 
-// Initialize Google Tag Manager
+// Initialize analytics (called in main.tsx)
+// The actual initialization is done in index.html via script tag
 export const initAnalytics = () => {
-  if (!isAnalyticsEnabled()) {
-    if (import.meta.env.DEV) {
-      console.log('Analytics: Disabled in development mode');
-    } else if (GTM_ID === 'GTM-WJGH3SVR') {
-      console.log('Analytics: GTM Container ID not configured. Please set GTM_ID in src/lib/analytics.ts');
-    } else {
-      console.log('Analytics: Not configured');
-    }
+  if (import.meta.env.DEV) {
+    console.log('Analytics: Disabled in development mode');
     return;
   }
 
-  try {
-    // Initialize Google Tag Manager
-    TagManager.initialize({
-      gtmId: GTM_ID,
-    });
-    
-    console.log('Analytics: Google Tag Manager initialized with ID', GTM_ID);
-  } catch (error) {
-    console.error('Analytics: Failed to initialize Google Tag Manager:', error);
+  if (typeof window === 'undefined' || !window.gtag) {
+    console.log('Analytics: GA4 script not loaded');
+    return;
   }
+
+  console.log('Analytics: Google Analytics 4 initialized with ID', GA_MEASUREMENT_ID);
 };
 
 // Track page view
@@ -68,12 +59,9 @@ export const trackPageView = (path: string, title?: string) => {
   }
 
   try {
-    TagManager.dataLayer({
-      dataLayer: {
-        event: 'page_view',
-        page_path: path,
-        page_title: title || document.title,
-      },
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      page_path: path,
+      page_title: title || document.title,
     });
     
     if (import.meta.env.DEV) {
@@ -97,12 +85,7 @@ export const trackEvent = (
   }
 
   try {
-    TagManager.dataLayer({
-      dataLayer: {
-        event: eventName,
-        ...eventParams,
-      },
-    });
+    window.gtag('event', eventName, eventParams || {});
     
     if (import.meta.env.DEV) {
       console.log('Analytics: Event sent:', eventName, eventParams);
@@ -184,5 +167,13 @@ export const trackFAQInteraction = (question: string, action: 'expand' | 'collap
   trackEvent('faq_interaction', {
     question: question.substring(0, 100), // Limit length
     action: action,
+  });
+};
+
+// Track share button clicks
+export const trackShareClick = (method: string, platform: string) => {
+  trackEvent('share', {
+    method: method,
+    platform: platform,
   });
 };

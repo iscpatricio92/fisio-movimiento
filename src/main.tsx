@@ -8,10 +8,10 @@ initAnalytics();
 
 // Track initial page view
 if (typeof window !== 'undefined') {
-  // Small delay to ensure GTM is initialized
+  // Small delay to ensure GA4 script is loaded
   setTimeout(() => {
     trackPageView(window.location.pathname, document.title);
-  }, 100);
+  }, 500);
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
