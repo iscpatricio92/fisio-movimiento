@@ -185,14 +185,17 @@
 
   .animate-fade-up {
     animation: fadeUp 0.6s ease-out forwards;
+    will-change: transform, opacity;
   }
 
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
+    will-change: opacity;
   }
 
   .animate-slide-in {
     animation: slideIn 0.5s ease-out forwards;
+    will-change: transform, opacity;
   }
 
   @keyframes fadeUp {
@@ -286,6 +289,7 @@
 
   .animate-float {
     animation: float 4s ease-in-out infinite;
+    will-change: transform;
   }
 
   .animate-shimmer {
@@ -297,19 +301,23 @@
     );
     background-size: 1000px 100%;
     animation: shimmer 3s infinite;
+    will-change: background-position;
   }
 
   .animate-scale-in {
     animation: scale-in 0.4s ease-out forwards;
+    will-change: transform, opacity;
   }
 
   .animate-slide-up {
     animation: slide-up 0.5s ease-out forwards;
+    will-change: transform, opacity;
   }
 
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient-shift 3s ease infinite;
+    will-change: background-position;
   }
 
   /* Glass morphism effect */
@@ -327,11 +335,43 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Smooth transitions */
+  /* Smooth transitions - optimized for performance */
   * {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 200ms;
+  }
+
+  /* Respect user's motion preferences - Enhanced for better accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Disable continuous animations */
+    .animate-float,
+    .animate-shimmer,
+    .animate-gradient {
+      animation: none !important;
+    }
+
+    /* Disable scroll-triggered animations */
+    [class*="animate-fade"],
+    [class*="animate-slide"],
+    [class*="animate-scale"] {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Ensure transform animations don't cause motion */
+    .transition-all {
+      transition-duration: 0.01ms !important;
+    }
   }
 
   /* Better focus styles */
