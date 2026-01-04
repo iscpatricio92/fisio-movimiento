@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     imagetools(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt', 'sitemap.xml'],
+            includeAssets: ['favicon/favicon.ico', 'favicon/favicon-16x16.png', 'favicon/favicon-32x32.png', 'favicon/favicon-96x96.png', 'favicon/apple-touch-icon.png', 'robots.txt', 'sitemap.xml'],
       manifest: {
         name: 'FisioAnalaura - Fisioterapeuta en CDMX y Metepec',
         short_name: 'FisioAnalaura',
@@ -27,13 +27,38 @@ export default defineConfig(({ mode }) => ({
         theme_color: '#2CA3B3',
         background_color: '#F8FBFB',
         display: 'standalone',
-        icons: [
-          {
-            src: '/favicon.ico',
-            sizes: '64x64',
-            type: 'image/x-icon'
-          }
-        ]
+            icons: [
+              {
+                src: '/favicon/favicon-16x16.png',
+                sizes: '16x16',
+                type: 'image/png'
+              },
+              {
+                src: '/favicon/favicon-32x32.png',
+                sizes: '32x32',
+                type: 'image/png'
+              },
+              {
+                src: '/favicon/favicon-96x96.png',
+                sizes: '96x96',
+                type: 'image/png'
+              },
+              {
+                src: '/favicon/apple-touch-icon.png',
+                sizes: '180x180',
+                type: 'image/png'
+              },
+              {
+                src: '/favicon/icon-192x192.png',
+                sizes: '192x192',
+                type: 'image/png'
+              },
+              {
+                src: '/favicon/icon-512x512.png',
+                sizes: '512x512',
+                type: 'image/png'
+              }
+            ]
       },
       workbox: {
         // Cache-first para assets estáticos (JS, CSS, imágenes con hash)
