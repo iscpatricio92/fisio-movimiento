@@ -140,6 +140,7 @@ export const DoctoraliaCalendarWidget = ({ className = '' }: DoctoraliaCalendarW
               src={widgetIframeUrl}
               className="big_with_calendar w-full"
               title="Widget de reserva de citas médicas"
+              loading="lazy"
               style={{ 
                 height: '750px', 
                 minHeight: '750px',

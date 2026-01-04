@@ -80,6 +80,8 @@ export const AboutSection = () => {
                 decoding="async"
                 alt="Consultorio de fisioterapia moderno"
                 className="w-full h-auto object-cover"
+                width={1920}
+                height={1080}
               />
             </div>
             {/* Decorative element */}

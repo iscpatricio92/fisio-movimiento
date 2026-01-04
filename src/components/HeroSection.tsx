@@ -115,6 +115,8 @@ export const HeroSection = () => {
                   className="w-full h-auto object-cover"
                   loading="lazy"
                   decoding="async"
+                  width={530}
+                  height={530}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
               </div>
