@@ -139,7 +139,7 @@ export const DoctoraliaCalendarWidget = ({ className = '' }: DoctoraliaCalendarW
               id="widget-calendar-preview-iframe"
               src={widgetIframeUrl}
               className="big_with_calendar w-full"
-              title="Widget de reserva de citas médicas"
+              title="Calendario de reserva de citas con Lic. Analaura Reyes Priego - Fisioterapeuta. Selecciona fecha y hora para agendar tu consulta."
               loading="lazy"
               style={{ 
                 height: '750px', 
