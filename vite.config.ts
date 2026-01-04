@@ -38,22 +38,8 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]',
-        // Manual chunk splitting for better caching
-        manualChunks: (id) => {
-          // Vendor chunks - separate large dependencies
-          if (id.includes('node_modules')) {
-            // React and React DOM together
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react';
-            }
-            // UI libraries (Radix UI components)
-            if (id.includes('@radix-ui')) {
-              return 'vendor-radix';
-            }
-            // Other vendor libraries
-            return 'vendor';
-          }
-        },
+        // Let Vite handle chunk splitting automatically for better compatibility
+        // React.lazy() will automatically create separate chunks for lazy-loaded components
       },
     },
   },
