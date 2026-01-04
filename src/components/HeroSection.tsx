@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Calendar, Phone, MapPin, Award, Star, Video } from 'lucide-react';
 import therapistImage from '@/assets/therapist-portrait_2.jpg';
+import therapistImageWebP from '@/assets/therapist-portrait_2.jpg?format=webp';
 import { trackCTAClick, trackPhoneClick } from '@/lib/analytics';
 
 export const HeroSection = () => {
@@ -109,15 +110,18 @@ export const HeroSection = () => {
             <div className="relative">
               {/* Main image container */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                <img
-                  src={therapistImage}
-                  alt="Lic. Analaura Reyes Priego - Fisioterapeuta"
-                  className="w-full h-auto object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width={530}
-                  height={530}
-                />
+                <picture>
+                  <source srcSet={therapistImageWebP} type="image/webp" />
+                  <img
+                    src={therapistImage}
+                    alt="Lic. Analaura Reyes Priego - Fisioterapeuta"
+                    className="w-full h-auto object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    width={530}
+                    height={530}
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
               </div>
               

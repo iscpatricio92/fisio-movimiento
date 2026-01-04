@@ -1,5 +1,6 @@
 import { GraduationCap, Globe, Award, Heart, Languages, Clock, Check } from 'lucide-react';
 import clinicImage from '@/assets/clinic-hero.jpg';
+import clinicImageWebP from '@/assets/clinic-hero.jpg?format=webp';
 import { ScrollAnimated } from './ScrollAnimated';
 
 interface Credential {
@@ -74,15 +75,18 @@ export const AboutSection = () => {
             {/* Image */}
             <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-card">
-              <img
-                src={clinicImage}
-                loading="lazy"
-                decoding="async"
-                alt="Consultorio de fisioterapia moderno"
-                className="w-full h-auto object-cover"
-                width={1920}
-                height={1080}
-              />
+              <picture>
+                <source srcSet={clinicImageWebP} type="image/webp" />
+                <img
+                  src={clinicImage}
+                  loading="lazy"
+                  decoding="async"
+                  alt="Consultorio de fisioterapia moderno"
+                  className="w-full h-auto object-cover"
+                  width={1920}
+                  height={1080}
+                />
+              </picture>
             </div>
             {/* Decorative element */}
             <div className="absolute -z-10 -bottom-8 -right-8 w-full h-full rounded-3xl border-2 border-primary/20" />
