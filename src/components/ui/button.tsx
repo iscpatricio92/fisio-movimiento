@@ -21,10 +21,10 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
+        sm: "h-11 rounded-md px-3 min-h-[44px]", // 44px mínimo para accesibilidad táctil
         lg: "h-12 rounded-lg px-8 text-base",
         xl: "h-14 rounded-xl px-10 text-lg",
-        icon: "h-10 w-10",
+        icon: "h-11 w-11 min-h-[44px] min-w-[44px]", // 44px mínimo para accesibilidad táctil
       },
     },
     defaultVariants: {

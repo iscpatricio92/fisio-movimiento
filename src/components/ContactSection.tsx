@@ -110,7 +110,7 @@ export const ContactSection = () => {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={location.name}
+                  title={`Mapa interactivo de Google Maps mostrando la ubicación de ${location.name} - ${location.address}`}
                 />
                   </div>
 
