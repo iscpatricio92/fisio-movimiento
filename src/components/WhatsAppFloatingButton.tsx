@@ -28,7 +28,7 @@ export const WhatsAppFloatingButton = ({
   const whatsappUrl = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
+    <div className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 hidden lg:block">
       {/* Expanded Card */}
       {isExpanded && (
         <div className="mb-4 bg-card rounded-2xl p-4 shadow-glow border border-border/50 animate-scale-in max-w-[280px]">

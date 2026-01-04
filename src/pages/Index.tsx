@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
+import { MobileBottomCTA } from '@/components/MobileBottomCTA';
 import { useSectionTracking } from '@/hooks/use-section-tracking';
 
 // Lazy load components that are below the fold for better initial load performance
@@ -76,6 +77,7 @@ const Index = () => {
         </section>
       </main>
       <Footer />
+      <MobileBottomCTA />
     </div>
   );
 };
