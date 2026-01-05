@@ -173,104 +173,89 @@ const serviceCategories = [
 
 export const PricingSection = () => {
   return (
-    <section id="precios" className="py-16 md:py-24 bg-background">
+    <section id="precios" className="py-12 lg:py-24 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Header - Compacto en móvil */}
         <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="text-center mb-8 md:mb-16">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Planes y Precios
+          <div className="text-center mb-6 lg:mb-16">
+            <span className="text-primary font-semibold text-xs lg:text-sm uppercase tracking-wider">
+              Precios
             </span>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-2">
-              Precios <span className="text-primary">Transparentes</span>
+            <h2 className="font-display text-2xl lg:text-5xl font-bold text-foreground mt-1 lg:mt-2">
+              Tarifas <span className="text-primary">Transparentes</span>
             </h2>
-            <p className="text-base md:text-lg text-muted-foreground mt-3 md:mt-4 max-w-2xl mx-auto">
-              Tarifas claras y accesibles para todos mis servicios de fisioterapia
+            <p className="hidden sm:block text-base lg:text-lg text-muted-foreground mt-2 lg:mt-4 max-w-2xl mx-auto">
+              Precios claros y accesibles para todos mis servicios
             </p>
           </div>
         </ScrollAnimated>
 
-        {/* Main Plans - Mobile Optimized Compact Cards */}
+        {/* Main Plans - Mobile Ultra Compact */}
         <ScrollAnimated animation="fade-up" delay={100}>
-          <div className="grid gap-4 md:gap-8 md:grid-cols-3 mb-8 md:mb-16">
+          <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 mb-6 lg:mb-16">
             {plans.map((plan, index) => (
-              <ScrollAnimated key={index} animation="scale-in" delay={index * 150}>
-                <div className={`relative rounded-2xl md:rounded-3xl transition-all duration-300 hover:-translate-y-2 ${
+              <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
+                <div className={`relative rounded-xl lg:rounded-3xl transition-all duration-200 active:scale-[0.98] ${
                   plan.popular
-                    ? 'gradient-hero text-primary-foreground shadow-glow-strong border-2 border-primary-foreground/20'
-                    : 'bg-card shadow-soft border border-border/50 hover:shadow-glow hover:border-primary/30'
+                    ? 'gradient-hero text-primary-foreground shadow-medium border-2 border-primary-foreground/20'
+                    : 'bg-card shadow-soft border border-border/50 hover:border-primary/30'
                 }`}>
                   {/* Popular badge */}
                   {plan.popular && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
-                      <span className="gradient-cta text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full whitespace-nowrap">
+                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
+                      <span className="gradient-cta text-accent-foreground text-[10px] lg:text-xs font-semibold px-2.5 py-0.5 lg:px-3 lg:py-1 rounded-full whitespace-nowrap">
                         Más Popular
                       </span>
                     </div>
                   )}
 
-                  {/* Mobile: Compact horizontal layout */}
-                  <div className="md:hidden p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex-1">
-                        <h3 className={`font-display text-base font-bold ${
+                  {/* Mobile: Super compact layout */}
+                  <div className="lg:hidden p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`font-display text-sm font-bold truncate ${
                           plan.popular ? 'text-primary-foreground' : 'text-foreground'
                         }`}>
                           {plan.name}
                         </h3>
-                        <p className={`text-xs mt-0.5 ${
-                          plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'
-                        }`}>
-                          {plan.description}
-                        </p>
+                        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                          {plan.features.slice(0, 2).map((feature, i) => (
+                            <span 
+                              key={i} 
+                              className={`inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded-full ${
+                                plan.popular 
+                                  ? 'bg-primary-foreground/20 text-primary-foreground' 
+                                  : 'bg-primary/10 text-foreground'
+                              }`}
+                            >
+                              <Check className={`w-2.5 h-2.5 ${plan.popular ? 'text-primary-foreground' : 'text-primary'}`} />
+                              {feature.split(' ').slice(0, 2).join(' ')}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <div className="text-right ml-4">
-                        <span className={`text-2xl font-bold ${
-                          plan.popular ? 'text-primary-foreground' : 'text-foreground'
-                        }`}>
-                          ${plan.price}
-                        </span>
-                        <span className={`text-xs ${
-                          plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'
-                        }`}> MXN</span>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-1.5 mb-3">
-                      {plan.features.slice(0, 3).map((feature, i) => (
-                        <span 
-                          key={i} 
-                          className={`inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full ${
-                            plan.popular 
-                              ? 'bg-primary-foreground/20 text-primary-foreground' 
-                              : 'bg-primary/10 text-foreground'
-                          }`}
+                      <div className="flex items-center gap-2 shrink-0">
+                        <div className="text-right">
+                          <span className={`text-xl font-bold ${
+                            plan.popular ? 'text-primary-foreground' : 'text-foreground'
+                          }`}>
+                            ${plan.price}
+                          </span>
+                        </div>
+                        <Button
+                          variant={plan.popular ? 'hero' : 'outline'}
+                          size="sm"
+                          className="h-8 px-3 text-xs"
+                          asChild
                         >
-                          <Check className={`w-3 h-3 ${plan.popular ? 'text-primary-foreground' : 'text-primary'}`} />
-                          {feature}
-                        </span>
-                      ))}
-                      {plan.features.length > 3 && (
-                        <span className={`text-xs px-2 py-1 ${
-                          plan.popular ? 'text-primary-foreground/70' : 'text-muted-foreground'
-                        }`}>
-                          +{plan.features.length - 3} más
-                        </span>
-                      )}
+                          <a href="#contacto">Reservar</a>
+                        </Button>
+                      </div>
                     </div>
-
-                    <Button
-                      variant={plan.popular ? 'hero' : 'outline'}
-                      size="sm"
-                      className="w-full"
-                      asChild
-                    >
-                      <a href="#contacto">Reservar</a>
-                    </Button>
                   </div>
 
                   {/* Desktop: Full vertical layout */}
-                  <div className="hidden md:block p-8">
+                  <div className="hidden lg:block p-8">
                     <div className="text-center mb-6">
                       <h3 className={`font-display text-xl font-bold mb-2 ${
                         plan.popular ? 'text-primary-foreground' : 'text-foreground'
@@ -331,16 +316,16 @@ export const PricingSection = () => {
         </ScrollAnimated>
 
         {/* Additional Services by Category with Tabs */}
-        <div className="bg-secondary/50 rounded-2xl md:rounded-3xl p-4 md:p-8">
+        <div className="bg-secondary/50 rounded-xl lg:rounded-3xl p-3 lg:p-8 overflow-hidden">
           <Tabs defaultValue={serviceCategories[0].id} className="w-full">
-            {/* Mobile: Scrollable tabs */}
-            <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 mb-6 md:mb-8">
-              <TabsList className="inline-flex md:grid md:w-full md:grid-cols-4 bg-background/50 p-1 h-auto min-w-max md:min-w-0">
+            {/* Mobile: Scrollable tabs - contained */}
+            <div className="overflow-x-auto -mx-3 px-3 lg:mx-0 lg:px-0 mb-4 lg:mb-8 scrollbar-hide">
+              <TabsList className="inline-flex lg:grid lg:w-full lg:grid-cols-4 bg-background/50 p-1 h-auto min-w-max lg:min-w-0">
                 {serviceCategories.map((category) => (
                   <TabsTrigger
                     key={category.id}
                     value={category.id}
-                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-4 py-2.5 md:py-3 text-xs md:text-sm font-semibold rounded-lg transition-all duration-300 whitespace-nowrap"
+                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3 py-2 lg:py-3 text-[11px] lg:text-sm font-semibold rounded-lg transition-all duration-200 whitespace-nowrap"
                   >
                     {category.title}
                   </TabsTrigger>
@@ -350,36 +335,31 @@ export const PricingSection = () => {
 
             {serviceCategories.map((category) => (
               <TabsContent key={category.id} value={category.id} className="mt-0">
-                {/* Mobile: Compact list */}
-                <div className="md:hidden space-y-2">
+                {/* Mobile: Ultra compact list */}
+                <div className="lg:hidden space-y-1.5">
                   {category.services.map((service, serviceIndex) => {
                     const ServiceIcon = getServiceIcon(service.name);
                     return (
                       <div
                         key={serviceIndex}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-card border border-border/50"
+                        className="flex items-center gap-2.5 p-2.5 rounded-lg bg-card border border-border/30 active:scale-[0.98] transition-transform duration-150"
                       >
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                          <ServiceIcon className="w-5 h-5 text-primary" />
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                          <ServiceIcon className="w-4 h-4 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-foreground text-sm leading-tight truncate">
+                          <h4 className="font-semibold text-foreground text-xs leading-tight line-clamp-1">
                             {service.name}
                           </h4>
-                          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                            {service.description}
-                          </p>
                         </div>
-                        <div className="text-right shrink-0">
-                          <span className="font-bold text-primary text-base">${service.price}</span>
-                        </div>
+                        <span className="font-bold text-primary text-sm shrink-0">${service.price}</span>
                       </div>
                     );
                   })}
                 </div>
 
                 {/* Desktop: Card grid */}
-                <div className="hidden md:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="hidden lg:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {category.services.map((service, serviceIndex) => {
                     const ServiceIcon = getServiceIcon(service.name);
                     return (
