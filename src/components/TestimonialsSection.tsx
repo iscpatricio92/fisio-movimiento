@@ -1,8 +1,8 @@
-import { Star, Quote, ExternalLink } from 'lucide-react';
-import { ScrollAnimated } from './ScrollAnimated';
+import { Star, Quote, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ScrollAnimated } from '@/components/ScrollAnimated';
+import { useRef, useState, useEffect } from 'react';
 
-// Testimonios destacados seleccionados manualmente del sitio de Doctoralia
-// Estos se actualizarán periódicamente con testimonios recientes y relevantes
 const featuredTestimonials = [
   {
     name: 'Paciente',
@@ -69,7 +69,74 @@ const featuredTestimonials = [
   },
 ];
 
+// Testimonial Card Component
+const TestimonialCard = ({ testimonial }: { testimonial: typeof featuredTestimonials[0] }) => (
+  <div className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-glow transition-all duration-300 lg:hover:-translate-y-2 border border-border/50 hover:border-primary/30 h-full flex flex-col">
+    <div className="flex items-start gap-4 mb-4">
+      <div className="p-2 bg-primary/10 rounded-full">
+        <Quote className="w-5 h-5 text-primary" />
+      </div>
+      <div className="flex-1">
+        <div className="flex items-center gap-1 mb-1">
+          {[...Array(testimonial.rating)].map((_, i) => (
+            <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+          ))}
+        </div>
+        <span className="text-xs text-primary/80 font-medium bg-primary/10 px-2 py-0.5 rounded-full">
+          {testimonial.category}
+        </span>
+      </div>
+    </div>
+    <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-4">
+      "{testimonial.text}"
+    </p>
+    <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
+      <span className="font-medium text-foreground text-sm">{testimonial.name}</span>
+      <span className="text-xs text-muted-foreground">{testimonial.date}</span>
+    </div>
+  </div>
+);
+
 export const TestimonialsSection = () => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const displayedTestimonials = featuredTestimonials.slice(0, 6);
+
+  const updateScrollState = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth - 10
+      );
+      // Calculate current index based on scroll position
+      const cardWidth = container.scrollWidth / displayedTestimonials.length;
+      const newIndex = Math.round(container.scrollLeft / cardWidth);
+      setCurrentIndex(Math.min(newIndex, displayedTestimonials.length - 1));
+    }
+  };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', updateScrollState);
+      updateScrollState();
+      return () => container.removeEventListener('scroll', updateScrollState);
+    }
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const cardWidth = container.offsetWidth * 0.85;
+      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="opiniones" className="py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
@@ -111,84 +178,102 @@ export const TestimonialsSection = () => {
               </div>
             </ScrollAnimated>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredTestimonials.slice(0, 6).map((testimonial, index) => (
+            {/* Mobile Carousel */}
+            <div className="lg:hidden relative">
+              {/* Navigation Buttons */}
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm text-muted-foreground">
+                  {currentIndex + 1} de {displayedTestimonials.length}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => scroll('left')}
+                    disabled={!canScrollLeft}
+                    className="p-2 rounded-full bg-card border border-border shadow-sm disabled:opacity-40 disabled:cursor-not-allowed touch-target"
+                    aria-label="Testimonio anterior"
+                  >
+                    <ChevronLeft className="w-5 h-5 text-foreground" />
+                  </button>
+                  <button
+                    onClick={() => scroll('right')}
+                    disabled={!canScrollRight}
+                    className="p-2 rounded-full bg-card border border-border shadow-sm disabled:opacity-40 disabled:cursor-not-allowed touch-target"
+                    aria-label="Siguiente testimonio"
+                  >
+                    <ChevronRight className="w-5 h-5 text-foreground" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Scrollable Container */}
+              <div
+                ref={scrollContainerRef}
+                className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4"
+                style={{ scrollPaddingLeft: '1rem' }}
+              >
+                {displayedTestimonials.map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-[85vw] max-w-[320px] snap-start"
+                  >
+                    <TestimonialCard testimonial={testimonial} />
+                  </div>
+                ))}
+              </div>
+
+              {/* Dots Indicator */}
+              <div className="flex justify-center gap-1.5 mt-4">
+                {displayedTestimonials.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      index === currentIndex 
+                        ? 'w-6 bg-primary' 
+                        : 'w-1.5 bg-border'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop Grid */}
+            <div className="hidden lg:grid lg:grid-cols-3 gap-6">
+              {displayedTestimonials.map((testimonial, index) => (
                 <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
-                  <div className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">
-                {/* Quote icon */}
-                <div className="mb-4">
-                  <Quote className="w-10 h-10 text-primary/20 group-hover:text-primary/30 transition-colors duration-300" />
-                </div>
-
-                {/* Rating */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                  ))}
-                </div>
-
-                {/* Category badge */}
-                {testimonial.category && (
-                  <div className="mb-3">
-                    <span className="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20">
-                      {testimonial.category}
-                    </span>
-                  </div>
-                )}
-
-                {/* Text */}
-                <p className="text-foreground mb-6 leading-relaxed font-medium italic min-h-[80px]">
-                  "{testimonial.text}"
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center justify-between pt-4 border-t border-border">
-                  <div>
-                    <div className="font-bold text-foreground">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground font-medium">{testimonial.date}</div>
-                  </div>
-                  <div className="w-12 h-12 rounded-full gradient-hero flex items-center justify-center text-primary-foreground font-bold shadow-md group-hover:scale-110 transition-transform duration-300">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                </div>
-                  </div>
+                  <TestimonialCard testimonial={testimonial} />
                 </ScrollAnimated>
               ))}
             </div>
-
-            {/* Ver más testimonios destacados */}
-            {featuredTestimonials.length > 6 && (
-              <div className="text-center mt-8">
-                <p className="text-sm text-muted-foreground mb-4">
-                  Mostrando 6 de {featuredTestimonials.length} testimonios destacados
-                </p>
-              </div>
-            )}
           </div>
         </ScrollAnimated>
 
-       
-
-        {/* CTA Final */}
-        <div className="text-center">
-          <div className="inline-flex flex-col items-center gap-4 p-8 bg-card rounded-2xl shadow-soft border border-border/50">
-            <h3 className="font-display text-xl font-bold text-foreground">
-              ¿Quieres ver más opiniones?
-            </h3>
-            <p className="text-muted-foreground text-center max-w-md">
-              Visita mi perfil en Doctoralia para leer todas las reseñas de mis pacientes
-            </p>
-            <a
-              href="https://www.doctoralia.com.mx/analaura-reyes-priego/fisioterapeuta/metepec"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300"
-            >
-              Ver todas las opiniones en Doctoralia
-              <ExternalLink className="w-4 h-4" />
-            </a>
+        {/* See All Reviews CTA */}
+        <ScrollAnimated animation="fade-up" delay={400}>
+          <div className="text-center">
+            <div className="inline-flex flex-col items-center gap-4 p-8 bg-card rounded-2xl border border-border/50 shadow-soft">
+              <div className="flex items-center gap-2">
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Doctoralia_logo.svg/512px-Doctoralia_logo.svg.png" 
+                  alt="Doctoralia" 
+                  className="h-6 object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <p className="text-muted-foreground">
+                Lee todas las opiniones verificadas en mi perfil de Doctoralia
+              </p>
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="group min-h-[48px] px-6"
+                onClick={() => window.open('https://www.doctoralia.com.mx/heydi-sulay-martinez-vazquez/fisioterapeuta-fisiatra/tlalpan', '_blank')}
+              >
+                Ver Todas las Opiniones
+                <ExternalLink className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </div>
           </div>
-        </div>
+        </ScrollAnimated>
       </div>
     </section>
   );
