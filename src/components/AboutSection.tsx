@@ -73,7 +73,7 @@ const languages = [
 
 export const AboutSection = () => {
   return (
-    <section id="sobre-mi" className="py-24 bg-background">
+    <section id="sobre-mi" className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4">
         <ScrollAnimated animation="fade-up" delay={0}>
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -102,20 +102,19 @@ export const AboutSection = () => {
           </div>
 
           {/* Content */}
-          <div className="space-y-8">
-            <div className="space-y-4">
+          <div className="space-y-6 lg:space-y-8">
+            <div className="space-y-3 lg:space-y-4">
               <span className="text-primary font-semibold text-sm uppercase tracking-wider">
                 Sobre Mí
               </span>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
                 Fisioterapia <span className="text-primary">Humana</span> y de Calidad
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed font-medium">
+              <p className="text-base lg:text-lg text-muted-foreground leading-relaxed font-medium">
                 Soy fisioterapeuta con doble titulación de México y España. Mi enfoque 
-                se centra en tratamientos personalizados, basados en evidencia científica 
-                e involucrando al paciente como un elemento activo en su proceso de recuperación.
+                se centra en tratamientos personalizados y basados en evidencia científica.
               </p>
-              <p className="text-lg text-muted-foreground leading-relaxed font-medium">
+              <p className="hidden sm:block text-base lg:text-lg text-muted-foreground leading-relaxed font-medium">
                 Para mí, lo más importante eres tú. Tengo experiencia en traumatología, 
                 ortopedia, hipopresivos, tratamiento de ATM y manejo del dolor.
               </p>
@@ -143,19 +142,19 @@ export const AboutSection = () => {
 
         {/* Credentials */}
         <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="mt-24">
+          <div className="mt-16 lg:mt-24">
             <ScrollAnimated animation="fade-up" delay={100}>
-              <div className="text-center mb-12">
+              <div className="text-center mb-8 lg:mb-12">
                 <span className="text-primary font-semibold text-sm uppercase tracking-wider">
                   Formación Académica
                 </span>
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mt-2">
                   Credenciales y Educación
                 </h2>
               </div>
             </ScrollAnimated>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
               {credentials.map((credential: Credential, index) => (
                 <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
                   <div className="group relative p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">
@@ -204,22 +203,22 @@ export const AboutSection = () => {
 
         {/* Languages Section */}
         <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="mt-24">
+          <div className="mt-16 lg:mt-24">
             <ScrollAnimated animation="fade-up" delay={100}>
-              <div className="text-center mb-12">
+              <div className="text-center mb-8 lg:mb-12">
                 <span className="text-primary font-semibold text-sm uppercase tracking-wider">
                   Idiomas
                 </span>
-                <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2">
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mt-2">
                   Comunicación <span className="text-primary">Multilingüe</span>
                 </h2>
-                <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-                  Atiendo pacientes en múltiples idiomas para brindar la mejor experiencia de comunicación
+                <p className="hidden sm:block text-sm lg:text-base text-muted-foreground mt-3 lg:mt-4 max-w-2xl mx-auto">
+                  Atiendo pacientes en múltiples idiomas
                 </p>
               </div>
             </ScrollAnimated>
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="grid sm:grid-cols-2 gap-4 lg:gap-6 max-w-2xl mx-auto">
               {languages.map((language, index) => (
                 <ScrollAnimated key={index} animation="slide-up" delay={index * 100}>
                   <div className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">

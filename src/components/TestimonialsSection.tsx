@@ -138,42 +138,42 @@ export const TestimonialsSection = () => {
   };
 
   return (
-    <section id="opiniones" className="py-24 bg-secondary/30">
+    <section id="opiniones" className="py-16 lg:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 lg:mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
             Testimonios
           </span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2">
             Lo que Dicen Mis <span className="text-primary">Pacientes</span>
           </h2>
-          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+          <p className="hidden sm:block text-base lg:text-lg text-muted-foreground mt-3 lg:mt-4 max-w-2xl mx-auto">
             La satisfacción de mis pacientes es mi mayor recompensa
           </p>
 
-          {/* Rating Summary */}
-          <div className="flex items-center justify-center gap-2 mt-6">
+          {/* Rating Summary - Compact on mobile */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-4 lg:mt-6">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 fill-accent text-accent" />
+                <Star key={i} className="w-5 h-5 lg:w-6 lg:h-6 fill-accent text-accent" />
               ))}
             </div>
-            <span className="text-2xl font-bold text-foreground">5.0</span>
-            <span className="text-muted-foreground">• Basado en +150 opiniones</span>
+            <span className="text-xl lg:text-2xl font-bold text-foreground">5.0</span>
+            <span className="text-sm lg:text-base text-muted-foreground">• +150 opiniones</span>
           </div>
         </div>
 
         {/* Featured Testimonials - Testimonios Destacados */}
         <ScrollAnimated animation="fade-up" delay={200}>
-          <div className="mb-16">
+          <div className="mb-10 lg:mb-16">
             <ScrollAnimated animation="fade-up" delay={300}>
-              <div className="text-center mb-12">
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-2">
+              <div className="text-center mb-6 lg:mb-12">
+                <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-2">
                   Testimonios <span className="text-primary">Destacados</span>
                 </h3>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  Reseñas seleccionadas de nuestros pacientes. Cada testimonio refleja la dedicación y profesionalismo en cada tratamiento.
+                <p className="hidden sm:block text-sm lg:text-base text-muted-foreground max-w-2xl mx-auto">
+                  Reseñas verificadas de pacientes satisfechos
                 </p>
               </div>
             </ScrollAnimated>
