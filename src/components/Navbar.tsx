@@ -105,7 +105,11 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors relative z-50"
+            className={`lg:hidden p-2 rounded-lg transition-all duration-300 relative z-50 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              isScrolled 
+                ? 'text-foreground hover:bg-primary/10 hover:text-primary' 
+                : 'text-white hover:bg-white/20'
+            }`}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={isOpen}
           >
@@ -117,7 +121,7 @@ export const Navbar = () => {
               />
               <X 
                 className={`absolute inset-0 w-6 h-6 transition-all duration-300 ${
-                  isOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+                  isOpen ? 'opacity-100 rotate-0 scale-100 text-foreground' : 'opacity-0 -rotate-90 scale-0'
                 }`} 
               />
             </div>

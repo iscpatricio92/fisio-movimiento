@@ -72,13 +72,13 @@ export const SocialMediaSection = ({
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`group relative bg-secondary/50 hover:bg-card rounded-xl p-3 lg:p-5 border border-border/30 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-soft text-center ${social.color}`}
+                className="group relative bg-secondary/50 hover:bg-card rounded-xl p-3 lg:p-5 border border-border/30 hover:border-primary/40 transition-all duration-200 hover:shadow-soft active:scale-95 text-center"
               >
                 <div className="flex flex-col items-center gap-2 lg:gap-3">
-                  <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-xl gradient-hero flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-xl gradient-hero flex items-center justify-center group-hover:scale-105 group-hover:shadow-md transition-all duration-200">
                     <Icon className="w-5 h-5 lg:w-7 lg:h-7 text-primary-foreground" />
                   </div>
-                  <span className="text-xs lg:text-sm font-semibold text-foreground">
+                  <span className="text-xs lg:text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-200">
                     {social.name}
                   </span>
                 </div>

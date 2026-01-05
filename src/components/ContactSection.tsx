@@ -45,34 +45,34 @@ const contactMethods = [
 
 export const ContactSection = () => {
   return (
-    <section id="contacto" className="py-16 md:py-24 bg-background">
+    <section id="contacto" className="py-12 lg:py-24 bg-background">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Header - Compacto en móvil */}
         <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="text-center mb-8 md:mb-16">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+          <div className="text-center mb-6 lg:mb-16">
+            <span className="text-primary font-semibold text-xs lg:text-sm uppercase tracking-wider">
               Contacto
             </span>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-2">
+            <h2 className="font-display text-2xl lg:text-5xl font-bold text-foreground mt-1 lg:mt-2">
               Agenda tu <span className="text-primary">Cita</span>
             </h2>
-            <p className="text-base md:text-lg text-muted-foreground mt-3 md:mt-4 max-w-2xl mx-auto">
+            <p className="hidden sm:block text-base lg:text-lg text-muted-foreground mt-2 lg:mt-4 max-w-2xl mx-auto">
               Estoy aquí para ayudarte. Contáctame por el medio que prefieras.
             </p>
           </div>
         </ScrollAnimated>
 
-        {/* Mobile: Quick Action Buttons */}
-        <div className="md:hidden mb-8">
+        {/* Mobile: Quick Action Buttons - Más compactos */}
+        <div className="md:hidden mb-6">
           <ScrollAnimated animation="fade-up" delay={100}>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2">
               <a
                 href="tel:+525565053202"
                 onClick={() => trackPhoneClick('+525565053202', 'Contact Section Mobile')}
-                className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 active:scale-95"
+                className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-12 h-12 rounded-xl gradient-hero flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-lg gradient-hero flex items-center justify-center">
+                  <Phone className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">Llamar</span>
               </a>
@@ -81,10 +81,10 @@ export const ContactSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsAppClick('Contact Section Mobile', 'Contact Section')}
-                className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 active:scale-95"
+                className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-12 h-12 rounded-xl bg-[hsl(142,70%,45%)] flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-lg bg-[hsl(142,70%,45%)] flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">WhatsApp</span>
               </a>
@@ -93,10 +93,10 @@ export const ContactSection = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackExternalLink('https://www.doctoralia.com.mx/analaura-reyes-priego/fisioterapeuta/metepec', 'Doctoralia Mobile')}
-                className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-300 active:scale-95"
+                className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                  <Calendar className="w-6 h-6 text-accent-foreground" />
+                <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-accent-foreground" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">Reservar</span>
               </a>
