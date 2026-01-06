@@ -79,20 +79,19 @@ const faqs: FAQ[] = [
 
 export const FAQSection = () => {
   return (
-    <section id="faqs" className="py-24 bg-secondary/30">
+    <section id="faqs" className="py-16 lg:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
         {/* Header */}
         <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="text-center mb-16">
+          <div className="text-center mb-10 lg:mb-16">
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
               Preguntas Frecuentes
             </span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2">
               ¿Tienes <span className="text-primary">Preguntas?</span>
             </h2>
-            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-              Encuentra respuestas a las preguntas más comunes sobre fisioterapia, 
-              nuestros servicios y cómo podemos ayudarte en tu proceso de recuperación.
+            <p className="text-base lg:text-lg text-muted-foreground mt-3 lg:mt-4 max-w-2xl mx-auto">
+              Respuestas a las preguntas más comunes sobre fisioterapia y nuestros servicios.
             </p>
           </div>
         </ScrollAnimated>
@@ -138,33 +137,33 @@ export const FAQSection = () => {
 
         {/* CTA */}
         <ScrollAnimated animation="fade-up" delay={200}>
-          <div className="mt-12 text-center">
-            <p className="text-muted-foreground mb-6">
-              ¿No encontraste la respuesta que buscabas?
+          <div className="mt-8 lg:mt-12 text-center">
+            <p className="text-sm lg:text-base text-muted-foreground mb-4 lg:mb-6">
+              ¿No encontraste la respuesta?
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="tel:+525565053202"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300"
-              onClick={() => {
-                trackCTAClick('Llamar Ahora', 'FAQ Section');
-                trackPhoneClick('+525565053202', 'FAQ Section');
-              }}
-            >
-              Llamar Ahora
-            </a>
-            <a
-              href="https://wa.me/525565053202?text=Hola,%20tengo%20una%20pregunta%20sobre%20fisioterapia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300"
-              onClick={() => {
-                trackCTAClick('Escribir por WhatsApp', 'FAQ Section');
-                trackWhatsAppClick('Pregunta sobre fisioterapia', 'FAQ Section');
-              }}
-            >
-              Escribir por WhatsApp
-            </a>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 lg:gap-4">
+              <a
+                href="tel:+525565053202"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-xl bg-primary text-primary-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 active:scale-95"
+                onClick={() => {
+                  trackCTAClick('Llamar Ahora', 'FAQ Section');
+                  trackPhoneClick('+525565053202', 'FAQ Section');
+                }}
+              >
+                Llamar Ahora
+              </a>
+              <a
+                href="https://wa.me/525565053202?text=Hola,%20tengo%20una%20pregunta%20sobre%20fisioterapia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-xl gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 active:scale-95"
+                onClick={() => {
+                  trackCTAClick('Escribir por WhatsApp', 'FAQ Section');
+                  trackWhatsAppClick('Pregunta sobre fisioterapia', 'FAQ Section');
+                }}
+              >
+                WhatsApp
+              </a>
             </div>
           </div>
         </ScrollAnimated>

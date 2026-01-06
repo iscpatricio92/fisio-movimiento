@@ -19,18 +19,27 @@ export const ScrollAnimated = ({
   threshold = 0.1,
   triggerOnce = true,
 }: ScrollAnimatedProps) => {
-  const { ref, isVisible } = useScrollAnimation({
+  const { ref, isVisible, prefersReducedMotion } = useScrollAnimation({
     threshold,
     triggerOnce,
     delay,
   });
 
+  // If user prefers reduced motion, render without animation classes
+  if (prefersReducedMotion) {
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    );
+  }
+
   const animationClasses = {
-    'fade-up': 'opacity-0 translate-y-8',
+    'fade-up': 'opacity-0 translate-y-6 lg:translate-y-8',
     'fade-in': 'opacity-0',
-    'slide-up': 'opacity-0 translate-y-6',
-    'scale-in': 'opacity-0 scale-95',
-    'slide-in-left': 'opacity-0 -translate-x-8',
+    'slide-up': 'opacity-0 translate-y-4 lg:translate-y-6',
+    'scale-in': 'opacity-0 scale-[0.97] lg:scale-95',
+    'slide-in-left': 'opacity-0 -translate-x-4 lg:-translate-x-8',
   };
 
   const visibleClasses = {
@@ -45,7 +54,7 @@ export const ScrollAnimated = ({
     <div
       ref={ref}
       className={cn(
-        'transition-all duration-700 ease-out',
+        'transition-all duration-500 lg:duration-700 ease-out',
         animationClasses[animation],
         isVisible && visibleClasses[animation],
         className
@@ -55,4 +64,5 @@ export const ScrollAnimated = ({
     </div>
   );
 };
+
 

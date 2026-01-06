@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X, Phone, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
 
 const navItems = [
   { label: 'Inicio', href: '#inicio' },
@@ -15,7 +16,9 @@ const navItems = [
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
+  
+  // Focus trap for mobile menu accessibility
+  const menuRef = useFocusTrap<HTMLDivElement>(isOpen, () => setIsOpen(false));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,24 +28,14 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Cerrar menú al hacer clic fuera
+  // Prevent body scroll when menu is open
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node) && isOpen) {
-        setIsOpen(false);
-      }
-    };
-
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      // Prevenir scroll del body cuando el menú está abierto
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = '';
     };
   }, [isOpen]);
@@ -68,7 +61,9 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#inicio" className="flex items-center gap-2 group">
-            <span className="font-display text-2xl font-bold text-primary transition-all duration-300 group-hover:scale-105">
+            <span className={`font-display text-2xl font-bold transition-all duration-300 group-hover:scale-105 ${
+              isScrolled ? 'text-primary' : 'text-white drop-shadow-md'
+            }`}>
               Fisio<span className="text-accent">Analaura</span>
             </span>
           </a>
@@ -103,7 +98,11 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-foreground hover:text-primary transition-colors relative z-50"
+            className={`lg:hidden p-2 rounded-lg transition-all duration-300 relative z-50 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+              isScrolled 
+                ? 'text-foreground hover:bg-primary/10 hover:text-primary' 
+                : 'text-white hover:bg-white/20'
+            }`}
             aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={isOpen}
           >
@@ -115,7 +114,7 @@ export const Navbar = () => {
               />
               <X 
                 className={`absolute inset-0 w-6 h-6 transition-all duration-300 ${
-                  isOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+                  isOpen ? 'opacity-100 rotate-0 scale-100 text-foreground' : 'opacity-0 -rotate-90 scale-0'
                 }`} 
               />
             </div>

@@ -3,6 +3,8 @@ import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
 import { MobileBottomCTA } from '@/components/MobileBottomCTA';
+import { SkipToContent } from '@/components/SkipToContent';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useSectionTracking } from '@/hooks/use-section-tracking';
 
 // Lazy load components that are below the fold for better initial load performance
@@ -32,10 +34,12 @@ const Index = () => {
   );
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main>
-        <section ref={heroRef}>
+    <ErrorBoundary>
+      <div className="min-h-screen">
+        <SkipToContent />
+        <Navbar />
+        <main id="main-content">
+          <section ref={heroRef}>
           <HeroSection />
         </section>
         <section ref={aboutRef}>
@@ -75,10 +79,11 @@ const Index = () => {
             <FAQSection />
           </Suspense>
         </section>
-      </main>
-      <Footer />
-      <MobileBottomCTA />
-    </div>
+        </main>
+        <Footer />
+        <MobileBottomCTA />
+      </div>
+    </ErrorBoundary>
   );
 };
 

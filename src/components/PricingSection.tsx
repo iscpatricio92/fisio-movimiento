@@ -173,117 +173,193 @@ const serviceCategories = [
 
 export const PricingSection = () => {
   return (
-    <section id="precios" className="py-24 bg-background">
+    <section id="precios" className="py-12 lg:py-24 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Header */}
+        {/* Header - Compacto en móvil */}
         <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="text-center mb-16">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Planes y Precios
+          <div className="text-center mb-6 lg:mb-16">
+            <span className="text-primary font-semibold text-xs lg:text-sm uppercase tracking-wider">
+              Precios
             </span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2">
-              Precios <span className="text-primary">Transparentes</span>
+            <h2 className="font-display text-2xl lg:text-5xl font-bold text-foreground mt-1 lg:mt-2">
+              Tarifas <span className="text-primary">Transparentes</span>
             </h2>
-            <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-              Tarifas claras y accesibles para todos mis servicios de fisioterapia
+            <p className="hidden sm:block text-base lg:text-lg text-muted-foreground mt-2 lg:mt-4 max-w-2xl mx-auto">
+              Precios claros y accesibles para todos mis servicios
             </p>
           </div>
         </ScrollAnimated>
 
-        {/* Main Plans */}
+        {/* Main Plans - Mobile Ultra Compact */}
         <ScrollAnimated animation="fade-up" delay={100}>
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 mb-6 lg:mb-16">
             {plans.map((plan, index) => (
-              <ScrollAnimated key={index} animation="scale-in" delay={index * 150}>
-                <div className={`relative rounded-3xl p-8 transition-all duration-300 hover:-translate-y-2 ${
+              <ScrollAnimated key={index} animation="scale-in" delay={index * 100}>
+                <div className={`relative rounded-xl lg:rounded-3xl transition-all duration-200 active:scale-[0.98] ${
                   plan.popular
-                    ? 'gradient-hero text-primary-foreground shadow-glow-strong border-2 border-primary-foreground/20'
-                    : 'bg-card shadow-soft border border-border/50 hover:shadow-glow hover:border-primary/30'
+                    ? 'gradient-hero text-primary-foreground shadow-medium border-2 border-primary-foreground/20'
+                    : 'bg-card shadow-soft border border-border/50 hover:border-primary/30'
                 }`}>
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="gradient-cta text-accent-foreground text-sm font-semibold px-4 py-1 rounded-full">
-                    Más Popular
-                  </span>
-                </div>
-              )}
-
-              <div className="text-center mb-6">
-                <h3 className={`font-display text-xl font-bold mb-2 ${
-                  plan.popular ? 'text-primary-foreground' : 'text-foreground'
-                }`}>
-                  {plan.name}
-                </h3>
-                <p className={`text-sm ${
-                  plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'
-                }`}>
-                  {plan.description}
-                </p>
-              </div>
-
-              <div className="text-center mb-6">
-                <span className={`text-5xl font-bold ${
-                  plan.popular ? 'text-primary-foreground' : 'text-foreground'
-                }`}>
-                  ${plan.price}
-                </span>
-                <span className={`text-sm ${
-                  plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'
-                }`}>
-                  {' '}MXN
-                </span>
-              </div>
-
-              <ul className="space-y-3 mb-8">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-3">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                      plan.popular ? 'bg-primary-foreground/20' : 'bg-primary/10'
-                    }`}>
-                      <Check className={`w-3 h-3 ${
-                        plan.popular ? 'text-primary-foreground' : 'text-primary'
-                      }`} />
+                  {/* Popular badge */}
+                  {plan.popular && (
+                    <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
+                      <span className="gradient-cta text-accent-foreground text-[10px] lg:text-xs font-semibold px-2.5 py-0.5 lg:px-3 lg:py-1 rounded-full whitespace-nowrap">
+                        Más Popular
+                      </span>
                     </div>
-                    <span className={`text-sm ${
-                      plan.popular ? 'text-primary-foreground/90' : 'text-foreground'
-                    }`}>
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+                  )}
 
-              <Button
-                variant={plan.popular ? 'hero' : 'outline'}
-                className="w-full"
-                asChild
-              >
-                <a href="#contacto">Reservar Cita</a>
-              </Button>
-              </div>
-                </ScrollAnimated>
-              ))}
+                  {/* Mobile: Super compact layout */}
+                  <div className="lg:hidden p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`font-display text-sm font-bold truncate ${
+                          plan.popular ? 'text-primary-foreground' : 'text-foreground'
+                        }`}>
+                          {plan.name}
+                        </h3>
+                        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                          {plan.features.slice(0, 2).map((feature, i) => (
+                            <span 
+                              key={i} 
+                              className={`inline-flex items-center gap-0.5 text-[10px] px-1.5 py-0.5 rounded-full ${
+                                plan.popular 
+                                  ? 'bg-primary-foreground/20 text-primary-foreground' 
+                                  : 'bg-primary/10 text-foreground'
+                              }`}
+                            >
+                              <Check className={`w-2.5 h-2.5 ${plan.popular ? 'text-primary-foreground' : 'text-primary'}`} />
+                              {feature.split(' ').slice(0, 2).join(' ')}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <div className="text-right">
+                          <span className={`text-xl font-bold ${
+                            plan.popular ? 'text-primary-foreground' : 'text-foreground'
+                          }`}>
+                            ${plan.price}
+                          </span>
+                        </div>
+                        <Button
+                          variant={plan.popular ? 'hero' : 'outline'}
+                          size="sm"
+                          className="h-8 px-3 text-xs"
+                          asChild
+                        >
+                          <a href="#contacto">Reservar</a>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Desktop: Full vertical layout */}
+                  <div className="hidden lg:block p-8">
+                    <div className="text-center mb-6">
+                      <h3 className={`font-display text-xl font-bold mb-2 ${
+                        plan.popular ? 'text-primary-foreground' : 'text-foreground'
+                      }`}>
+                        {plan.name}
+                      </h3>
+                      <p className={`text-sm ${
+                        plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'
+                      }`}>
+                        {plan.description}
+                      </p>
+                    </div>
+
+                    <div className="text-center mb-6">
+                      <span className={`text-5xl font-bold ${
+                        plan.popular ? 'text-primary-foreground' : 'text-foreground'
+                      }`}>
+                        ${plan.price}
+                      </span>
+                      <span className={`text-sm ${
+                        plan.popular ? 'text-primary-foreground/80' : 'text-muted-foreground'
+                      }`}>
+                        {' '}MXN
+                      </span>
+                    </div>
+
+                    <ul className="space-y-3 mb-8">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                            plan.popular ? 'bg-primary-foreground/20' : 'bg-primary/10'
+                          }`}>
+                            <Check className={`w-3 h-3 ${
+                              plan.popular ? 'text-primary-foreground' : 'text-primary'
+                            }`} />
+                          </div>
+                          <span className={`text-sm ${
+                            plan.popular ? 'text-primary-foreground/90' : 'text-foreground'
+                          }`}>
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button
+                      variant={plan.popular ? 'hero' : 'outline'}
+                      className="w-full"
+                      asChild
+                    >
+                      <a href="#contacto">Reservar Cita</a>
+                    </Button>
+                  </div>
+                </div>
+              </ScrollAnimated>
+            ))}
           </div>
         </ScrollAnimated>
 
         {/* Additional Services by Category with Tabs */}
-        <div className="bg-secondary/50 rounded-3xl p-6 md:p-8">
+        <div className="bg-secondary/50 rounded-xl lg:rounded-3xl p-3 lg:p-8 overflow-hidden">
           <Tabs defaultValue={serviceCategories[0].id} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8 bg-background/50 p-1 h-auto">
-              {serviceCategories.map((category) => (
-                <TabsTrigger
-                  key={category.id}
-                  value={category.id}
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-4 py-3 text-sm font-semibold rounded-lg transition-all duration-300"
-                >
-                  {category.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+            {/* Mobile: Scrollable tabs - contained */}
+            <div className="overflow-x-auto -mx-3 px-3 lg:mx-0 lg:px-0 mb-4 lg:mb-8 scrollbar-hide">
+              <TabsList className="inline-flex lg:grid lg:w-full lg:grid-cols-4 bg-background/50 p-1 h-auto min-w-max lg:min-w-0">
+                {serviceCategories.map((category) => (
+                  <TabsTrigger
+                    key={category.id}
+                    value={category.id}
+                    className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-3 py-2 lg:py-3 text-[11px] lg:text-sm font-semibold rounded-lg transition-all duration-200 whitespace-nowrap"
+                  >
+                    {category.title}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
 
             {serviceCategories.map((category) => (
               <TabsContent key={category.id} value={category.id} className="mt-0">
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Mobile: Ultra compact list */}
+                <div className="lg:hidden space-y-1.5">
+                  {category.services.map((service, serviceIndex) => {
+                    const ServiceIcon = getServiceIcon(service.name);
+                    return (
+                      <div
+                        key={serviceIndex}
+                        className="flex items-center gap-2.5 p-2.5 rounded-lg bg-card border border-border/30 active:scale-[0.98] transition-transform duration-150"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                          <ServiceIcon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-foreground text-xs leading-tight line-clamp-1">
+                            {service.name}
+                          </h4>
+                        </div>
+                        <span className="font-bold text-primary text-sm shrink-0">${service.price}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Desktop: Card grid */}
+                <div className="hidden lg:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {category.services.map((service, serviceIndex) => {
                     const ServiceIcon = getServiceIcon(service.name);
                     return (
