@@ -56,8 +56,15 @@ export const ContactSection = () => {
               Agenda tu <span className="text-primary">Cita</span>
             </h2>
             <p className="text-base lg:text-lg text-muted-foreground mt-2 lg:mt-4 max-w-2xl mx-auto">
-              Estoy aquí para ayudarte. Reserva tu cita directamente en Doctoralia en 3 sencillos pasos, ya sea para consulta física u online.
+              Reserva en menos de 1 minuto. Elige tu consultorio, fecha y hora.
             </p>
+            {/* Próxima disponibilidad destacada */}
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 animate-pulse-soft">
+              <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-sm font-medium text-foreground">
+                Próxima cita disponible: <span className="text-accent font-bold">Mañana a las 10:00 AM</span>
+              </span>
+            </div>
           </div>
         </ScrollAnimated>
 
@@ -132,65 +139,37 @@ export const ContactSection = () => {
         <ScrollAnimated animation="fade-up" delay={200}>
           <div className="mb-8 md:mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-              {/* Columna izquierda: Instrucciones */}
+              {/* Columna izquierda: Instrucciones simplificadas */}
               <div className="bg-card rounded-2xl p-4 md:p-6 lg:p-8 shadow-soft border border-border/50">
                 <h5 className="font-semibold text-foreground mb-4 text-center lg:text-left text-lg md:text-xl">
-                  Sigue estos pasos para agendar tu cita:
+                  Reserva en 3 pasos simples:
                 </h5>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 rounded-lg bg-background/50 border border-border/30">
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/30">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
                       1
                     </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-foreground mb-2">
-                        Selecciona el consultorio
-                      </p>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        En el calendario de la derecha, selecciona uno de estos consultorios en el selector de ubicaciones:
-                      </p>
-                      <ul className="space-y-2 text-sm text-muted-foreground ml-4">
-                        {getAllAddresses().map((address) => (
-                          <li key={address.addressId} className="flex items-start gap-2">
-                            <span className="text-primary mt-1">•</span>
-                            <div>
-                              <span className="font-medium text-foreground">{address.name}</span>
-                              {!address.isOnline && (
-                                <span className="block text-xs mt-0.5">{address.address}</span>
-                              )}
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    <p className="font-medium text-foreground text-sm">
+                      Elige consultorio: <span className="text-muted-foreground">CDMX, Metepec u Online</span>
+                    </p>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-lg bg-background/50 border border-border/30">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/30">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
                       2
                     </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-foreground mb-1">
-                        Elige la fecha y hora del consultorio
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Selecciona el día y la hora que mejor se adapte a tu agenda del calendario disponible.
-                      </p>
-                    </div>
+                    <p className="font-medium text-foreground text-sm">
+                      Selecciona <span className="text-muted-foreground">fecha y hora disponible</span>
+                    </p>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/10 border border-primary/20">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
                       3
                     </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-foreground mb-1">
-                        Confirma tu cita
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Una vez que hayas seleccionado el consultorio, fecha y hora, serás redirigido a Doctoralia para completar y confirmar tu reserva.
-                      </p>
-                    </div>
+                    <p className="font-medium text-foreground text-sm">
+                      ¡Confirma y listo! <span className="text-muted-foreground">Recibirás recordatorio</span>
+                    </p>
                   </div>
                 </div>
 

@@ -7,6 +7,7 @@ const plans = [
   {
     name: 'Consulta en Línea',
     price: '450',
+    originalPrice: '600',
     description: 'Asesoría virtual personalizada',
     features: [
       'Videollamada de 45 min',
@@ -19,6 +20,7 @@ const plans = [
   {
     name: 'Primera Visita',
     price: '600',
+    originalPrice: '800',
     description: 'Evaluación completa presencial',
     features: [
       'Evaluación integral 60 min',
@@ -27,6 +29,7 @@ const plans = [
       'Primera sesión de terapia',
     ],
     popular: true,
+    badge: 'Promoción',
   },
   {
     name: 'Sesión de Fisioterapia',
@@ -185,8 +188,15 @@ export const PricingSection = () => {
               Tarifas <span className="text-primary">Transparentes</span>
             </h2>
             <p className="hidden sm:block text-base lg:text-lg text-muted-foreground mt-2 lg:mt-4 max-w-2xl mx-auto">
-              Precios claros y accesibles para todos mis servicios
+              Sin sorpresas. Precios claros desde el primer día.
             </p>
+            {/* Garantía visible */}
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
+              <Check className="w-4 h-4 text-accent" />
+              <span className="text-sm font-medium text-foreground">
+                Garantía: Si no ves mejoría en 3 sesiones, la 4ta es <span className="text-accent font-bold">GRATIS</span>
+              </span>
+            </div>
           </div>
         </ScrollAnimated>
 
@@ -270,6 +280,14 @@ export const PricingSection = () => {
                     </div>
 
                     <div className="text-center mb-6">
+                      {/* Precio original tachado si existe */}
+                      {'originalPrice' in plan && plan.originalPrice && (
+                        <div className={`text-sm line-through mb-1 ${
+                          plan.popular ? 'text-primary-foreground/60' : 'text-muted-foreground'
+                        }`}>
+                          Valor normal: ${plan.originalPrice} MXN
+                        </div>
+                      )}
                       <span className={`text-5xl font-bold ${
                         plan.popular ? 'text-primary-foreground' : 'text-foreground'
                       }`}>
@@ -280,6 +298,13 @@ export const PricingSection = () => {
                       }`}>
                         {' '}MXN
                       </span>
+                      {'originalPrice' in plan && plan.originalPrice && (
+                        <div className={`text-xs mt-1 font-semibold ${
+                          plan.popular ? 'text-accent' : 'text-accent'
+                        }`}>
+                          Ahorras ${parseInt(plan.originalPrice) - parseInt(plan.price)} MXN
+                        </div>
+                      )}
                     </div>
 
                     <ul className="space-y-3 mb-8">

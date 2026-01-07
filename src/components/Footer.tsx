@@ -67,19 +67,17 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Navigation - Horizontal scroll */}
-          <div className="overflow-x-auto -mx-4 px-4 scrollbar-hide">
-            <div className="flex gap-4 justify-center min-w-max">
-              {navItems.map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
-                  className="text-sm text-primary-foreground/60 hover:text-accent transition-colors whitespace-nowrap py-2"
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
+          {/* Navigation - Grid layout instead of horizontal scroll */}
+          <div className="grid grid-cols-2 gap-2 px-4">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase().replace(' ', '-')}`}
+                className="text-sm text-primary-foreground/60 hover:text-accent transition-colors py-2 text-center"
+              >
+                {item}
+              </a>
+            ))}
           </div>
 
           {/* Share Buttons */}

@@ -74,7 +74,11 @@ export const Navbar = () => {
               <a
                 key={item.href}
                 href={item.href}
-                className="font-body text-sm font-semibold text-foreground/80 hover:text-primary transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full hover:scale-105"
+                className={`font-body text-sm font-semibold transition-all duration-300 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all hover:after:w-full hover:scale-105 ${
+                  isScrolled 
+                    ? 'text-foreground/80 hover:text-primary' 
+                    : 'text-white/90 hover:text-white drop-shadow-md'
+                }`}
               >
                 {item.label}
               </a>

@@ -1,17 +1,12 @@
 import { GraduationCap, Globe, Award, Heart, Clock, Check } from 'lucide-react';
-import clinicImage from '@/assets/clinic-hero.jpg';
-// Responsive image sizes for srcset
-import clinicImageWebP400 from '@/assets/clinic-hero.jpg?w=400&format=webp';
-import clinicImageWebP800 from '@/assets/clinic-hero.jpg?w=800&format=webp';
-import clinicImageWebP1200 from '@/assets/clinic-hero.jpg?w=1200&format=webp';
-import clinicImageWebP1920 from '@/assets/clinic-hero.jpg?w=1920&format=webp';
+import { ClinicGallery } from './ClinicGallery';
 import { ScrollAnimated } from './ScrollAnimated';
-import { OptimizedImage } from './OptimizedImage';
 
 interface Credential {
   icon: React.ElementType;
   title: string;
   description: string;
+  benefit?: string;
   completed: boolean;
   inProgress?: boolean;
   inProgressText?: string;
@@ -22,18 +17,21 @@ const credentials = [
     icon: GraduationCap,
     title: 'Universidad Europea de Madrid',
     description: 'Fisioterapia (España, 2015)',
+    benefit: 'Técnicas europeas de vanguardia',
     completed: true,
   },
   {
     icon: GraduationCap,
     title: 'Universidad del Valle de México',
     description: 'Licenciatura en Fisioterapia (México, 2017)',
+    benefit: 'Conocimiento del contexto local',
     completed: true,
   },
   {
     icon: Award,
     title: 'Instituto Nacional de Neurología',
-    description: 'Diplomado en Abordaje Integral del Dolor (México,2024)',
+    description: 'Diplomado en Abordaje Integral del Dolor (México, 2024)',
+    benefit: 'Especialista en manejo del dolor',
     completed: true,
   },
 ];
@@ -77,24 +75,10 @@ export const AboutSection = () => {
       <div className="container mx-auto px-4">
         <ScrollAnimated animation="fade-up" delay={0}>
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Image */}
+            {/* Clinic Gallery Carousel */}
             <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-card">
-              <OptimizedImage
-                src={clinicImage}
-                alt="Consultorio de fisioterapia moderno"
-                webpSrc={clinicImageWebP400}
-                srcSet={`${clinicImageWebP400} 400w, ${clinicImageWebP800} 800w, ${clinicImageWebP1200} 1200w, ${clinicImageWebP1920} 1920w`}
-                sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, (max-width: 1280px) 1200px, 1920px"
-                width={1920}
-                height={1080}
-                className="w-full h-auto object-cover"
-                blurPlaceholder
-              />
+              <ClinicGallery compact />
             </div>
-            {/* Decorative element */}
-            <div className="absolute -z-10 -bottom-8 -right-8 w-full h-full rounded-3xl border-2 border-primary/20" />
-          </div>
 
           {/* Content */}
           <div className="space-y-6 lg:space-y-8">
@@ -178,7 +162,13 @@ export const AboutSection = () => {
                 <h3 className="font-display font-bold text-lg text-foreground mb-2">
                   {credential.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">{credential.description}</p>
+                <p className="text-muted-foreground leading-relaxed mb-2">{credential.description}</p>
+                {/* Beneficio para el paciente */}
+                {'benefit' in credential && credential.benefit && (
+                  <p className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full inline-block">
+                    → {credential.benefit}
+                  </p>
+                )}
                 
                 {/* Indicador adicional si está en curso */}
                 {credential.inProgress && (

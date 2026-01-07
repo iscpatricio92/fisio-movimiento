@@ -7,12 +7,27 @@ import {
 } from '@/components/ui/accordion';
 import { ScrollAnimated } from './ScrollAnimated';
 import { trackFAQInteraction, trackCTAClick, trackPhoneClick, trackWhatsAppClick } from '@/lib/analytics';
+import { useEffect } from 'react';
 
 interface FAQ {
   question: string;
   answer: string;
   category?: string;
 }
+
+// Genera el schema FAQPage para SEO
+const generateFAQSchema = (faqs: FAQ[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+});
 
 const faqs: FAQ[] = [
   {
@@ -75,9 +90,35 @@ const faqs: FAQ[] = [
     answer: 'Atiendo de lunes a viernes de 9:00 AM a 7:00 PM en ambos consultorios (Iztapalapa, CDMX y Metepec, México). Las consultas en línea también están disponibles en estos horarios. Para agendar una cita, puedes usar el calendario en línea, llamar o contactar por WhatsApp.',
     category: 'General',
   },
+  {
+    question: '¿Cuál es la política de cancelación?',
+    answer: 'Puedes cancelar o reprogramar tu cita hasta 24 horas antes sin ningún costo. Si necesitas cancelar con menos anticipación, te pedimos nos avises lo antes posible para poder ofrecer ese horario a otro paciente. No hay penalización, pero agradecemos tu consideración.',
+    category: 'General',
+  },
+  {
+    question: '¿Hay estacionamiento disponible?',
+    answer: 'Sí, en ambos consultorios hay opciones de estacionamiento. En Iztapalapa (CDMX) hay estacionamiento en la calle y parquímetros cercanos. En Metepec hay estacionamiento gratuito disponible en las inmediaciones del consultorio.',
+    category: 'General',
+  },
 ];
 
 export const FAQSection = () => {
+  // Inyectar schema FAQPage para SEO
+  useEffect(() => {
+    const existingScript = document.querySelector('script[data-faq-schema]');
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-faq-schema', 'true');
+      script.textContent = JSON.stringify(generateFAQSchema(faqs));
+      document.head.appendChild(script);
+    }
+    return () => {
+      const script = document.querySelector('script[data-faq-schema]');
+      if (script) script.remove();
+    };
+  }, []);
+
   return (
     <section id="faqs" className="py-16 lg:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">
