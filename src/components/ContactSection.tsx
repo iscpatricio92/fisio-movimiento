@@ -145,22 +145,42 @@ export const ContactSection = () => {
                   Reserva en 3 pasos simples:
                 </h5>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/30">
+                  <div className="flex items-start gap-4 p-4 rounded-lg bg-background/50 border border-border/30">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
                       1
                     </div>
-                    <p className="font-medium text-foreground text-sm">
-                      Elige consultorio: <span className="text-muted-foreground">CDMX, Metepec u Online</span>
-                    </p>
+                    <div className="flex-1">
+                      <p className="font-semibold text-foreground mb-2">
+                        Selecciona el consultorio
+                      </p>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        En el calendario de la derecha, selecciona uno de estos consultorios en el selector de ubicaciones:
+                      </p>
+                      <ul className="space-y-2 text-sm text-muted-foreground ml-4">
+                        {getAllAddresses().map((address) => (
+                          <li key={address.addressId} className="flex items-start gap-2">
+                            <span className="text-primary mt-1">•</span>
+                            <div>
+                              <span className="font-medium text-foreground">{address.name}</span>
+                              {!address.isOnline && (
+                                <span className="block text-xs mt-0.5">{address.address}</span>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-border/30">
+                  <div className="flex items-start gap-4 p-4 rounded-lg bg-background/50 border border-border/30">
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
                       2
                     </div>
+                    <div className="flex-1">
                     <p className="font-medium text-foreground text-sm">
-                      Selecciona <span className="text-muted-foreground">fecha y hora disponible</span>
-                    </p>
+                    Selecciona el día y la hora  <span className="text-muted-foreground">que mejor se adapte a tu agenda del calendario disponible.</span>
+                      </p>
+                  
+                    </div>
                   </div>
 
                   <div className="flex items-center gap-3 p-3 rounded-lg bg-primary/10 border border-primary/20">

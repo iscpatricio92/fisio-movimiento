@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    headers: {
+      'Cache-Control': 'no-cache',
+    },
   },
   plugins: [
     react(), 
@@ -109,9 +112,10 @@ export default defineConfig(({ mode }) => ({
         skipWaiting: false,
         clientsClaim: false
       },
-      // Solo en producción
+      // Habilitar PWA en desarrollo para generar manifest
       devOptions: {
-        enabled: false
+        enabled: true,
+        type: 'module',
       }
     }),
     mode === "development" && componentTagger()

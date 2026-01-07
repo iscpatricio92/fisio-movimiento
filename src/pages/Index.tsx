@@ -67,13 +67,13 @@ const Index = () => {
             <ContactSection />
           </Suspense>
         </section>
-        <section id="redes-sociales" ref={socialRef} className="py-24 bg-background">
+        {/* <section id="redes-sociales" ref={socialRef} className="py-24 bg-background">
           <div className="container mx-auto px-4">
             <Suspense fallback={<SectionLoader />}>
               <SocialMediaSection />
             </Suspense>
           </div>
-        </section>
+        </section> */}
         <section ref={faqRef}>
           <Suspense fallback={<SectionLoader />}>
             <FAQSection />
