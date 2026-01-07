@@ -1,4 +1,5 @@
 import { GraduationCap, Globe, Award, Heart, Clock, Check } from 'lucide-react';
+import { ClinicGallery } from './ClinicGallery';
 import clinicImage from '@/assets/clinic-hero.jpg';
 // Responsive image sizes for srcset
 import clinicImageWebP400 from '@/assets/clinic-hero.jpg?w=400&format=webp';
@@ -251,6 +252,9 @@ export const AboutSection = () => {
             </div>
           </div>
         </ScrollAnimated>
+
+        {/* Clinic Gallery */}
+        <ClinicGallery />
       </div>
     </section>
   );
