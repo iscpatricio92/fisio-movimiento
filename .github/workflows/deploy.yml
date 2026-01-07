@@ -57,6 +57,9 @@ jobs:
       - name: Build project
         run: npm run build
         continue-on-error: false
+        env:
+          # Generar un hash único para cada build para forzar actualización del Service Worker
+          BUILD_TIME: ${{ github.run_number }}-${{ github.sha }}
 
       - name: Display build summary
         run: |

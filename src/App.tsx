@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
+import { PWAUpdatePrompt } from "@/components/PWAUpdatePrompt";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -22,6 +23,7 @@ const App = () => (
         </Routes>
       </BrowserRouter>
       <WhatsAppFloatingButton />
+      <PWAUpdatePrompt />
     </TooltipProvider>
   </QueryClientProvider>
 );
