@@ -1,7 +1,31 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "fisio-movimiento",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Fisioterapeuta en CDMX y Metepec",
+  "author": "Lic. Analaura Reyes Priego",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Patricio Gomez",
+      "email": "isc.patricio@gmail.com",
+      "url": "https://github.com/iscpatricio92"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iscpatricio92/fisio-movimiento"
+  },
+  "homepage": "https://fisio-movimiento.com",
+  "keywords": [
+    "fisioterapia",
+    "cdmx",
+    "metepec",
+    "fisioterapeuta",
+    "analaura reyes priego",
+    "patricio gomez"
+  ],
+  "main": "index.html",
   "type": "module",
   "scripts": {
     "dev": "vite",

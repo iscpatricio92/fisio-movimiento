@@ -70,8 +70,17 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         // Cache-first para assets estáticos (JS, CSS, imágenes con hash)
         // Network-first para HTML (para siempre tener la versión más reciente)
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}'],
-        // Estrategias de caché para recursos externos
+        ...(mode === 'production' && {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,woff,woff2}'],
+        }),
+        // En desarrollo, deshabilitar precaching completamente para evitar warnings
+        // Workbox usa un patrón por defecto si no se define globPatterns, por eso lo deshabilitamos
+        ...(mode === 'development' && {
+          globPatterns: [], // Sin precaching en desarrollo
+          // Deshabilitar la advertencia de glob patterns vacíos
+          mode: 'development',
+        }),
+        // Estrategias de caché para recursos externos (funcionan en dev y prod)
         runtimeCaching: [
           {
             // Google Fonts - Stale-while-revalidate para CSS
@@ -116,6 +125,8 @@ export default defineConfig(({ mode }) => ({
       devOptions: {
         enabled: true,
         type: 'module',
+        // Nota: El warning de globPatterns en desarrollo es conocido y puede ignorarse
+        // Workbox usa un patrón por defecto que busca en dev-dist/, pero no afecta la funcionalidad
       }
     }),
     mode === "development" && componentTagger()
