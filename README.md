@@ -19,8 +19,8 @@ Recomendamos usar [nvm](https://github.com/nvm-sh/nvm) para gestionar versiones 
 
 ```bash
 # 1. Clonar el repositorio
-git clone <YOUR_GIT_URL>
-cd fisiolaura-reyes-clone-enhance
+git clone https://github.com/iscpatricio92/fisio-movimiento.git
+cd fisio-movimiento
 
 # 2. Instalar dependencias
 npm install
