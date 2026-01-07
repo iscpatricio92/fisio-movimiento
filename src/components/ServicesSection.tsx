@@ -18,49 +18,49 @@ const specialties = [
   {
     icon: Bone,
     title: 'Traumatológica',
-    description: 'Rehabilitación de lesiones musculoesqueléticas, fracturas y post-operatorios.',
+    description: '¿Sufriste una lesión o saliste de cirugía? Te ayudo a recuperar tu movilidad paso a paso.',
     priceFrom: '550',
   },
   {
     icon: Zap,
     title: 'Electroterapia',
-    description: 'Uso de corrientes eléctricas para aliviar el dolor y acelerar la recuperación.',
+    description: 'Alivia el dolor rápidamente con técnicas de electroterapia de última generación.',
     priceFrom: '550',
   },
   {
     icon: Activity,
     title: 'Terapias Manuales',
-    description: 'Técnicas de masaje, movilización articular y tratamiento de tejidos blandos.',
+    description: '¿Contracturas o tensión muscular? Libera la rigidez con técnicas manuales especializadas.',
     priceFrom: '550',
   },
   {
     icon: Target,
     title: 'Readaptación Deportiva',
-    description: 'Recuperación funcional para deportistas y prevención de lesiones.',
+    description: '¿Lesión deportiva te detuvo? Vuelve a entrenar con un plan de recuperación personalizado.',
     priceFrom: '550',
   },
   {
     icon: Brain,
     title: 'Tratamiento ATM',
-    description: 'Terapia para disfunciones de la articulación temporomandibular y bruxismo.',
+    description: '¿Dolor de mandíbula o bruxismo? Tratamiento especializado para que mastiques sin dolor.',
     priceFrom: '550',
   },
   {
     icon: Sparkles,
     title: 'Hipopresivos',
-    description: 'Ejercicios para fortalecer el suelo pélvico y la faja abdominal.',
+    description: 'Fortalece tu suelo pélvico y abdomen con ejercicios que realmente funcionan.',
     priceFrom: '550',
   },
   {
     icon: Heart,
     title: 'Manejo del Dolor',
-    description: 'Tratamiento integral del dolor crónico y agudo basado en evidencia.',
+    description: '¿Dolor crónico que no cede? Tratamiento integral basado en la evidencia más actual.',
     priceFrom: '550',
   },
   {
     icon: Users,
     title: 'Adulto Mayor',
-    description: 'Prevención de caídas y mantenimiento de la funcionalidad.',
+    description: 'Mantén tu independencia y prevén caídas con un programa diseñado para ti.',
     priceFrom: '550',
   },
 ];
@@ -103,11 +103,11 @@ export const ServicesSection = () => {
               Especialidades
             </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-2">
-              Servicios de <span className="text-primary">Fisioterapia</span>
+              ¿Qué <span className="text-primary">Tratamiento</span> Necesitas?
             </h2>
             <p className="text-base lg:text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-              Ofrezco una amplia gama de tratamientos especializados para ayudarte 
-              a recuperar tu bienestar físico.
+              Cuéntame tu dolor y juntos encontraremos la solución. 
+              Todos los tratamientos son personalizados para ti.
             </p>
           </div>
         </ScrollAnimated>

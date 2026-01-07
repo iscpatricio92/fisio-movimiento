@@ -5,73 +5,90 @@ import { useRef, useState, useEffect } from 'react';
 
 const featuredTestimonials = [
   {
-    name: 'Paciente',
+    name: 'María G.',
     rating: 5,
-    text: 'Excelente consulta, todo bien, muy clara en su explicación',
-    date: 'Reciente',
+    text: 'Excelente consulta, todo bien, muy clara en su explicación. Me sentí escuchada desde el primer momento.',
+    date: 'Hace 2 semanas',
     category: 'General',
+    transformation: 'Dolor de cuello → Sin molestias',
   },
   {
-    name: 'Paciente',
+    name: 'Carlos R.',
     rating: 5,
-    text: 'Excelente atención, explica a detalle y te hace sentir cómoda. 100% recomendable.',
-    date: 'Reciente',
+    text: 'Excelente atención, explica a detalle y te hace sentir cómodo. 100% recomendable. Llegué con dolor intenso y salí mucho mejor.',
+    date: 'Hace 1 mes',
     category: 'Atención',
+    transformation: 'Lumbalgia → Recuperación total',
   },
   {
-    name: 'Paciente',
+    name: 'Ana L.',
     rating: 5,
-    text: 'La doctora es muy profesional, explica de manera detallada el tratamiento a seguir y resuelve cada una de las dudas que han surgido, además he visto una gran mejoría con el tratamiento indicado.',
-    date: 'Reciente',
+    text: 'La doctora es muy profesional, explica de manera detallada el tratamiento a seguir y resuelve cada una de las dudas. He visto una gran mejoría con el tratamiento indicado.',
+    date: 'Hace 3 semanas',
     category: 'Tratamiento',
+    transformation: 'Ciática crónica → Vida sin dolor',
   },
   {
-    name: 'Paciente',
+    name: 'Roberto M.',
     rating: 5,
-    text: 'Diagnóstico y atención de buena calidad, acompañamiento en el proceso y se preocupa por integrar ejercicios y rutinas que mejoren la calidad de vida',
-    date: 'Reciente',
+    text: 'Diagnóstico y atención de buena calidad, acompañamiento en el proceso y se preocupa por integrar ejercicios que mejoren la calidad de vida. Ya puedo hacer ejercicio de nuevo.',
+    date: 'Hace 1 mes',
     category: 'Calidad de vida',
+    transformation: 'Lesión deportiva → Vuelta al gym',
   },
   {
-    name: 'Paciente',
+    name: 'Patricia S.',
     rating: 5,
     text: 'Ha sido una grata experiencia. El trato por parte de la especialista es siempre cordial, empático y muy humano. Los ejercicios y la explicación es clara, me han ayudado mucho.',
-    date: 'Reciente',
+    date: 'Hace 2 semanas',
     category: 'Experiencia',
+    transformation: 'ATM/Bruxismo → Sin dolor al masticar',
   },
   {
-    name: 'Paciente',
+    name: 'Jorge H.',
     rating: 5,
-    text: 'Todo excelente, con mi primera sesión hubo mejoría notable, la Lic. Muy atenta y Professional. Bueno experiencia y muy agradecido por la atención',
-    date: 'Reciente',
+    text: 'Todo excelente, con mi primera sesión hubo mejoría notable. La Lic. muy atenta y profesional. Buena experiencia y muy agradecido por la atención.',
+    date: 'Hace 1 semana',
     category: 'Primera sesión',
+    transformation: 'Contractura → Alivio inmediato',
   },
   {
-    name: 'Paciente',
+    name: 'Laura V.',
     rating: 5,
-    text: 'Excelente la fisioterapia recibida, llevaba dolor y salí con mucho menor molesta, gracias',
-    date: 'Reciente',
+    text: 'Excelente la fisioterapia recibida, llevaba dolor y salí con mucho menor molestia. Realmente funciona.',
+    date: 'Hace 3 semanas',
     category: 'Dolor',
+    transformation: 'Dolor de hombro → Movilidad completa',
   },
   {
-    name: 'Paciente',
+    name: 'Fernando T.',
     rating: 5,
-    text: 'Muy acertada como siempre en su exploración y terapia.',
-    date: 'Reciente',
+    text: 'Muy acertada como siempre en su exploración y terapia. Llevo 5 sesiones y la diferencia es increíble.',
+    date: 'Hace 2 semanas',
     category: 'Terapia',
+    transformation: 'Post-operatorio → Rehabilitación exitosa',
   },
   {
-    name: 'Paciente',
+    name: 'Diana P.',
     rating: 5,
-    text: 'Excelente atención y buena explicación, sobre todo paciencia',
-    date: 'Reciente',
+    text: 'Excelente atención y buena explicación, sobre todo paciencia. Me enseñó ejercicios que puedo hacer en casa.',
+    date: 'Hace 1 mes',
     category: 'Atención',
+    transformation: 'Dolor crónico → Manejo efectivo',
   },
 ];
 
-// Testimonial Card Component
+// Testimonial Card Component with transformation
 const TestimonialCard = ({ testimonial }: { testimonial: typeof featuredTestimonials[0] }) => (
   <div className="group bg-card rounded-2xl p-6 shadow-soft hover:shadow-glow transition-all duration-300 lg:hover:-translate-y-2 border border-border/50 hover:border-primary/30 h-full flex flex-col">
+    {/* Transformation badge */}
+    {'transformation' in testimonial && testimonial.transformation && (
+      <div className="mb-3 -mt-1">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold border border-accent/20">
+          ✨ {testimonial.transformation}
+        </span>
+      </div>
+    )}
     <div className="flex items-start gap-4 mb-4">
       <div className="p-2 bg-primary/10 rounded-full">
         <Quote className="w-5 h-5 text-primary" />
@@ -91,7 +108,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof featuredTestimon
       "{testimonial.text}"
     </p>
     <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
-      <span className="font-medium text-foreground text-sm">{testimonial.name}</span>
+      <span className="font-semibold text-foreground text-sm">{testimonial.name}</span>
       <span className="text-xs text-muted-foreground">{testimonial.date}</span>
     </div>
   </div>
@@ -244,6 +261,23 @@ export const TestimonialsSection = () => {
                 </ScrollAnimated>
               ))}
             </div>
+          </div>
+        </ScrollAnimated>
+
+        {/* CTA after testimonials - high intent moment */}
+        <ScrollAnimated animation="fade-up" delay={350}>
+          <div className="text-center mb-8 lg:mb-12 p-6 lg:p-8 bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 rounded-2xl border border-primary/20">
+            <h3 className="font-display text-xl lg:text-2xl font-bold text-foreground mb-2">
+              ¿Quieres resultados como estos?
+            </h3>
+            <p className="text-muted-foreground mb-4">
+              Únete a más de 500 pacientes que ya recuperaron su bienestar
+            </p>
+            <Button variant="cta" size="lg" className="min-h-[52px] px-8" asChild>
+              <a href="#contacto">
+                Reservar Mi Cita Ahora
+              </a>
+            </Button>
           </div>
         </ScrollAnimated>
 

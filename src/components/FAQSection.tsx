@@ -7,12 +7,27 @@ import {
 } from '@/components/ui/accordion';
 import { ScrollAnimated } from './ScrollAnimated';
 import { trackFAQInteraction, trackCTAClick, trackPhoneClick, trackWhatsAppClick } from '@/lib/analytics';
+import { useEffect } from 'react';
 
 interface FAQ {
   question: string;
   answer: string;
   category?: string;
 }
+
+// Genera el schema FAQPage para SEO
+const generateFAQSchema = (faqs: FAQ[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+});
 
 const faqs: FAQ[] = [
   {
@@ -78,6 +93,22 @@ const faqs: FAQ[] = [
 ];
 
 export const FAQSection = () => {
+  // Inyectar schema FAQPage para SEO
+  useEffect(() => {
+    const existingScript = document.querySelector('script[data-faq-schema]');
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-faq-schema', 'true');
+      script.textContent = JSON.stringify(generateFAQSchema(faqs));
+      document.head.appendChild(script);
+    }
+    return () => {
+      const script = document.querySelector('script[data-faq-schema]');
+      if (script) script.remove();
+    };
+  }, []);
+
   return (
     <section id="faqs" className="py-16 lg:py-24 bg-secondary/30">
       <div className="container mx-auto px-4">

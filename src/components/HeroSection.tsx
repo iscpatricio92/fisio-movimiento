@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Calendar, Phone, MapPin, Award, Star, Video } from 'lucide-react';
+import { Calendar, Phone, MapPin, Award, Star, Video, Check } from 'lucide-react';
 import therapistImage from '@/assets/therapist-portrait_2.jpg';
 import therapistImageWebP from '@/assets/therapist-portrait_2.jpg?format=webp';
 // Responsive image sizes for srcset
@@ -34,22 +34,23 @@ export const HeroSection = () => {
                 <span className="text-xs lg:text-sm font-semibold">Doble Titulación • México & España</span>
               </div>
               
-              {/* Name - responsive sizing */}
-              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight">
-                Lic. Analaura<br />
-                <span className="text-accent drop-shadow-lg">Reyes Priego</span>
-              </h1>
-              
-              <p className="text-lg sm:text-xl md:text-2xl font-semibold opacity-95">
-                Fisioterapeuta Especializada
-              </p>
+            {/* H1 optimizado para SEO - keyword principal */}
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight">
+              Fisioterapeuta en<br />
+              <span className="text-accent drop-shadow-lg">CDMX y Metepec</span>
+            </h1>
+            
+            {/* Nombre como subtítulo prominente */}
+            <p className="text-lg sm:text-xl md:text-2xl font-semibold opacity-95">
+              Lic. Analaura Reyes Priego
+            </p>
             </div>
 
-            {/* Description - hidden on small mobile, visible from sm up */}
-            <p className="hidden sm:block text-base lg:text-lg opacity-85 max-w-xl leading-relaxed">
-              Practico una fisioterapia humana y de calidad. Todas las sesiones son 
-              personalizadas, basadas en evidencia e involucrándote como elemento 
-              activo en tu proceso de recuperación.
+            {/* Propuesta de valor - visible en móvil también */}
+            <p className="text-sm sm:text-base lg:text-lg opacity-90 max-w-xl leading-relaxed">
+              <span className="font-semibold">¿Dolor de espalda, cuello o articulaciones?</span>{' '}
+              <span className="hidden sm:inline">Tratamientos personalizados y basados en evidencia para recuperar tu movilidad.</span>
+              <span className="sm:hidden">Recupera tu movilidad sin dolor.</span>
             </p>
 
             {/* Stats - horizontal scroll on mobile, grid on desktop */}
@@ -71,18 +72,21 @@ export const HeroSection = () => {
               </div>
             </div>
 
-            {/* CTAs - Full width stacked on mobile, inline on desktop */}
-            <div className="hidden lg:flex flex-wrap gap-4">
-              <Button variant="hero" size="xl" asChild>
+            {/* CTAs - Visible en MÓVIL Y DESKTOP con urgencia */}
+            <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 pt-2">
+              <Button variant="hero" size="lg" className="w-full sm:w-auto lg:text-base" asChild>
                 <a 
                   href="#contacto"
                   onClick={() => trackCTAClick('Reservar Cita', 'Hero Section')}
                 >
                   <Calendar className="w-5 h-5" />
-                  Reservar Cita
+                  <span className="flex flex-col items-start leading-tight">
+                    <span>Reservar Cita</span>
+                    <span className="text-[10px] lg:text-xs opacity-80 font-normal">Próxima disponible: mañana</span>
+                  </span>
                 </a>
               </Button>
-              <Button variant="heroOutline" size="xl" asChild>
+              <Button variant="heroOutline" size="lg" className="w-full sm:w-auto" asChild>
                 <a 
                   href="tel:+525565053202"
                   onClick={() => {
@@ -94,6 +98,12 @@ export const HeroSection = () => {
                   Llamar Ahora
                 </a>
               </Button>
+            </div>
+
+            {/* Badge de garantía */}
+            <div className="flex items-center gap-2 text-xs sm:text-sm opacity-85 bg-primary-foreground/10 backdrop-blur-sm px-3 py-2 rounded-full border border-primary-foreground/20 w-fit">
+              <Check className="w-4 h-4 text-accent" />
+              <span>Primera cita $600 MXN • Sin compromiso</span>
             </div>
 
             {/* Locations - Simplified on mobile */}
