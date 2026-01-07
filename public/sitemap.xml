@@ -6,7 +6,7 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://www.fisioanalaurareyes.com/</loc>
+    <loc>https://fisio-movimiento.com/</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,42 +14,49 @@
   
   <!-- Secciones principales -->
   <url>
-    <loc>https://www.fisioanalaurareyes.com/#inicio</loc>
+    <loc>https://fisio-movimiento.com/#inicio</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://www.fisioanalaurareyes.com/#sobre-mi</loc>
+    <loc>https://fisio-movimiento.com/#sobre-mi</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://www.fisioanalaurareyes.com/#servicios</loc>
+    <loc>https://fisio-movimiento.com/#servicios</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
   <url>
-    <loc>https://www.fisioanalaurareyes.com/#precios</loc>
+    <loc>https://fisio-movimiento.com/#precios</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://www.fisioanalaurareyes.com/#opiniones</loc>
+    <loc>https://fisio-movimiento.com/#opiniones</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
-    <loc>https://www.fisioanalaurareyes.com/#contacto</loc>
+    <loc>https://fisio-movimiento.com/#faq</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://fisio-movimiento.com/#contacto</loc>
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

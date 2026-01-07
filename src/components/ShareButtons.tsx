@@ -11,7 +11,7 @@ interface ShareButtonsProps {
 }
 
 export const ShareButtons = ({
-  url = typeof window !== 'undefined' ? window.location.href : 'https://www.fisioanalaurareyes.com/',
+  url = typeof window !== 'undefined' ? window.location.href : 'https://www.fisio-movimiento.com/',
   title = 'Lic. Analaura Reyes Priego | Fisioterapeuta en CDMX y Metepec',
   description = 'Fisioterapeuta con doble titulación. Especialista en traumatología, ATM, hipopresivos y manejo del dolor.',
   className = '',

@@ -19,7 +19,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.fisioanalaurareyes.com/sitemap.xml
+Sitemap: https://fisio-movimiento.com/sitemap.xml
 
 # Disallow admin o private areas if any (comentado por ahora)
 # Disallow: /admin/
