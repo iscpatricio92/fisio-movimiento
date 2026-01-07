@@ -12,6 +12,7 @@ interface Credential {
   icon: React.ElementType;
   title: string;
   description: string;
+  benefit?: string;
   completed: boolean;
   inProgress?: boolean;
   inProgressText?: string;
@@ -22,18 +23,21 @@ const credentials = [
     icon: GraduationCap,
     title: 'Universidad Europea de Madrid',
     description: 'Fisioterapia (España, 2015)',
+    benefit: 'Técnicas europeas de vanguardia',
     completed: true,
   },
   {
     icon: GraduationCap,
     title: 'Universidad del Valle de México',
     description: 'Licenciatura en Fisioterapia (México, 2017)',
+    benefit: 'Conocimiento del contexto local',
     completed: true,
   },
   {
     icon: Award,
     title: 'Instituto Nacional de Neurología',
-    description: 'Diplomado en Abordaje Integral del Dolor (México,2024)',
+    description: 'Diplomado en Abordaje Integral del Dolor (México, 2024)',
+    benefit: 'Especialista en manejo del dolor',
     completed: true,
   },
 ];
@@ -178,7 +182,13 @@ export const AboutSection = () => {
                 <h3 className="font-display font-bold text-lg text-foreground mb-2">
                   {credential.title}
                 </h3>
-                <p className="text-muted-foreground leading-relaxed">{credential.description}</p>
+                <p className="text-muted-foreground leading-relaxed mb-2">{credential.description}</p>
+                {/* Beneficio para el paciente */}
+                {'benefit' in credential && credential.benefit && (
+                  <p className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full inline-block">
+                    → {credential.benefit}
+                  </p>
+                )}
                 
                 {/* Indicador adicional si está en curso */}
                 {credential.inProgress && (

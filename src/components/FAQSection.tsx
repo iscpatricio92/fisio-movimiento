@@ -90,6 +90,16 @@ const faqs: FAQ[] = [
     answer: 'Atiendo de lunes a viernes de 9:00 AM a 7:00 PM en ambos consultorios (Iztapalapa, CDMX y Metepec, México). Las consultas en línea también están disponibles en estos horarios. Para agendar una cita, puedes usar el calendario en línea, llamar o contactar por WhatsApp.',
     category: 'General',
   },
+  {
+    question: '¿Cuál es la política de cancelación?',
+    answer: 'Puedes cancelar o reprogramar tu cita hasta 24 horas antes sin ningún costo. Si necesitas cancelar con menos anticipación, te pedimos nos avises lo antes posible para poder ofrecer ese horario a otro paciente. No hay penalización, pero agradecemos tu consideración.',
+    category: 'General',
+  },
+  {
+    question: '¿Hay estacionamiento disponible?',
+    answer: 'Sí, en ambos consultorios hay opciones de estacionamiento. En Iztapalapa (CDMX) hay estacionamiento en la calle y parquímetros cercanos. En Metepec hay estacionamiento gratuito disponible en las inmediaciones del consultorio.',
+    category: 'General',
+  },
 ];
 
 export const FAQSection = () => {

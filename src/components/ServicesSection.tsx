@@ -143,14 +143,21 @@ export const ServicesSection = () => {
                 </div>
               ))}
             </div>
-            {/* Scroll indicator dots */}
-            <div className="flex justify-center gap-1.5 mt-2">
-              {specialties.map((_, index) => (
-                <div 
-                  key={index} 
-                  className="w-2 h-2 rounded-full bg-primary/30"
-                />
-              ))}
+            {/* Scroll indicator with swipe hint */}
+            <div className="flex flex-col items-center gap-2 mt-3">
+              <div className="flex items-center gap-1.5">
+                {specialties.map((_, index) => (
+                  <div 
+                    key={index} 
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      index === 0 ? 'w-4 bg-primary' : 'w-1.5 bg-primary/30'
+                    }`}
+                  />
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground flex items-center gap-1">
+                <span>←</span> Desliza para ver más <span>→</span>
+              </p>
             </div>
           </div>
 
