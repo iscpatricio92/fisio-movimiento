@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, X, Maximize2 } from 'lucide-react';
+import { X, Maximize2 } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +8,6 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
-import { ScrollAnimated } from './ScrollAnimated';
 
 interface GalleryImage {
   src: string;
@@ -40,73 +39,76 @@ const galleryImages: GalleryImage[] = [
   },
 ];
 
-export const ClinicGallery = () => {
+interface ClinicGalleryProps {
+  compact?: boolean;
+}
+
+export const ClinicGallery = ({ compact = false }: ClinicGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
   return (
-    <div className="mt-16 lg:mt-24">
-      <ScrollAnimated animation="fade-up" delay={100}>
-        <div className="text-center mb-8 lg:mb-12">
+    <div className="relative">
+      {/* Header - only show if not compact */}
+      {!compact && (
+        <div className="text-center mb-6">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
             Instalaciones
           </span>
-          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mt-2">
+          <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mt-2">
             Conoce Mis <span className="text-primary">Consultorios</span>
-          </h2>
-          <p className="text-sm lg:text-base text-muted-foreground mt-3 lg:mt-4 max-w-2xl mx-auto">
-            Espacios diseñados para tu comodidad y recuperación
-          </p>
+          </h3>
         </div>
-      </ScrollAnimated>
+      )}
 
-      <ScrollAnimated animation="fade-up" delay={200}>
-        <Carousel
-          opts={{
-            align: 'start',
-            loop: true,
-          }}
-          className="w-full max-w-5xl mx-auto"
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {galleryImages.map((image, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                <div 
-                  className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-glow transition-all duration-300"
-                  onClick={() => setSelectedImage(image)}
-                >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
-                        <Maximize2 className="w-5 h-5 text-white" />
-                      </div>
+      <Carousel
+        opts={{
+          align: 'start',
+          loop: true,
+        }}
+        className="w-full"
+      >
+        <CarouselContent className="-ml-2">
+          {galleryImages.map((image, index) => (
+            <CarouselItem key={index} className={`pl-2 ${compact ? 'basis-full' : 'basis-full'}`}>
+              <div 
+                className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-glow transition-all duration-300"
+                onClick={() => setSelectedImage(image)}
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                      <Maximize2 className="w-5 h-5 text-white" />
                     </div>
                   </div>
-                  {/* Caption */}
-                  {image.caption && (
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                      <p className="text-white font-semibold text-sm">{image.caption}</p>
-                    </div>
-                  )}
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex -left-4 lg:-left-12 bg-card/90 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground hover:border-primary" />
-          <CarouselNext className="hidden sm:flex -right-4 lg:-right-12 bg-card/90 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground hover:border-primary" />
-        </Carousel>
+                {/* Caption */}
+                {image.caption && (
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                    <p className="text-white font-semibold text-sm">{image.caption}</p>
+                  </div>
+                )}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="hidden sm:flex -left-4 lg:-left-5 bg-card/90 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground hover:border-primary h-10 w-10" />
+        <CarouselNext className="hidden sm:flex -right-4 lg:-right-5 bg-card/90 backdrop-blur-sm border-border hover:bg-primary hover:text-primary-foreground hover:border-primary h-10 w-10" />
+      </Carousel>
 
-        {/* Mobile swipe hint */}
-        <p className="text-center text-xs text-muted-foreground mt-4 sm:hidden">
-          ← Desliza para ver más →
-        </p>
-      </ScrollAnimated>
+      {/* Mobile swipe hint */}
+      <p className="text-center text-xs text-muted-foreground mt-3 sm:hidden">
+        ← Desliza para ver más →
+      </p>
+
+      {/* Decorative element */}
+      <div className="absolute -z-10 -bottom-6 -right-6 w-full h-full rounded-3xl border-2 border-primary/20" />
 
       {/* Lightbox Modal */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>

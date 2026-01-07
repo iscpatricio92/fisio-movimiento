@@ -1,13 +1,6 @@
 import { GraduationCap, Globe, Award, Heart, Clock, Check } from 'lucide-react';
 import { ClinicGallery } from './ClinicGallery';
-import clinicImage from '@/assets/clinic-hero.jpg';
-// Responsive image sizes for srcset
-import clinicImageWebP400 from '@/assets/clinic-hero.jpg?w=400&format=webp';
-import clinicImageWebP800 from '@/assets/clinic-hero.jpg?w=800&format=webp';
-import clinicImageWebP1200 from '@/assets/clinic-hero.jpg?w=1200&format=webp';
-import clinicImageWebP1920 from '@/assets/clinic-hero.jpg?w=1920&format=webp';
 import { ScrollAnimated } from './ScrollAnimated';
-import { OptimizedImage } from './OptimizedImage';
 
 interface Credential {
   icon: React.ElementType;
@@ -82,24 +75,10 @@ export const AboutSection = () => {
       <div className="container mx-auto px-4">
         <ScrollAnimated animation="fade-up" delay={0}>
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Image */}
+            {/* Clinic Gallery Carousel */}
             <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-card">
-              <OptimizedImage
-                src={clinicImage}
-                alt="Consultorio de fisioterapia moderno"
-                webpSrc={clinicImageWebP400}
-                srcSet={`${clinicImageWebP400} 400w, ${clinicImageWebP800} 800w, ${clinicImageWebP1200} 1200w, ${clinicImageWebP1920} 1920w`}
-                sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, (max-width: 1280px) 1200px, 1920px"
-                width={1920}
-                height={1080}
-                className="w-full h-auto object-cover"
-                blurPlaceholder
-              />
+              <ClinicGallery compact />
             </div>
-            {/* Decorative element */}
-            <div className="absolute -z-10 -bottom-8 -right-8 w-full h-full rounded-3xl border-2 border-primary/20" />
-          </div>
 
           {/* Content */}
           <div className="space-y-6 lg:space-y-8">
@@ -252,9 +231,6 @@ export const AboutSection = () => {
             </div>
           </div>
         </ScrollAnimated>
-
-        {/* Clinic Gallery */}
-        <ClinicGallery />
       </div>
     </section>
   );
