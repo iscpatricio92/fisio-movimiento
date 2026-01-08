@@ -55,7 +55,10 @@ jobs:
           fi
 
       - name: Build project
-        run: npm run build
+        run: |
+          echo "🔨 Starting build..."
+          npm run build
+          echo "✅ Build command completed"
         continue-on-error: false
         env:
           # Generar un hash único para cada build para forzar actualización del Service Worker
@@ -69,10 +72,25 @@ jobs:
           if [ -d "dist" ]; then
             echo "  - Output directory: dist/"
             echo "  - Total files in dist: $(find dist -type f | wc -l)"
+            echo ""
+            echo "Checking dist/index.html..."
+            if [ -f "dist/index.html" ]; then
+              echo "  - dist/index.html exists"
+              echo "  - File size: $(wc -l < dist/index.html) lines"
+              echo ""
+              echo "Script tags in index.html:"
+              grep -n "script.*src" dist/index.html || echo "  No script tags found"
+            else
+              echo "  ❌ dist/index.html NOT FOUND"
+            fi
+          else
+            echo "  ❌ dist/ directory NOT FOUND"
           fi
 
       - name: Verify build output
         run: |
+          echo "🔍 Verifying build output..."
+          
           if [ ! -d "dist" ]; then
             echo "❌ Error: dist directory not found after build"
             exit 1
@@ -80,23 +98,47 @@ jobs:
           
           if [ ! -f "dist/index.html" ]; then
             echo "❌ Error: dist/index.html not found"
+            echo "Contents of dist/:"
+            ls -la dist/ || echo "dist/ is empty or doesn't exist"
             exit 1
           fi
           
+          echo "Checking index.html content..."
+          echo "First 50 lines of dist/index.html:"
+          head -50 dist/index.html
+          echo ""
+          
           # Check that index.html references .js files, not .tsx
-          if grep -q "main.tsx" dist/index.html; then
-            echo "❌ Error: index.html still references .tsx files instead of compiled .js"
+          # Look for script src attributes that reference .tsx files
+          # We check for the pattern: src="/src/main.tsx" or src='...tsx'
+          if grep -q 'src="/src/main.tsx"' dist/index.html || grep -q "src='/src/main.tsx'" dist/index.html; then
+            echo "❌ Error: index.html still references .tsx files in script src instead of compiled .js"
             echo "This indicates the build did not process index.html correctly"
             echo ""
-            echo "Current index.html content:"
-            cat dist/index.html
+            echo "Searching for problematic script src references:"
+            grep -n 'src=.*\.tsx' dist/index.html || echo "No .tsx script src found"
+            echo ""
+            echo "All script tags with src in index.html:"
+            grep -n 'script.*src' dist/index.html
+            echo ""
+            echo "First 100 lines of dist/index.html:"
+            head -100 dist/index.html
             exit 1
+          fi
+          
+          # Check that index.html has script tags with .js files
+          if ! grep -q "script.*src.*\.js" dist/index.html; then
+            echo "⚠️  Warning: No .js script references found in index.html"
+            echo "Script tags found:"
+            grep -n "script" dist/index.html || echo "No script tags found"
           fi
           
           # Verify that JavaScript files exist
           JS_COUNT=$(find dist -name "*.js" -type f | wc -l)
           if [ "$JS_COUNT" -eq 0 ]; then
             echo "❌ Error: No JavaScript files found in dist/"
+            echo "Contents of dist/:"
+            ls -la dist/
             exit 1
           fi
           
