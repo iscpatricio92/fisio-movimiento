@@ -1,4 +1,4 @@
-import { GraduationCap, Globe, Award, Heart, Clock, Check } from 'lucide-react';
+import { GraduationCap, Award, Heart, Clock, Check } from 'lucide-react';
 import { ClinicGallery } from './ClinicGallery';
 import { ScrollAnimated } from './ScrollAnimated';
 
@@ -43,11 +43,6 @@ const values = [
     description: 'Cada sesión está adaptada a tus necesidades específicas.',
   },
   {
-    icon: Globe,
-    title: 'Doble Titulación',
-    description: 'Formación en México y España para un enfoque integral.',
-  },
-  {
     icon: Award,
     title: 'Basado en Evidencia',
     description: 'Tratamientos respaldados por la ciencia más actual.',
@@ -55,18 +50,8 @@ const values = [
 ];
 
 const languages = [
-  {
-    name: 'Español',
-    level: 'Nativo',
-    flag: '🇲🇽',
-    description: 'Idioma materno',
-  },
-  {
-    name: 'Inglés',
-    level: 'Avanzado',
-    flag: '🇬🇧',
-    description: 'Comunicación profesional fluida',
-  },
+  { flag: '🇲🇽', name: 'Español', level: 'Nativo' },
+  { flag: '🇬🇧', name: 'Inglés', level: 'Avanzado' },
 ];
 
 export const AboutSection = () => {
@@ -186,49 +171,20 @@ export const AboutSection = () => {
           </div>
         </ScrollAnimated>
 
-        {/* Languages Section */}
-        <ScrollAnimated animation="fade-up" delay={0}>
-          <div className="mt-16 lg:mt-24">
-            <ScrollAnimated animation="fade-up" delay={100}>
-              <div className="text-center mb-8 lg:mb-12">
-                <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-                  Idiomas
-                </span>
-                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mt-2">
-                  Comunicación <span className="text-primary">Multilingüe</span>
-                </h2>
-                <p className="hidden sm:block text-sm lg:text-base text-muted-foreground mt-3 lg:mt-4 max-w-2xl mx-auto">
-                  Atiendo pacientes en múltiples idiomas
-                </p>
+        {/* Languages - Compact Badges */}
+        <ScrollAnimated animation="fade-up" delay={200}>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <span className="text-sm text-muted-foreground font-medium">Idiomas:</span>
+            {languages.map((language, index) => (
+              <div
+                key={index}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card border border-border/50 shadow-soft hover:shadow-md hover:border-primary/30 transition-all duration-300"
+              >
+                <span className="text-lg">{language.flag}</span>
+                <span className="font-medium text-foreground">{language.name}</span>
+                <span className="text-xs text-muted-foreground">• {language.level}</span>
               </div>
-            </ScrollAnimated>
-
-            <div className="grid sm:grid-cols-2 gap-4 lg:gap-6 max-w-2xl mx-auto">
-              {languages.map((language, index) => (
-                <ScrollAnimated key={index} animation="slide-up" delay={index * 100}>
-                  <div className="group p-6 rounded-2xl bg-card shadow-soft hover:shadow-glow transition-all duration-300 hover:-translate-y-2 border border-border/50 hover:border-primary/30">
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 rounded-2xl gradient-hero flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-300 shadow-md">
-                    {language.flag}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-display font-bold text-xl text-foreground">
-                        {language.name}
-                      </h3>
-                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold border border-primary/20">
-                        {language.level}
-                      </span>
-                    </div>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {language.description}
-                    </p>
-                  </div>
-                  </div>
-                  </div>
-                </ScrollAnimated>
-              ))}
-            </div>
+            ))}
           </div>
         </ScrollAnimated>
       </div>
