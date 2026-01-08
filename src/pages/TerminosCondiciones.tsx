@@ -160,7 +160,7 @@ const TerminosCondiciones = () => {
               <div className="flex items-center gap-3 mb-4">
                 <CreditCard className="w-6 h-6 text-primary" />
                 <h2 className="font-display text-2xl font-bold text-foreground">
-                  6. Métodos de Pago y Facturación
+                  6. Métodos de Pago
                 </h2>
               </div>
               <p className="text-foreground mb-4">Aceptamos los siguientes métodos de pago:</p>
@@ -173,17 +173,17 @@ const TerminosCondiciones = () => {
                   <span className="text-primary mt-1">•</span>
                   <span><strong>Transferencia bancaria:</strong> Se proporcionarán los datos bancarios al confirmar la cita</span>
                 </li>
-                <li className="flex items-start gap-2">
+               {/*  <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
                   <span><strong>Tarjeta de débito/crédito:</strong> Aceptadas en el consultorio (sujeto a disponibilidad del terminal)</span>
-                </li>
+                </li> */}
               </ul>
-              <div className="bg-background/50 rounded-lg p-4 mt-4">
+              {/* <div className="bg-background/50 rounded-lg p-4 mt-4">
                 <p className="text-sm text-foreground">
                   <strong>Facturación:</strong> Se proporciona factura electrónica (CFDI) cuando se solicita. 
                   Para facturación, se requiere proporcionar los datos fiscales completos (RFC, razón social, dirección fiscal).
                 </p>
-              </div>
+              </div> */}
             </section>
 
             {/* Precios */}
@@ -293,7 +293,7 @@ const TerminosCondiciones = () => {
               <div className="space-y-2 text-foreground">
                 <p>• Teléfono: <a href="tel:+525565053202" className="text-primary hover:underline font-semibold">+52 55 6505 3202</a></p>
                 <p>• WhatsApp: <a href="https://wa.me/525565053202" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">Enviar mensaje</a></p>
-                <p>• Correo: <a href="mailto:contacto@fisio-movimiento.com" className="text-primary hover:underline font-semibold">contacto@fisio-movimiento.com</a></p>
+                <p>• Correo: <a href="mailto:fisio-movimiento.mx@gmail.com" className="text-primary hover:underline font-semibold">fisio-movimiento.mx@gmail.com</a></p>
               </div>
             </section>
           </div>
