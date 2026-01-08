@@ -1,28 +1,32 @@
 /**
- * Analytics and Event Tracking using Google Analytics 4 (GA4)
+ * Analytics and Event Tracking using Google Analytics 4 (GA4) and Meta Pixel
  * 
  * This module provides utilities for tracking user interactions and events.
- * Uses Google Analytics 4 directly via gtag.js.
+ * Uses Google Analytics 4 directly via gtag.js and Meta Pixel via fbq.
  * 
  * Usage:
- * - Import: import { trackEvent, trackPageView } from '@/lib/analytics'
- * - Track event: trackEvent('button_click', { button_name: 'Reservar Cita' })
+ * - Import: import { trackEvent, trackPageView, trackMetaPixelEvent } from '@/lib/analytics'
+ * - Track event in GA4: trackEvent('button_click', { button_name: 'Reservar Cita' })
+ * - Track event in Meta Pixel: trackMetaPixelEvent('Lead', { content_name: 'Reservar Cita' })
  * - Track page view: trackPageView('/page-path')
  * 
  * Setup:
- * The GA4 script is loaded directly in index.html
- * Measurement ID: G-3L9C8QMNZV
+ * - GA4 script is loaded directly in index.html (Measurement ID: G-3L9C8QMNZV)
+ * - Meta Pixel script is loaded directly in index.html (Pixel ID: 1552455925827622)
+ * 
+ * Note: Most tracking functions automatically track in both GA4 and Meta Pixel
  */
 
 // Google Analytics 4 Measurement ID
 // This is loaded via the script tag in index.html
 const GA_MEASUREMENT_ID = 'G-3L9C8QMNZV';
 
-// Declare gtag function type
+// Declare gtag and fbq function types
 declare global {
   interface Window {
     dataLayer: unknown[];
     gtag: (...args: unknown[]) => void;
+    fbq: (...args: unknown[]) => void;
   }
 }
 
@@ -31,6 +35,12 @@ declare global {
 const isAnalyticsEnabled = () => {
   const isProduction = import.meta.env.PROD;
   return typeof window !== 'undefined' && Boolean(window.gtag) && isProduction;
+};
+
+// Check if Meta Pixel is enabled
+const isMetaPixelEnabled = () => {
+  const isProduction = import.meta.env.PROD;
+  return typeof window !== 'undefined' && Boolean(window.fbq) && isProduction;
 };
 
 // Initialize analytics (called in main.tsx)
@@ -104,6 +114,16 @@ export const trackCTAClick = (ctaName: string, location?: string) => {
     cta_name: ctaName,
     cta_location: location || 'unknown',
   });
+  
+  // Also track in Meta Pixel
+  if (ctaName.toLowerCase().includes('reservar') || ctaName.toLowerCase().includes('cita')) {
+    trackMetaPixelEvent('Lead', {
+      content_name: ctaName,
+      content_category: 'CTA',
+      value: 0,
+      currency: 'MXN',
+    });
+  }
 };
 
 // Track external link clicks
@@ -112,6 +132,16 @@ export const trackExternalLink = (url: string, linkText?: string) => {
     link_url: url,
     link_text: linkText || 'unknown',
   });
+  
+  // Track in Meta Pixel if it's a booking link
+  if (url.includes('doctoralia')) {
+    trackMetaPixelEvent('InitiateCheckout', {
+      content_name: 'Doctoralia Booking',
+      content_category: 'Booking Platform',
+      value: 0,
+      currency: 'MXN',
+    });
+  }
 };
 
 // Track phone number clicks
@@ -120,6 +150,14 @@ export const trackPhoneClick = (phoneNumber: string, location?: string) => {
     phone_number: phoneNumber,
     location: location || 'unknown',
   });
+  
+  // Also track in Meta Pixel as 'Contact' event
+  trackMetaPixelEvent('Contact', {
+    content_name: 'Phone Call',
+    content_category: 'Contact Method',
+    value: 0,
+    currency: 'MXN',
+  });
 };
 
 // Track WhatsApp clicks
@@ -127,6 +165,14 @@ export const trackWhatsAppClick = (message?: string, location?: string) => {
   trackEvent('whatsapp_click', {
     message_preview: message?.substring(0, 50) || 'default',
     location: location || 'unknown',
+  });
+  
+  // Also track in Meta Pixel as 'Contact' event
+  trackMetaPixelEvent('Contact', {
+    content_name: 'WhatsApp',
+    content_category: 'Contact Method',
+    value: 0,
+    currency: 'MXN',
   });
 };
 
@@ -179,4 +225,178 @@ export const trackShareClick = (method: string, platform: string) => {
     method: method,
     platform: platform,
   });
+};
+
+// ============================================
+// Meta Pixel Event Tracking
+// ============================================
+
+/**
+ * Track event in Meta Pixel (Facebook Pixel)
+ * @param eventName - Standard Meta Pixel event name (e.g., 'Lead', 'Contact', 'ViewContent')
+ * @param eventParams - Optional parameters for the event
+ */
+export const trackMetaPixelEvent = (
+  eventName: string,
+  eventParams?: Record<string, string | number>
+) => {
+  if (!isMetaPixelEnabled()) {
+    if (import.meta.env.DEV) {
+      console.log('Meta Pixel: Event blocked (dev mode):', eventName, eventParams);
+    }
+    return;
+  }
+
+  try {
+    window.fbq('track', eventName, eventParams || {});
+    
+    if (import.meta.env.DEV) {
+      console.log('Meta Pixel: Event sent:', eventName, eventParams);
+    }
+  } catch (error) {
+    console.error('Meta Pixel: Error sending event:', error);
+  }
+};
+
+/**
+ * Track custom event in Meta Pixel
+ * @param eventName - Custom event name
+ * @param eventParams - Optional parameters for the event
+ */
+export const trackMetaPixelCustomEvent = (
+  eventName: string,
+  eventParams?: Record<string, string | number>
+) => {
+  if (!isMetaPixelEnabled()) {
+    if (import.meta.env.DEV) {
+      console.log('Meta Pixel: Custom event blocked (dev mode):', eventName, eventParams);
+    }
+    return;
+  }
+
+  try {
+    window.fbq('trackCustom', eventName, eventParams || {});
+    
+    if (import.meta.env.DEV) {
+      console.log('Meta Pixel: Custom event sent:', eventName, eventParams);
+    }
+  } catch (error) {
+    console.error('Meta Pixel: Error sending custom event:', error);
+  }
+};
+
+// ============================================
+// Combined Tracking Functions
+// Track events in both GA4 and Meta Pixel
+// ============================================
+
+/**
+ * Track phone click in both GA4 and Meta Pixel
+ */
+export const trackPhoneClickCombined = (phoneNumber: string, location?: string) => {
+  // Track in GA4
+  trackPhoneClick(phoneNumber, location);
+  
+  // Track in Meta Pixel as 'Contact' event
+  trackMetaPixelEvent('Contact', {
+    content_name: 'Phone Call',
+    content_category: 'Contact Method',
+    value: 0,
+    currency: 'MXN',
+  });
+  
+  // Also track as custom event with more details
+  trackMetaPixelCustomEvent('PhoneClick', {
+    phone_number: phoneNumber,
+    location: location || 'unknown',
+  });
+};
+
+/**
+ * Track WhatsApp click in both GA4 and Meta Pixel
+ */
+export const trackWhatsAppClickCombined = (message?: string, location?: string) => {
+  // Track in GA4
+  trackWhatsAppClick(message, location);
+  
+  // Track in Meta Pixel as 'Contact' event
+  trackMetaPixelEvent('Contact', {
+    content_name: 'WhatsApp',
+    content_category: 'Contact Method',
+    value: 0,
+    currency: 'MXN',
+  });
+  
+  // Also track as custom event
+  trackMetaPixelCustomEvent('WhatsAppClick', {
+    location: location || 'unknown',
+    message_preview: message?.substring(0, 50) || 'default',
+  });
+};
+
+/**
+ * Track CTA click in both GA4 and Meta Pixel
+ */
+export const trackCTAClickCombined = (ctaName: string, location?: string) => {
+  // Track in GA4
+  trackCTAClick(ctaName, location);
+  
+  // Track in Meta Pixel as 'Lead' event (if it's a booking/reservation CTA)
+  if (ctaName.toLowerCase().includes('reservar') || ctaName.toLowerCase().includes('cita')) {
+    trackMetaPixelEvent('Lead', {
+      content_name: ctaName,
+      content_category: 'CTA',
+      value: 0,
+      currency: 'MXN',
+    });
+  } else {
+    // For other CTAs, use 'ViewContent'
+    trackMetaPixelEvent('ViewContent', {
+      content_name: ctaName,
+      content_category: 'CTA',
+    });
+  }
+  
+  // Also track as custom event
+  trackMetaPixelCustomEvent('CTAClick', {
+    cta_name: ctaName,
+    location: location || 'unknown',
+  });
+};
+
+/**
+ * Track Doctoralia/external booking link click in both GA4 and Meta Pixel
+ */
+export const trackBookingClickCombined = (platform: string, location?: string) => {
+  // Track in GA4
+  trackExternalLink(`https://www.doctoralia.com.mx/analaura-reyes-priego/fisioterapeuta/metepec`, platform);
+  
+  // Track in Meta Pixel as 'InitiateCheckout' or 'Lead'
+  trackMetaPixelEvent('InitiateCheckout', {
+    content_name: 'Doctoralia Booking',
+    content_category: 'Booking Platform',
+    value: 0,
+    currency: 'MXN',
+  });
+  
+  // Also track as custom event
+  trackMetaPixelCustomEvent('BookingClick', {
+    platform: platform,
+    location: location || 'unknown',
+  });
+};
+
+/**
+ * Track page view in Meta Pixel (called automatically on page load)
+ */
+export const trackMetaPixelPageView = () => {
+  // PageView is already tracked automatically in index.html
+  // This function is available if you need to track virtual pageviews
+  if (isMetaPixelEnabled()) {
+    try {
+      window.fbq('track', 'PageView');
+    } catch (error) {
+      console.error('Meta Pixel: Error sending page view:', error);
+    }
+  }
 };
