@@ -17,7 +17,10 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-3L9C8QMNZV');
+      // Disable automatic pageview for SPA - we'll track it manually in main.tsx
+      gtag('config', 'G-3L9C8QMNZV', {
+        send_page_view: false
+      });
     </script>
 
     <!-- Facebook Pixel -->
