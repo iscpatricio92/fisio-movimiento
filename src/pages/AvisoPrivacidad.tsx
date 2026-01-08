@@ -51,7 +51,7 @@ const AvisoPrivacidad = () => {
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground mt-2">
                   <Mail className="w-4 h-4" />
-                  <a href="mailto:contacto@fisio-movimiento.com" className="hover:text-primary transition-colors">contacto@fisio-movimiento.com</a>
+                  <a href="mailto:fisio-movimiento.mx@gmail.com" className="hover:text-primary transition-colors">fisio-movimiento.mx@gmail.com</a>
                 </div>
               </div>
             </section>
@@ -107,7 +107,7 @@ const AvisoPrivacidad = () => {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>Procesar pagos y facturación</span>
+                  <span>Procesar pagos</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
@@ -179,7 +179,7 @@ const AvisoPrivacidad = () => {
               <div className="bg-primary/10 rounded-lg p-4 mt-4">
                 <p className="text-foreground font-semibold mb-2">Medios de contacto:</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• Correo electrónico: <a href="mailto:contacto@fisio-movimiento.com" className="text-primary hover:underline">contacto@fisio-movimiento.com</a></li>
+                  <li>• Correo electrónico: <a href="mailto:fisio-movimiento.mx@gmail.com" className="text-primary hover:underline">fisio-movimiento.mx@gmail.com</a></li>
                   <li>• Teléfono: <a href="tel:+525565053202" className="text-primary hover:underline">+52 55 6505 3202</a></li>
                   <li>• Presencialmente en cualquiera de nuestros consultorios</li>
                 </ul>

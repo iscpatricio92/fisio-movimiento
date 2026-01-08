@@ -1,11 +1,24 @@
 import { Phone, MapPin, Instagram, Facebook, Youtube } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShareButtons } from './ShareButtons';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   const navItems = ['Inicio', 'Sobre mí', 'Servicios', 'Precios', 'Opiniones', 'FAQs', 'Contacto'];
+
+  // Función para generar el href de navegación
+  const getNavHref = (item: string) => {
+    const hash = `#${item.toLowerCase().replace(' ', '-')}`;
+    return isHomePage ? hash : `/${hash}`;
+  };
+
+  // Función para hacer scroll al top cuando se hace clic en enlaces legales
+  const handleLegalLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="bg-foreground text-primary-foreground py-12 lg:py-16 border-t border-primary-foreground/10 pb-28 lg:pb-16">
@@ -73,7 +86,7 @@ export const Footer = () => {
             {navItems.map((item) => (
               <a
                 key={item}
-                href={`#${item.toLowerCase().replace(' ', '-')}`}
+                href={getNavHref(item)}
                 className="text-sm text-primary-foreground/60 hover:text-accent transition-colors py-2 text-center"
               >
                 {item}
@@ -90,15 +103,15 @@ export const Footer = () => {
           {/* Legal Links */}
           <div className="text-center space-y-2 pt-4 border-t border-primary-foreground/10">
             <div className="flex flex-wrap justify-center gap-3 text-xs">
-              <Link to="/aviso-privacidad" className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <Link to="/aviso-privacidad" onClick={handleLegalLinkClick} className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Aviso de Privacidad
               </Link>
               <span className="text-primary-foreground/30">•</span>
-              <Link to="/politica-cancelacion" className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <Link to="/politica-cancelacion" onClick={handleLegalLinkClick} className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Política de Cancelación
               </Link>
               <span className="text-primary-foreground/30">•</span>
-              <Link to="/terminos-condiciones" className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <Link to="/terminos-condiciones" onClick={handleLegalLinkClick} className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Términos y Condiciones
               </Link>
             </div>
@@ -165,7 +178,7 @@ export const Footer = () => {
                 {navItems.map((item) => (
                   <li key={item}>
                     <a
-                      href={`#${item.toLowerCase().replace(' ', '-')}`}
+                      href={getNavHref(item)}
                       className="text-primary-foreground/70 hover:text-accent transition-all duration-300 hover:translate-x-1 inline-block font-medium"
                     >
                       {item}
@@ -209,15 +222,15 @@ export const Footer = () => {
           {/* Legal Links */}
           <div className="mt-8 pt-8 border-t border-primary-foreground/10">
             <div className="flex flex-wrap justify-center gap-4 text-sm mb-6">
-              <Link to="/aviso-privacidad" className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <Link to="/aviso-privacidad" onClick={handleLegalLinkClick} className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Aviso de Privacidad
               </Link>
               <span className="text-primary-foreground/30">•</span>
-              <Link to="/politica-cancelacion" className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <Link to="/politica-cancelacion" onClick={handleLegalLinkClick} className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Política de Cancelación
               </Link>
               <span className="text-primary-foreground/30">•</span>
-              <Link to="/terminos-condiciones" className="text-primary-foreground/60 hover:text-accent transition-colors">
+              <Link to="/terminos-condiciones" onClick={handleLegalLinkClick} className="text-primary-foreground/60 hover:text-accent transition-colors">
                 Términos y Condiciones
               </Link>
             </div>
