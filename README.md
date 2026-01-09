@@ -203,7 +203,23 @@ La documentación detallada está disponible en el directorio `docs/`:
 
 ### Variables de Entorno
 
-El proyecto no requiere variables de entorno en desarrollo. Las configuraciones están en:
+Copia `.env.example` a `.env` y configura las siguientes variables:
+
+```bash
+cp .env.example .env
+```
+
+**Variables disponibles:**
+
+- `VITE_SENTRY_DSN` (Opcional) - DSN de Sentry para error tracking en producción
+  - **Para producción (GitHub Pages)**: Agrega como secret en GitHub (Settings > Secrets > Actions)
+  - **Para desarrollo local**: Agrega en archivo `.env`
+  - Obtén tu DSN en [Sentry.io](https://sentry.io/settings/{org}/projects/{project}/keys/)
+  - Si no se configura, el error tracking estará deshabilitado (el sitio funciona normalmente)
+
+**Nota sobre GitHub Pages**: Como GitHub Pages es hosting estático, las variables de entorno se inyectan durante el **build** (no en runtime). El workflow de GitHub Actions ya está configurado para usar `VITE_SENTRY_DSN` como secret. Ver [`docs/GITHUB_PAGES_VARIABLES_ENTORNO.md`](docs/GITHUB_PAGES_VARIABLES_ENTORNO.md) para más detalles.
+
+**Otras configuraciones** (no requieren variables de entorno):
 
 - `index.html` - Google Analytics Measurement ID (`G-3L9C8QMNZV`)
 - `vite.config.ts` - Configuración de build y PWA
