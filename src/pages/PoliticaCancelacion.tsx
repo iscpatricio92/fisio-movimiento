@@ -4,8 +4,17 @@ import { ScrollAnimated } from '@/components/ScrollAnimated';
 import { CalendarX, Clock, AlertCircle, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useMetaTags } from '@/hooks/use-meta-tags';
 
 const PoliticaCancelacion = () => {
+  useMetaTags({
+    title: 'Política de Cancelación y Reagendación | FisioAnalaura',
+    description:
+      'Política de cancelación y reagendación de citas de fisioterapia. Conoce los tiempos límite, penalizaciones y condiciones para cancelar o reagendar tu cita sin cargo.',
+    url: 'https://fisio-movimiento.com/politica-cancelacion',
+    type: 'article',
+  });
+
   return (
     <div className="min-h-screen bg-background pt-24 lg:pt-0">
       <Navbar />

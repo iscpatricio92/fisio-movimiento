@@ -192,8 +192,49 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]',
-        // Let Vite handle chunk splitting automatically for better compatibility
-        // React.lazy() will automatically create separate chunks for lazy-loaded components
+        // Manual chunk splitting for better performance
+        manualChunks: (id) => {
+          // Separate vendor chunks for better caching
+          // React and React DOM
+          if (
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/')
+          ) {
+            return 'vendor-react';
+          }
+          // React Router
+          if (id.includes('node_modules/react-router')) {
+            return 'vendor-router';
+          }
+          // Radix UI components (large library, split for better caching)
+          if (id.includes('node_modules/@radix-ui')) {
+            return 'vendor-radix';
+          }
+          // Sentry (only loaded in production)
+          if (id.includes('node_modules/@sentry')) {
+            return 'vendor-sentry';
+          }
+          // UI libraries (lucide-react, embla-carousel, etc.)
+          if (
+            id.includes('node_modules/lucide-react') ||
+            id.includes('node_modules/embla-carousel') ||
+            id.includes('node_modules/sonner')
+          ) {
+            return 'vendor-ui';
+          }
+          // Form libraries
+          if (
+            id.includes('node_modules/react-hook-form') ||
+            id.includes('node_modules/@hookform') ||
+            id.includes('node_modules/zod')
+          ) {
+            return 'vendor-forms';
+          }
+          // Other node_modules (utilities, etc.)
+          if (id.includes('node_modules')) {
+            return 'vendor-other';
+          }
+        },
       },
     },
   },

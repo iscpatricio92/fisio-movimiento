@@ -4,8 +4,17 @@ import { ScrollAnimated } from '@/components/ScrollAnimated';
 import { FileText, AlertTriangle, Shield, CreditCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useMetaTags } from '@/hooks/use-meta-tags';
 
 const TerminosCondiciones = () => {
+  useMetaTags({
+    title: 'Términos y Condiciones | FisioAnalaura - Servicios de Fisioterapia',
+    description:
+      'Términos y condiciones de uso del sitio web y servicios de fisioterapia de FisioAnalaura. Conoce las condiciones, métodos de pago y políticas de servicio.',
+    url: 'https://fisio-movimiento.com/terminos-condiciones',
+    type: 'article',
+  });
+
   return (
     <div className="min-h-screen bg-background pt-24 lg:pt-0">
       <Navbar />
@@ -256,7 +265,7 @@ const TerminosCondiciones = () => {
               </ul>
               {/* <div className="bg-background/50 rounded-lg p-4 mt-4">
                 <p className="text-sm text-foreground">
-                  <strong>Facturación:</strong> Se proporciona factura electrónica (CFDI) cuando se solicita. 
+                  <strong>Facturación:</strong> Se proporciona factura electrónica (CFDI) cuando se solicita.
                   Para facturación, se requiere proporcionar los datos fiscales completos (RFC, razón social, dirección fiscal).
                 </p>
               </div> */}

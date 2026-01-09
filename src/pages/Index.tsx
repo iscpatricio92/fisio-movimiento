@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { useSectionTracking } from '@/hooks/use-section-tracking';
 import { useHashNavigation } from '@/hooks/use-hash-navigation';
 import { useSectionTimeTracking } from '@/hooks/use-section-time-tracking';
+import { useMetaTags } from '@/hooks/use-meta-tags';
 
 // Genera el schema BreadcrumbList para SEO
 const generateBreadcrumbSchema = () => ({
@@ -85,6 +86,18 @@ const SocialMediaSection = lazy(() =>
 );
 
 const Index = () => {
+  // Meta tags para la página principal (unifica con index.html)
+  useMetaTags({
+    title: 'Fisioterapeuta CDMX y Metepec | Analaura Reyes - ATM, Dolor',
+    description:
+      'Fisioterapeuta con doble titulación México-España. Especialista en dolor de espalda, ATM e hipopresivos. CDMX y Metepec. Primera cita $600. ¡Reserva hoy!',
+    url: 'https://fisio-movimiento.com/',
+    type: 'website',
+    twitterTitle: 'Lic. Analaura Reyes Priego | Fisioterapeuta Especializada',
+    twitterDescription:
+      'Fisioterapeuta con doble titulación. Especialista en traumatología, ATM, hipopresivos y manejo del dolor. Consultorios en CDMX y Metepec.',
+  });
+
   // Hook para manejar navegación con hash y tracking
   useHashNavigation();
 

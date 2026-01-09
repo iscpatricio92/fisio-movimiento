@@ -4,8 +4,13 @@ import App from './App.tsx';
 import './index.css';
 import { initAnalytics, trackPageView } from './lib/analytics';
 
-// Initialize Sentry for error tracking (only in production)
-if (import.meta.env.PROD && import.meta.env.VITE_SENTRY_DSN) {
+// Initialize Sentry for error tracking
+// Enable in production OR in development if VITE_SENTRY_TEST=true (for local testing)
+const shouldInitSentry =
+  import.meta.env.VITE_SENTRY_DSN &&
+  (import.meta.env.PROD || import.meta.env.VITE_SENTRY_TEST === 'true');
+
+if (shouldInitSentry) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
     integrations: [
@@ -21,10 +26,10 @@ if (import.meta.env.PROD && import.meta.env.VITE_SENTRY_DSN) {
     replaysSessionSampleRate: 0.1, // 10% of sessions
     replaysOnErrorSampleRate: 1.0, // 100% of sessions with errors
     environment: import.meta.env.MODE,
-    // Filter out development errors
+    // Allow errors in development if VITE_SENTRY_TEST=true
     beforeSend(event) {
-      // Don't send errors in development
-      if (import.meta.env.DEV) {
+      // In development, only send if explicitly testing
+      if (import.meta.env.DEV && import.meta.env.VITE_SENTRY_TEST !== 'true') {
         return null;
       }
       return event;

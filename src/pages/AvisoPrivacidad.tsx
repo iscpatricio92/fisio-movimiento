@@ -4,8 +4,17 @@ import { ScrollAnimated } from '@/components/ScrollAnimated';
 import { Shield, Mail, Phone, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useMetaTags } from '@/hooks/use-meta-tags';
 
 const AvisoPrivacidad = () => {
+  useMetaTags({
+    title: 'Aviso de Privacidad | FisioAnalaura - Protección de Datos',
+    description:
+      'Aviso de Privacidad de FisioAnalaura. Conoce cómo protegemos tus datos personales según la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP).',
+    url: 'https://fisio-movimiento.com/aviso-privacidad',
+    type: 'article',
+  });
+
   return (
     <div className="min-h-screen bg-background pt-24 lg:pt-0">
       <Navbar />
