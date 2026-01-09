@@ -16,6 +16,7 @@ dev-dist
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
 .DS_Store
 *.suo
@@ -24,7 +25,8 @@ dev-dist
 *.sln
 *.sw?
 
-# Snyk Security Extension - AI Rules (auto-generated)
-.cursor/rules/snyk_rules.mdc
+# Cursor IDE - Ignore auto-generated rules, but keep project settings
+.cursor/rules/*
+!.cursor/settings.json
 
 .env

@@ -47,6 +47,32 @@ jobs:
           fi
           echo "Dependencies installed successfully"
 
+      - name: Security audit
+        run: |
+          echo "🔒 Running security audit..."
+          echo "Checking for high and critical vulnerabilities in production dependencies..."
+          npm audit --audit-level=high --omit=dev || {
+            echo ""
+            echo "⚠️  High or critical security vulnerabilities found in production dependencies!"
+            echo ""
+            echo "To fix automatically (if possible):"
+            echo "  npm audit fix"
+            echo ""
+            echo "To review vulnerabilities:"
+            echo "  npm audit"
+            echo ""
+            echo "Note: Some vulnerabilities may require manual updates or may not affect your use case."
+            echo "Review the vulnerabilities above and update dependencies if necessary."
+            exit 1
+          }
+          echo "✅ Security audit passed (production dependencies)"
+          echo ""
+          echo "Checking dev dependencies (informational only)..."
+          npm audit --audit-level=moderate --omit=optional || {
+            echo "ℹ️  Vulnerabilities found in dev dependencies (non-blocking)"
+            echo "Consider running 'npm audit fix' to update dev dependencies when possible"
+          }
+
       - name: Run ESLint
         run: |
           echo "🔍 Running ESLint..."
