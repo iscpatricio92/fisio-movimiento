@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 # Auto-incrementar versión antes de commit
 # Solo incrementa si la versión es igual a la de main y no está ya en staging
 node scripts/auto-bump-version.js patch > /dev/null 2>&1

@@ -4,9 +4,16 @@
  * Script para incrementar automáticamente la versión antes de commit/push
  * 
  * Este script:
- * 1. Compara la versión actual con la versión en main
- * 2. Si son iguales, incrementa la versión (patch por defecto)
- * 3. Si ya fue incrementada, no hace nada
+ * 1. Detecta en qué branch estás
+ * 2. Si estás en 'main' → NO incrementa (main es producción, recibe versiones desde develop)
+ * 3. Si estás en 'develop' u otro branch:
+ *    - Compara la versión actual con la versión en main (producción)
+ *    - Si son iguales, incrementa la versión (patch por defecto)
+ *    - Si ya fue incrementada, no hace nada
+ * 
+ * Flujo de trabajo:
+ * - Trabajas en develop → Auto-incrementa cuando versión = main
+ * - Haces PR develop → main → main recibe la versión incrementada
  * 
  * Uso: node scripts/auto-bump-version.js [patch|minor|major]
  */
@@ -33,7 +40,17 @@ if (!['patch', 'minor', 'major'].includes(bumpType)) {
 }
 
 try {
-  // Obtener versión de main (si existe)
+  // Detectar en qué branch estamos
+  const currentBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf8' }).trim();
+  
+  // Si estamos en main, NO incrementar (main es producción, recibe versiones desde develop via PR)
+  if (currentBranch === 'main') {
+    // No incrementar en main, main recibe versiones desde develop via PR
+    process.exit(0);
+  }
+
+  // Obtener versión de main para comparar (main es la rama de producción)
+  // develop se compara con main para saber si necesita incrementar
   let mainVersion = null;
   try {
     execSync('git fetch origin main --quiet 2>/dev/null || true', { stdio: 'ignore' });
@@ -43,15 +60,14 @@ try {
       mainVersion = mainPackage.version;
     }
   } catch (error) {
-    // Si no hay main remoto o no existe, usar versión actual como base
-    console.log('⚠️  No se pudo obtener versión de main, usando versión actual como base');
+    // Si no hay main remoto, continuar sin comparar
   }
 
   // Leer package.json actual
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
   const currentVersion = packageJson.version;
 
-  // Si la versión ya es diferente a main, no hacer nada
+  // Si la versión ya es diferente a main, no hacer nada (ya fue incrementada)
   if (mainVersion && currentVersion !== mainVersion) {
     // Versión ya actualizada, no hacer nada
     process.exit(0);
