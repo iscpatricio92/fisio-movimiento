@@ -118,6 +118,7 @@ export const ClinicGallery = ({ compact = false }: ClinicGalleryProps) => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                     decoding="async"
+                    fetchPriority="auto"
                     width={800}
                     height={600}
                   />
@@ -185,7 +186,9 @@ export const ClinicGallery = ({ compact = false }: ClinicGalleryProps) => {
                   src={selectedImage.fallback}
                   alt={selectedImage.alt}
                   className="w-full h-auto max-h-[80vh] object-contain"
-                  decoding="async"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </picture>
               {selectedImage.caption && (

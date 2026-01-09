@@ -190,7 +190,8 @@ export const HeroSection = () => {
                     alt="Lic. Analaura Reyes Priego - Fisioterapeuta"
                     className="w-full h-auto object-cover"
                     loading="eager"
-                    decoding="async"
+                    fetchPriority="high"
+                    decoding="sync"
                     width={530}
                     height={530}
                   />

@@ -366,6 +366,8 @@ export const TestimonialsSection = () => {
                   alt="Doctoralia"
                   className="h-6 object-contain"
                   loading="lazy"
+                  fetchPriority="auto"
+                  decoding="async"
                 />
               </div>
               <p className="text-muted-foreground">
