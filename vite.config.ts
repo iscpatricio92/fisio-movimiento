@@ -5,6 +5,7 @@ import { componentTagger } from 'lovable-tagger';
 import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -152,6 +153,23 @@ export default defineConfig(({ mode }) => ({
         brotliSize: true,
         template: 'treemap', // o "sunburst", "network"
       }),
+    // Sentry source maps plugin - solo en producción y si hay auth token
+    ...(mode === 'production' &&
+    process.env.SENTRY_AUTH_TOKEN &&
+    process.env.VITE_SENTRY_DSN
+      ? [
+          sentryVitePlugin({
+            org: 'pat-company-mn',
+            project: 'fisio-movimiento',
+            authToken: process.env.SENTRY_AUTH_TOKEN,
+            sourcemaps: {
+              assets: './dist/**',
+              ignore: ['node_modules'],
+              filesToDeleteAfterUpload: './dist/**/*.map', // Eliminar source maps después de subirlos (no se exponen públicamente)
+            },
+          }),
+        ]
+      : []),
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -162,8 +180,9 @@ export default defineConfig(({ mode }) => ({
     // Ensure proper build output
     outDir: 'dist',
     assetsDir: 'assets',
-    // Generate source maps for debugging (optional, can be disabled for smaller builds)
-    sourcemap: false,
+    // Generate source maps for Sentry (only uploaded to Sentry, not exposed publicly)
+    sourcemap:
+      mode === 'production' && process.env.SENTRY_AUTH_TOKEN ? true : false,
     // Ensure proper minification
     minify: 'esbuild',
     // Rollup options for better chunking

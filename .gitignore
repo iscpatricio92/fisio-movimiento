@@ -33,3 +33,6 @@ dist/stats.html
 !.cursor/settings.json
 
 .env
+
+# Sentry Config File
+.env.sentry-build-plugin

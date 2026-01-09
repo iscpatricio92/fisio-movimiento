@@ -109,6 +109,8 @@ jobs:
           BUILD_TIME: ${{ github.run_number }}-${{ github.sha }}
           # Sentry DSN (opcional - solo si está configurado como secret)
           VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+          # Sentry Auth Token para subir source maps (opcional)
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
       - name: Display build summary
         run: |
