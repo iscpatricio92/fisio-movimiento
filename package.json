@@ -36,7 +36,9 @@
     "version:patch": "node scripts/bump-version.js patch",
     "version:minor": "node scripts/bump-version.js minor",
     "version:major": "node scripts/bump-version.js major",
-    "version": "node scripts/bump-version.js"
+    "version": "node scripts/bump-version.js",
+    "version:auto": "node scripts/auto-bump-version.js patch",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -101,6 +103,8 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "lovable-tagger": "^1.1.13",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
