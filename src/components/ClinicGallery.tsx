@@ -99,6 +99,15 @@ export const ClinicGallery = ({ compact = false }: ClinicGalleryProps) => {
               <div
                 className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-soft hover:shadow-glow transition-all duration-300"
                 onClick={() => setSelectedImage(image)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedImage(image);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={`Ver imagen ${index + 1} en tamaño completo`}
               >
                 {/* Optimized image with WebP and fallback */}
                 <picture>

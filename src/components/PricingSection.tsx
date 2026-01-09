@@ -472,9 +472,18 @@ export const PricingSection = () => {
                         onClick={() =>
                           trackServiceInterest(service.name, 'click')
                         }
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            trackServiceInterest(service.name, 'click');
+                          }
+                        }}
                         onMouseEnter={() =>
                           trackServiceInterest(service.name, 'view')
                         }
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Ver detalles de ${service.name}`}
                       >
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                           <ServiceIcon className="w-4 h-4 text-primary" />
@@ -503,9 +512,18 @@ export const PricingSection = () => {
                         onClick={() =>
                           trackServiceInterest(service.name, 'click')
                         }
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            trackServiceInterest(service.name, 'click');
+                          }
+                        }}
                         onMouseEnter={() =>
                           trackServiceInterest(service.name, 'view')
                         }
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Ver detalles de ${service.name}`}
                       >
                         <div className="flex items-start gap-3 mb-3">
                           <div className="w-10 h-10 rounded-lg bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center shrink-0 transition-colors duration-300">
