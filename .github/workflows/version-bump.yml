@@ -1,0 +1,108 @@
+name: Auto Version Bump
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  bump-version:
+    # Solo ejecutar cuando el PR se mergea (no cuando se cierra sin merge)
+    if: |
+      (github.event_name == 'push') || 
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Necesario para obtener el historial completo de tags
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Get current version
+        id: current_version
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+
+      - name: Determine version bump type
+        id: bump_type
+        run: |
+          # Por defecto, incrementar patch version
+          # Puedes cambiar esto para usar conventional commits si lo prefieres
+          BUMP_TYPE="patch"
+          
+          # Si el PR tiene labels, puedes usarlos para determinar el tipo:
+          # - "major" -> major version bump
+          # - "minor" -> minor version bump
+          # - "patch" o sin label -> patch version bump
+          
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            LABELS="${{ join(github.event.pull_request.labels.*.name, ' ') }}"
+            echo "PR Labels: $LABELS"
+            
+            if echo "$LABELS" | grep -qi "major"; then
+              BUMP_TYPE="major"
+            elif echo "$LABELS" | grep -qi "minor"; then
+              BUMP_TYPE="minor"
+            fi
+          fi
+          
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          echo "Version bump type: $BUMP_TYPE"
+
+      - name: Bump version
+        id: new_version
+        run: |
+          BUMP_TYPE="${{ steps.bump_type.outputs.bump_type }}"
+          
+          # Incrementar versión usando npm version
+          # --no-git-tag-version evita crear un tag automáticamente (lo haremos después)
+          NEW_VERSION=$(npm version $BUMP_TYPE --no-git-tag-version)
+          
+          # npm version devuelve "v1.0.1", necesitamos solo "1.0.1"
+          NEW_VERSION=${NEW_VERSION#v}
+          
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Commit version bump
+        run: |
+          git add package.json
+          git commit -m "chore: bump version to ${{ steps.new_version.outputs.new_version }} [skip ci]"
+          git push
+
+      - name: Create Git Tag
+        run: |
+          git tag -a "v${{ steps.new_version.outputs.new_version }}" -m "Release v${{ steps.new_version.outputs.new_version }}"
+          git push origin "v${{ steps.new_version.outputs.new_version }}"
+
+      - name: Summary
+        run: |
+          echo "## Version Bump Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Previous Version**: ${{ steps.current_version.outputs.current_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **New Version**: ${{ steps.new_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Bump Type**: ${{ steps.bump_type.outputs.bump_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag Created**: v${{ steps.new_version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
