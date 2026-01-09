@@ -144,43 +144,6 @@ export default defineConfig(({ mode }) => ({
         // Workbox usa un patrón por defecto que busca en dev-dist/, pero no afecta la funcionalidad
       },
     }),
-    // Plugin para garantizar que vendor-react se pre-cargue antes que vendor
-    // Esto evita errores de "React is undefined" al asegurar el orden correcto
-    {
-      name: 'fix-react-preload-order',
-      transformIndexHtml: {
-        enforce: 'post' as const,
-        transform(html: string): string {
-          // Buscar todos los modulepreload de vendor
-          const vendorReactMatch = html.match(
-            /<link rel="modulepreload"[^>]*vendor-react[^>]*>/,
-          );
-          const vendorMatch = html.match(
-            /<link rel="modulepreload"[^>]*vendor(?!-react)[^>]*>/,
-          );
-
-          if (vendorReactMatch && vendorMatch) {
-            // Remover ambos
-            html = html.replace(vendorReactMatch[0], '');
-            html = html.replace(vendorMatch[0], '');
-            // Reinsertar en el orden correcto: vendor-react primero
-            const scriptMatch = html.match(/<script type="module"[^>]*>/);
-            if (scriptMatch) {
-              // Insertar después del script tag
-              const insertionPoint = scriptMatch.index! + scriptMatch[0].length;
-              html =
-                html.slice(0, insertionPoint) +
-                '\n    ' +
-                vendorReactMatch[0] +
-                '\n    ' +
-                vendorMatch[0] +
-                html.slice(insertionPoint);
-            }
-          }
-          return html;
-        },
-      },
-    },
     mode === 'development' && componentTagger(),
     // Bundle size analyzer - solo cuando se solicita con ANALYZE=true
     process.env.ANALYZE === 'true' &&
@@ -223,6 +186,9 @@ export default defineConfig(({ mode }) => ({
       mode === 'production' && process.env.SENTRY_AUTH_TOKEN ? true : false,
     // Ensure proper minification
     minify: 'esbuild',
+    // Increase chunk size warning limit since we're not using manual chunking
+    // This prevents warnings about large bundles when using automatic chunking
+    chunkSizeWarningLimit: 1000,
     // Rollup options for better chunking
     rollupOptions: {
       output: {
@@ -230,25 +196,11 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]',
-        // Manual chunking with guaranteed React load order
-        // Strategy: React first, then everything else
-        // This ensures React is available before any code tries to use it
-        manualChunks: (id) => {
-          // CRITICAL: React MUST be in its own chunk and load first
-          // Check React FIRST to ensure it gets highest priority
-          if (
-            id.includes('node_modules/react/') ||
-            id.includes('node_modules/react-dom/')
-          ) {
-            return 'vendor-react';
-          }
-          // All other node_modules go to vendor
-          // Vite's module system will ensure vendor-react loads before vendor
-          // because vendor depends on vendor-react
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
-        },
+        // Disable manual chunking - let Vite handle it automatically
+        // Manual chunking causes React undefined errors due to module execution order
+        // Vite's automatic chunking respects import dependencies correctly
+        // Trade-off: Larger initial bundle (~615KB) but guaranteed to work
+        // No manualChunks configuration - Vite handles it automatically
       },
     },
   },
