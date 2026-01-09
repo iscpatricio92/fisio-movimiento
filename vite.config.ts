@@ -6,6 +6,7 @@ import { imagetools } from 'vite-imagetools';
 import { VitePWA } from 'vite-plugin-pwa';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
+import type { Plugin } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -192,22 +193,10 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]',
-        // Simplified manual chunk splitting - React first, everything else together
-        // This ensures correct load order and avoids React being undefined
-        manualChunks: (id) => {
-          // 1. React and React DOM - MUST be first chunk
-          if (
-            id.includes('node_modules/react/') ||
-            id.includes('node_modules/react-dom/')
-          ) {
-            return 'vendor-react';
-          }
-          // 2. Everything else goes to vendor - Vite will handle load order correctly
-          // This is safer than trying to split everything manually
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
-        },
+        // Disable manual chunking - let Vite handle it automatically
+        // This ensures correct dependency order and avoids React being undefined
+        // Vite's automatic chunking respects import order and dependencies
+        // manualChunks: undefined, // Let Vite decide automatically
       },
     },
   },
