@@ -192,65 +192,20 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
         assetFileNames: 'assets/[name].[hash].[ext]',
-        // Manual chunk splitting for better performance
+        // Simplified manual chunk splitting - React first, everything else together
+        // This ensures correct load order and avoids React being undefined
         manualChunks: (id) => {
-          // IMPORTANT: React must be loaded first, so check it first
-          // React and React DOM
+          // 1. React and React DOM - MUST be first chunk
           if (
             id.includes('node_modules/react/') ||
             id.includes('node_modules/react-dom/')
           ) {
             return 'vendor-react';
           }
-          // React Router (depends on React)
-          if (id.includes('node_modules/react-router')) {
-            return 'vendor-router';
-          }
-          // Radix UI components (depends on React)
-          if (id.includes('node_modules/@radix-ui')) {
-            return 'vendor-radix';
-          }
-          // Sentry (only loaded in production, depends on React)
-          if (id.includes('node_modules/@sentry')) {
-            return 'vendor-sentry';
-          }
-          // UI libraries that depend on React
-          if (
-            id.includes('node_modules/lucide-react') ||
-            id.includes('node_modules/embla-carousel') ||
-            id.includes('node_modules/sonner')
-          ) {
-            return 'vendor-ui';
-          }
-          // Form libraries that depend on React
-          if (
-            id.includes('node_modules/react-hook-form') ||
-            id.includes('node_modules/@hookform') ||
-            id.includes('node_modules/zod')
-          ) {
-            return 'vendor-forms';
-          }
-          // React-dependent utilities (must load after React)
-          // Move ALL potentially React-dependent libs to vendor-ui to ensure correct load order
-          if (
-            id.includes('node_modules/class-variance-authority') ||
-            id.includes('node_modules/clsx') ||
-            id.includes('node_modules/tailwind-merge') ||
-            id.includes('node_modules/next-themes') ||
-            id.includes('node_modules/cmdk') ||
-            id.includes('node_modules/react-day-picker') ||
-            id.includes('node_modules/react-resizable-panels') ||
-            id.includes('node_modules/vaul') ||
-            id.includes('node_modules/input-otp') ||
-            id.includes('node_modules/date-fns')
-          ) {
-            return 'vendor-ui';
-          }
-          // IMPORTANT: Don't create vendor-other to avoid load order issues
-          // All remaining node_modules go to vendor-ui to ensure they load after React
-          // This is safer than risking React being undefined
+          // 2. Everything else goes to vendor - Vite will handle load order correctly
+          // This is safer than trying to split everything manually
           if (id.includes('node_modules')) {
-            return 'vendor-ui'; // Safe default - ensures load after React
+            return 'vendor';
           }
         },
       },
