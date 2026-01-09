@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Security Headers (Meta Tags for GitHub Pages) -->
+    <!-- X-Content-Type-Options: Previene MIME type sniffing -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <!-- Referrer-Policy: Controla qué información se envía en el referrer -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!-- Permissions-Policy: Controla qué APIs del navegador están disponibles -->
+    <meta
+      http-equiv="Permissions-Policy"
+      content="geolocation=(), microphone=(), camera=(), interest-cohort=()"
+    />
+
     <!-- Performance: Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
