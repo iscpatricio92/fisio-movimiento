@@ -36,4 +36,12 @@ export default tseslint.config(
       ...jsxA11y.configs.recommended.rules,
     },
   },
+  // Configuración específica para componentes UI (shadcn/ui)
+  // Estos componentes exportan variantes junto con componentes, lo cual es un patrón estándar
+  {
+    files: ['src/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off', // Deshabilitado para componentes UI
+    },
+  },
 );

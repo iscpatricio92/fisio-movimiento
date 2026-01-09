@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollAnimated } from '@/components/ScrollAnimated';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 // Genera el schema Review para SEO
 const generateReviewSchema = (testimonials: typeof featuredTestimonials) => ({
@@ -182,7 +182,7 @@ export const TestimonialsSection = () => {
     };
   }, []);
 
-  const updateScrollState = () => {
+  const updateScrollState = useCallback(() => {
     const container = scrollContainerRef.current;
     if (container) {
       setCanScrollLeft(container.scrollLeft > 0);
@@ -195,7 +195,7 @@ export const TestimonialsSection = () => {
       const newIndex = Math.round(container.scrollLeft / cardWidth);
       setCurrentIndex(Math.min(newIndex, displayedTestimonials.length - 1));
     }
-  };
+  }, [displayedTestimonials.length]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
@@ -204,7 +204,7 @@ export const TestimonialsSection = () => {
       updateScrollState();
       return () => container.removeEventListener('scroll', updateScrollState);
     }
-  }, []);
+  }, [updateScrollState]);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
