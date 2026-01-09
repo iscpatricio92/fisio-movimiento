@@ -47,6 +47,24 @@ jobs:
           fi
           echo "Dependencies installed successfully"
 
+      - name: Run ESLint
+        run: |
+          echo "🔍 Running ESLint..."
+          npm run lint
+          echo "✅ ESLint passed"
+
+      - name: Check code formatting
+        run: |
+          echo "🎨 Checking code formatting with Prettier..."
+          npm run format:check
+          echo "✅ Code formatting is correct"
+
+      - name: Type check with TypeScript
+        run: |
+          echo "📘 Running TypeScript type check..."
+          npm run type-check
+          echo "✅ TypeScript type check passed"
+
       - name: Clean previous build (if exists)
         run: |
           if [ -d "dist" ]; then
