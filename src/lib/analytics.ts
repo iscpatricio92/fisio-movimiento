@@ -14,6 +14,10 @@
  * - GA4 script is loaded directly in index.html (Measurement ID: G-3L9C8QMNZV)
  * - Meta Pixel script is loaded directly in index.html (Pixel ID: 1552455925827622)
  *
+ * Note: Facebook Pixel may show deprecation warnings about "unload event listeners"
+ * This is a known issue with Facebook's external fbevents.js script and does not affect functionality.
+ * Facebook will need to update their script to resolve this warning.
+ *
  * UTM Parameter Tracking:
  * - Automatically captures UTM parameters from URL on page load
  * - Stores in sessionStorage (current session) and localStorage (first touch)

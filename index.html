@@ -45,6 +45,14 @@
 
     <!-- Facebook Pixel -->
     <!-- Meta Pixel Code -->
+    <!--
+      Note: This script may show deprecation warnings about "unload event listeners"
+      This is a known issue with Facebook's fbevents.js script (external dependency).
+      The warning originates from connect.facebook.net/en_US/fbevents.js, not our code.
+      Facebook will need to update their script to use modern APIs (pagehide/visibilitychange).
+      This warning does not affect functionality and will be resolved when Facebook updates their script.
+      Current implementation uses the latest official Facebook Pixel code.
+    -->
     <script>
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
