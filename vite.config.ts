@@ -7,6 +7,94 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import type { Plugin } from 'vite';
+import { readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
+
+/**
+ * Plugin para generar 404.html después del build
+ * GitHub Pages necesita este archivo para manejar errores 404 y Google Search Console lo indexa
+ */
+const generate404Plugin = (): Plugin => {
+  return {
+    name: 'generate-404',
+    closeBundle() {
+      const BASE_URL = 'https://fisio-movimiento.com';
+
+      try {
+        // Leer index.html desde dist/
+        const distIndexPath = join(process.cwd(), 'dist', 'index.html');
+        let indexHTML = readFileSync(distIndexPath, 'utf-8');
+
+        // Reemplazar meta tags para la página 404
+        const replacements = [
+          // Title
+          [
+            /<title>.*?<\/title>/i,
+            '<title>404 - Página no encontrada | FisioAnalaura</title>',
+          ],
+          // Meta title
+          [
+            /<meta\s+name="title"\s+content=".*?"\s*\/?>/i,
+            '<meta name="title" content="404 - Página no encontrada | FisioAnalaura" />',
+          ],
+          // Meta description
+          [
+            /<meta\s+name="description"\s+content=".*?"\s*\/?>/i,
+            '<meta name="description" content="La página que buscas no existe. Regresa al inicio o explora nuestros servicios de fisioterapia en CDMX y Metepec." />',
+          ],
+          // Open Graph title
+          [
+            /<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i,
+            '<meta property="og:title" content="404 - Página no encontrada | FisioAnalaura" />',
+          ],
+          // Open Graph description
+          [
+            /<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i,
+            '<meta property="og:description" content="La página que buscas no existe. Regresa al inicio o explora nuestros servicios de fisioterapia en CDMX y Metepec." />',
+          ],
+          // Open Graph URL
+          [
+            /<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i,
+            `<meta property="og:url" content="${BASE_URL}/404" />`,
+          ],
+          // Canonical URL
+          [
+            /<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i,
+            `<link rel="canonical" href="${BASE_URL}/404" />`,
+          ],
+          // Twitter Card title
+          [
+            /<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i,
+            '<meta name="twitter:title" content="404 - Página no encontrada | FisioAnalaura" />',
+          ],
+          // Twitter Card description
+          [
+            /<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i,
+            '<meta name="twitter:description" content="La página que buscas no existe. Regresa al inicio o explora nuestros servicios de fisioterapia en CDMX y Metepec." />',
+          ],
+        ];
+
+        // Aplicar todas las sustituciones
+        replacements.forEach(([pattern, replacement]) => {
+          indexHTML = indexHTML.replace(
+            pattern as RegExp,
+            replacement as string,
+          );
+        });
+
+        // Escribir 404.html en dist/
+        const outputPath = join(process.cwd(), 'dist', '404.html');
+        writeFileSync(outputPath, indexHTML, 'utf-8');
+
+        console.log(
+          '✅ 404.html generado para GitHub Pages y Google Search Console',
+        );
+      } catch (error) {
+        console.error('❌ Error al generar 404.html:', error);
+      }
+    },
+  };
+};
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -23,6 +111,8 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     imagetools(),
+    // Generate 404.html after build (only in production)
+    ...(mode === 'production' ? [generate404Plugin()] : []),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: [
