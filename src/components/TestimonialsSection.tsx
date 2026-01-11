@@ -185,33 +185,58 @@ export const TestimonialsSection = () => {
   const updateScrollState = useCallback(() => {
     const container = scrollContainerRef.current;
     if (container) {
-      setCanScrollLeft(container.scrollLeft > 0);
-      setCanScrollRight(
-        container.scrollLeft <
-          container.scrollWidth - container.clientWidth - 10,
-      );
-      // Calculate current index based on scroll position
-      const cardWidth = container.scrollWidth / displayedTestimonials.length;
-      const newIndex = Math.round(container.scrollLeft / cardWidth);
-      setCurrentIndex(Math.min(newIndex, displayedTestimonials.length - 1));
+      // Usar requestAnimationFrame para evitar reflows forzados
+      // Batch todas las lecturas de propiedades geométricas en un solo frame
+      requestAnimationFrame(() => {
+        // Leer todas las propiedades geométricas de una vez
+        const scrollLeft = container.scrollLeft;
+        const scrollWidth = container.scrollWidth;
+        const clientWidth = container.clientWidth;
+        const testimonialsCount = displayedTestimonials.length;
+
+        // Calcular estados basados en las propiedades leídas
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+
+        // Calculate current index based on scroll position
+        const cardWidth = scrollWidth / testimonialsCount;
+        const newIndex = Math.round(scrollLeft / cardWidth);
+        setCurrentIndex(Math.min(newIndex, testimonialsCount - 1));
+      });
     }
   }, [displayedTestimonials.length]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (container) {
-      container.addEventListener('scroll', updateScrollState);
-      updateScrollState();
+      // Usar passive: true para mejor performance en scroll events
+      container.addEventListener('scroll', updateScrollState, {
+        passive: true,
+      });
+      // Llamar inicialmente sin requestAnimationFrame para evitar delay inicial
+      const scrollLeft = container.scrollLeft;
+      const scrollWidth = container.scrollWidth;
+      const clientWidth = container.clientWidth;
+      const testimonialsCount = displayedTestimonials.length;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+      const cardWidth = scrollWidth / testimonialsCount;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      setCurrentIndex(Math.min(newIndex, testimonialsCount - 1));
+
       return () => container.removeEventListener('scroll', updateScrollState);
     }
-  }, [updateScrollState]);
+  }, [updateScrollState, displayedTestimonials.length]);
 
   const scroll = (direction: 'left' | 'right') => {
     const container = scrollContainerRef.current;
     if (container) {
-      const cardWidth = container.offsetWidth * 0.85;
-      const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
-      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      // Usar requestAnimationFrame para evitar reflow forzado al leer offsetWidth
+      requestAnimationFrame(() => {
+        const cardWidth = container.offsetWidth * 0.85;
+        const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
     }
   };
 
