@@ -269,6 +269,66 @@ export default defineConfig(({ mode }) => ({
               },
             },
           },
+          {
+            // Google Analytics - Network-first para tracking en tiempo real
+            urlPattern: /^https:\/\/www\.googletagmanager\.com\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'google-analytics',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // 1 día
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            // Facebook Pixel - Network-first para tracking en tiempo real
+            urlPattern: /^https:\/\/connect\.facebook\.net\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'facebook-pixel',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24, // 1 día
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            // Doctoralia Widget - Stale-while-revalidate para contenido dinámico
+            urlPattern: /^https:\/\/widgets\.doctoralia\.com\.mx\/.*/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'doctoralia-widget',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 1 semana
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
+            // Imágenes CDN externas - Cache-first para rendimiento
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'external-images',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 días
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
         ],
         // Limitar tamaño de caché (50MB)
         maximumFileSizeToCacheInBytes: 50 * 1024 * 1024,
@@ -277,6 +337,13 @@ export default defineConfig(({ mode }) => ({
         // No usar skipWaiting (esperar a que el usuario recargue para nueva versión)
         skipWaiting: false,
         clientsClaim: false,
+        // Configuración de navegación para cachear HTML (NetworkFirst por defecto)
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/_/, /\/[^/?]+\.[^/]+$/], // No cachear archivos estáticos directamente
+        // Optimizar estrategia de caché para assets con hash
+        // Assets con hash pueden cachearse agresivamente (1 año)
+        // Esto compensa los headers de caché cortos de GitHub Pages (10 min)
+        // El Service Worker servirá assets cacheados independientemente de los headers HTTP
       },
       // Habilitar PWA en desarrollo para generar manifest
       devOptions: {
