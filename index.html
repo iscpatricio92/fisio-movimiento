@@ -30,61 +30,91 @@
     <!-- Note: Vite will inject module preloads automatically for critical chunks -->
     <!-- IMPORTANT: React must load before vendor chunk to avoid "React is undefined" errors -->
 
-    <!-- Google Analytics 4 -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-3L9C8QMNZV"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      // Disable automatic pageview for SPA - we'll track it manually in main.tsx
-      gtag('config', 'G-3L9C8QMNZV', {
-        send_page_view: false,
-      });
-    </script>
-
-    <!-- Facebook Pixel -->
-    <!-- Meta Pixel Code -->
+    <!-- Analytics: Carga diferida después del render inicial -->
     <!--
-      Note: This script may show deprecation warnings about "unload event listeners"
-      This is a known issue with Facebook's fbevents.js script (external dependency).
-      The warning originates from connect.facebook.net/en_US/fbevents.js, not our code.
-      Facebook will need to update their script to use modern APIs (pagehide/visibilitychange).
-      This warning does not affect functionality and will be resolved when Facebook updates their script.
-      Current implementation uses the latest official Facebook Pixel code.
+      CONFIGURACIÓN DE GOOGLE ANALYTICS 4 (GA4):
+      - Usamos gtag.js directamente (NO Google Tag Manager)
+      - El script se carga de forma diferida para no bloquear el renderizado
+      - La configuración se hace aquí en index.html
+      - Los eventos se trackean desde src/lib/analytics.ts usando window.gtag
+      - main.tsx espera a que el script se cargue antes de trackear el pageview inicial
+
+      IMPORTANTE:
+      - NO confundir con Google Tag Manager (GTM)
+      - GA4 usa gtag.js, no GTM
+      - El iframe noscript de GTM NO funciona con GA4
     -->
     <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        'script',
-        'https://connect.facebook.net/en_US/fbevents.js',
-      );
-      fbq('init', '1552455925827622');
-      fbq('track', 'PageView');
+      // Función para cargar analytics después del render inicial
+      // Usa requestIdleCallback si está disponible, sino setTimeout con delay
+      function loadAnalytics() {
+        // Inicializar dataLayer para Google Analytics (necesario antes de cargar el script)
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag('js', new Date());
+        // Disable automatic pageview for SPA - we'll track it manually in main.tsx
+        gtag('config', 'G-3L9C8QMNZV', {
+          send_page_view: false,
+        });
+
+        // Cargar Google Analytics script
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src =
+          'https://www.googletagmanager.com/gtag/js?id=G-3L9C8QMNZV';
+        document.head.appendChild(gaScript);
+
+        // Facebook Pixel
+        // Note: This script may show deprecation warnings about "unload event listeners"
+        // This is a known issue with Facebook's fbevents.js script (external dependency).
+        // The warning originates from connect.facebook.net/en_US/fbevents.js, not our code.
+        // Facebook will need to update their script to use modern APIs (pagehide/visibilitychange).
+        // This warning does not affect functionality and will be resolved when Facebook updates their script.
+        !(function (f, b, e, v, n, t, s) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod
+              ? n.callMethod.apply(n, arguments)
+              : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = '2.0';
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(
+          window,
+          document,
+          'script',
+          'https://connect.facebook.net/en_US/fbevents.js',
+        );
+        fbq('init', '1552455925827622');
+        fbq('track', 'PageView');
+      }
+
+      // Cargar analytics después del render inicial
+      // Prioridad: requestIdleCallback > DOMContentLoaded > setTimeout
+      if ('requestIdleCallback' in window) {
+        // Cargar cuando el navegador esté inactivo (mejor para performance)
+        requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      } else if (document.readyState === 'loading') {
+        // Si el DOM aún se está cargando, esperar a que termine
+        document.addEventListener('DOMContentLoaded', function () {
+          setTimeout(loadAnalytics, 100);
+        });
+      } else {
+        // Si el DOM ya está listo, cargar después de un breve delay
+        setTimeout(loadAnalytics, 100);
+      }
     </script>
-    <!-- End Meta Pixel Code -->
 
     <!-- Google Fonts: Optimized loading with display=swap -->
     <!-- Loading only required font weights: Inter (400,500,600,700) and Poppins (400,500,600,700,800,900) -->
@@ -542,17 +572,33 @@
   </head>
 
   <body>
-    <!-- Facebook Pixel Noscript -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Noscript fallback para analytics (solo si JS está deshabilitado) -->
+    <!--
+      IMPORTANTE: Google Analytics 4 (gtag.js) requiere JavaScript y NO tiene
+      un iframe noscript oficial como Google Tag Manager. El iframe anterior
+      era incorrecto (era para GTM, no para GA4).
+
+      Para GA4, simplemente no hay tracking sin JavaScript. El iframe se ha
+      eliminado porque no funciona con GA4.
+
+      Facebook Pixel sí tiene soporte noscript, así que se mantiene.
+    -->
     <noscript>
+      <!-- Facebook Pixel noscript (sí funciona sin JavaScript) -->
       <img
         height="1"
         width="1"
         style="display: none"
         src="https://www.facebook.com/tr?id=1552455925827622&ev=PageView&noscript=1"
       />
+      <!--
+        Google Analytics 4 no tiene soporte noscript oficial.
+        Los usuarios sin JavaScript no serán trackeados en GA4.
+        Esto es normal y esperado para GA4.
+      -->
     </noscript>
-
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -11,8 +11,12 @@
  * - Track page view: trackPageView('/page-path')
  *
  * Setup:
- * - GA4 script is loaded directly in index.html (Measurement ID: G-3L9C8QMNZV)
+ * - GA4 script (gtag.js) is loaded directly in index.html via loadAnalytics() function
+ *   (Measurement ID: G-3L9C8QMNZV)
  * - Meta Pixel script is loaded directly in index.html (Pixel ID: 1552455925827622)
+ *
+ * IMPORTANT: We use Google Analytics 4 (gtag.js) directly, NOT Google Tag Manager (GTM).
+ * The iframe noscript in index.html was removed because GA4 doesn't support noscript tracking.
  *
  * Note: Facebook Pixel may show deprecation warnings about "unload event listeners"
  * This is a known issue with Facebook's external fbevents.js script and does not affect functionality.

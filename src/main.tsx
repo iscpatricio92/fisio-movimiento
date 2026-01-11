@@ -42,12 +42,26 @@ if (shouldInitSentry) {
 initAnalytics();
 
 // Track initial page view
+// Wait for analytics to be loaded (since it's loaded asynchronously)
 if (typeof window !== 'undefined') {
-  // Small delay to ensure GA4 script is loaded
-  setTimeout(() => {
-    const initialPath = window.location.pathname + window.location.hash;
-    trackPageView(initialPath, document.title);
-  }, 500);
+  // Wait for GA script to be loaded (check if the script tag exists in DOM)
+  const waitForAnalytics = (maxAttempts = 20, attempt = 0) => {
+    // Check if Google Analytics script has been loaded by checking for the script tag
+    const gaScriptLoaded =
+      document.querySelector('script[src*="googletagmanager.com/gtag/js"]') !==
+      null;
+
+    // window.gtag is always defined (created in index.html), but we need to wait
+    // for the actual GA script to load before tracking
+    if (gaScriptLoaded) {
+      const initialPath = window.location.pathname + window.location.hash;
+      trackPageView(initialPath, document.title);
+    } else if (attempt < maxAttempts) {
+      // Retry every 100ms, up to 2 seconds total
+      setTimeout(() => waitForAnalytics(maxAttempts, attempt + 1), 100);
+    }
+  };
+  waitForAnalytics();
 }
 
 createRoot(document.getElementById('root')!).render(<App />);
