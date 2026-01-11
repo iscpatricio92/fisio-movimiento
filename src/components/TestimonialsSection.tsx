@@ -13,7 +13,7 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 const generateReviewSchema = (testimonials: typeof featuredTestimonials) => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  '@id': 'https://www.fisio-movimiento.com/#organization',
+  '@id': 'https://fisio-movimiento.com/#organization',
   name: 'Fisioterapia Analaura Reyes Priego',
   aggregateRating: {
     '@type': 'AggregateRating',

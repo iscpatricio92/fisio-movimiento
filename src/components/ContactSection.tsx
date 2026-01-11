@@ -74,10 +74,10 @@ const generateContactPageSchema = () => ({
   name: 'Contacto - FisioAnalaura',
   description:
     'Agenda tu cita de fisioterapia en CDMX o Metepec. Consultorios en Iztapalapa y Metepec. Reserva en línea o por teléfono.',
-  url: 'https://www.fisio-movimiento.com/#contacto',
+  url: 'https://fisio-movimiento.com/#contacto',
   mainEntity: {
     '@type': 'Organization',
-    '@id': 'https://www.fisio-movimiento.com/#organization',
+    '@id': 'https://fisio-movimiento.com/#organization',
     name: 'Fisioterapia Analaura Reyes Priego',
     telephone: '+52 55 6505 3202',
     email: 'fisio-movimiento.mx@gmail.com',

@@ -62,10 +62,10 @@ const generateAboutPageSchema = () => ({
   name: 'Sobre Mí - FisioAnalaura',
   description:
     'Conoce a la Lic. Analaura Reyes Priego, fisioterapeuta con doble titulación de México y España, especialista en traumatología, ATM, hipopresivos y manejo del dolor.',
-  url: 'https://www.fisio-movimiento.com/#sobre-mi',
+  url: 'https://fisio-movimiento.com/#sobre-mi',
   mainEntity: {
     '@type': 'Person',
-    '@id': 'https://www.fisio-movimiento.com/#person',
+    '@id': 'https://fisio-movimiento.com/#person',
     name: 'Lic. Analaura Reyes Priego',
     jobTitle: 'Fisioterapeuta',
     description:

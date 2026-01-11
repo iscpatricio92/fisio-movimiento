@@ -48,7 +48,7 @@ const generateServiceSchema = (specialtiesList: typeof specialties) => ({
       position: index + 1,
     })),
   },
-  url: 'https://www.fisio-movimiento.com/#servicios',
+  url: 'https://fisio-movimiento.com/#servicios',
 });
 
 const specialties = [
