@@ -331,8 +331,14 @@ export default defineConfig(({ mode }) => ({
     // Increase chunk size warning limit since we're not using manual chunking
     // This prevents warnings about large bundles when using automatic chunking
     chunkSizeWarningLimit: 1000,
-    // Rollup options for better chunking
+    // Rollup options for better chunking and tree shaking
     rollupOptions: {
+      // Optimize tree shaking - remove unused code
+      treeshake: {
+        moduleSideEffects: 'no-external',
+        preset: 'smallest',
+        propertyReadSideEffects: false,
+      },
       output: {
         // Ensure consistent file naming
         entryFileNames: 'assets/[name].[hash].js',

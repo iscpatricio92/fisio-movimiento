@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Activity,
   Bone,
@@ -135,26 +135,31 @@ const conditions = [
 export const ServicesSection = () => {
   const [showAllConditions, setShowAllConditions] = useState(false);
 
-  // Show only first 8 conditions on mobile when collapsed
-  const visibleConditions = showAllConditions
-    ? conditions
-    : conditions.slice(0, 8);
+  // Memoizar visibleConditions para evitar recalcular en cada render
+  const visibleConditions = useMemo(
+    () => (showAllConditions ? conditions : conditions.slice(0, 8)),
+    [showAllConditions],
+  );
 
-  // Genera el schema ItemList para condiciones tratadas
-  const generateConditionListSchema = (conditionsList: string[]) => ({
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: 'Condiciones Tratadas',
-    description: 'Lista de condiciones y lesiones que tratamos en fisioterapia',
-    itemListElement: conditionsList.map((condition, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      item: {
-        '@type': 'MedicalCondition',
-        name: condition,
-      },
-    })),
-  });
+  // Memoizar función generadora de schema para evitar recrearla en cada render
+  const generateConditionListSchema = useCallback(
+    (conditionsList: string[]) => ({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'Condiciones Tratadas',
+      description:
+        'Lista de condiciones y lesiones que tratamos en fisioterapia',
+      itemListElement: conditionsList.map((condition, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'MedicalCondition',
+          name: condition,
+        },
+      })),
+    }),
+    [],
+  );
 
   // Inyectar schemas para SEO
   useEffect(() => {
@@ -196,7 +201,7 @@ export const ServicesSection = () => {
       );
       if (conditionScript) conditionScript.remove();
     };
-  }, []);
+  }, [generateConditionListSchema]);
 
   return (
     <section id="servicios" className="py-16 lg:py-24 bg-secondary/30">

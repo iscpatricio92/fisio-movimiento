@@ -1,7 +1,6 @@
 import {
   Check,
   Bone,
-  Zap,
   Activity,
   Target,
   Brain,
@@ -16,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ScrollAnimated } from './ScrollAnimated';
 import { trackPricingTabChange, trackServiceInterest } from '@/lib/analytics';
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useSectionTimeTracking } from '@/hooks/use-section-time-tracking';
 
 const plans = [
@@ -199,18 +198,21 @@ const serviceCategories = [
 ];
 
 export const PricingSection = () => {
-  const [activeTab, setActiveTab] = useState(serviceCategories[0].id);
+  // Memoizar el tab inicial para evitar cálculos en cada render
+  const initialTab = useMemo(() => serviceCategories[0].id, []);
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   // Track tiempo en sección de precios (solo si pasa >30 segundos)
   useSectionTimeTracking('precios', 'Precios', true);
 
-  const handleTabChange = (value: string) => {
+  // Optimizar función con useCallback para evitar recrearla en cada render
+  const handleTabChange = useCallback((value: string) => {
     setActiveTab(value);
     const category = serviceCategories.find((cat) => cat.id === value);
     if (category) {
       trackPricingTabChange(category.title);
     }
-  };
+  }, []);
 
   return (
     <section

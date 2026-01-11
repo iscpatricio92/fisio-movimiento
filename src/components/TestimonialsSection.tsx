@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollAnimated } from '@/components/ScrollAnimated';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 
 // Genera el schema Review para SEO
 const generateReviewSchema = (testimonials: typeof featuredTestimonials) => ({
@@ -162,7 +162,11 @@ export const TestimonialsSection = () => {
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const displayedTestimonials = featuredTestimonials.slice(0, 6);
+  // Memoizar displayedTestimonials para evitar recalcular en cada render
+  const displayedTestimonials = useMemo(
+    () => featuredTestimonials.slice(0, 6),
+    [],
+  );
 
   // Inyectar schema Review para SEO
   useEffect(() => {
