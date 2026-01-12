@@ -4,14 +4,19 @@ import { join } from 'path';
 const BASE_URL = 'https://fisio-movimiento.com';
 
 /**
- * Script para generar 404.html para GitHub Pages
+ * Script para generar 404.html (redundante con generate404Plugin en vite.config.ts)
  *
- * GitHub Pages necesita un archivo 404.html en la raíz para manejar errores 404.
+ * NOTA: Este script es redundante porque el plugin generate404Plugin en vite.config.ts
+ * ya genera 404.html durante el build. Se mantiene como respaldo por si el plugin falla.
+ *
+ * Propósito del archivo 404.html:
+ * - Útil para SEO (meta tags específicos para 404)
+ * - Google Search Console puede indexarlo si alguien accede directamente
+ * - En Vercel, los rewrites manejan 404s automáticamente (vercel.json),
+ *   pero este archivo sigue siendo útil para SEO y acceso directo
+ *
  * Para SPAs con React Router, este archivo debe ser casi idéntico a index.html,
  * pero con meta tags específicos para la página 404.
- *
- * El archivo 404.html se genera en dist/ durante el build para que esté disponible
- * en GitHub Pages y pueda ser indexado por Google Search Console.
  */
 
 const generate404HTML = () => {
@@ -90,8 +95,9 @@ try {
   writeFileSync(outputPath, html404, 'utf-8');
   console.log(`✅ 404.html generado: ${outputPath}`);
   console.log(
-    `   El archivo está listo para GitHub Pages y Google Search Console`,
+    `   Nota: Este script es redundante con generate404Plugin en vite.config.ts`,
   );
+  console.log(`   El archivo es útil para SEO y Google Search Console`);
 } catch (error) {
   console.error('❌ Error al generar 404.html:', error.message);
   process.exit(1);

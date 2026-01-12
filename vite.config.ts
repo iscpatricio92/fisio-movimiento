@@ -62,7 +62,9 @@ const asyncCSSPlugin = (): Plugin => {
 
 /**
  * Plugin para generar 404.html después del build
- * GitHub Pages necesita este archivo para manejar errores 404 y Google Search Console lo indexa
+ * Útil para SEO (meta tags específicos para 404) y Google Search Console
+ * En Vercel, los rewrites manejan 404s automáticamente (vercel.json),
+ * pero este archivo sigue siendo útil para SEO y acceso directo
  */
 const generate404Plugin = (): Plugin => {
   return {
@@ -137,7 +139,7 @@ const generate404Plugin = (): Plugin => {
         writeFileSync(outputPath, indexHTML, 'utf-8');
 
         console.log(
-          '✅ 404.html generado para GitHub Pages y Google Search Console',
+          '✅ 404.html generado (útil para SEO y Google Search Console)',
         );
       } catch (error) {
         console.error('❌ Error al generar 404.html:', error);
@@ -177,7 +179,7 @@ export default defineConfig(({ mode }) => ({
         'sitemap.xml',
         'llms.txt',
       ],
-      manifestFilename: 'manifest.json', // Cambiar extensión a .json para mejor compatibilidad con GitHub Pages
+      manifestFilename: 'manifest.json', // Extensión .json estándar para PWA manifest
       manifest: {
         name: 'FisioAnalaura - Fisioterapeuta en CDMX y Metepec',
         short_name: 'FisioAnalaura',
