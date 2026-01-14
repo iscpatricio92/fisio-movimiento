@@ -8,11 +8,11 @@ import {
   Video,
   Check,
 } from 'lucide-react';
-import therapistImage from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.png';
+import therapistImage from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg';
 // Responsive image sizes for srcset
-import therapistImageWebP400 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.png?w=400&format=webp';
-import therapistImageWebP800 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.png?w=800&format=webp';
-import therapistImageWebP1200 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.png?w=1200&format=webp';
+import therapistImageWebP400 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg?w=400&format=webp';
+import therapistImageWebP800 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg?w=800&format=webp';
+import therapistImageWebP1200 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg?w=1200&format=webp';
 import { trackCTAClick, trackPhoneClick } from '@/lib/analytics';
 
 export const HeroSection = () => {
