@@ -458,6 +458,11 @@
       animation: none;
     }
 
+    /* Exception: Keep float animation for 404 page background */
+    .not-found-page .animate-float {
+      animation: float 4s ease-in-out infinite !important;
+    }
+
     .animate-shimmer {
       animation: none;
     }
