@@ -5,7 +5,9 @@
 **FisioAnalaura** es un sitio web profesional para la fisioterapeuta **Lic. Analaura Reyes Priego**. Es una aplicación web moderna y responsive diseñada para presentar sus servicios, credenciales, precios y facilitar el contacto con pacientes potenciales.
 
 ### Propósito
+
 El sitio web sirve como plataforma de presentación profesional que permite a los pacientes:
+
 - Conocer los servicios de fisioterapia ofrecidos
 - Ver credenciales y experiencia profesional
 - Consultar precios y planes de tratamiento
@@ -16,34 +18,41 @@ El sitio web sirve como plataforma de presentación profesional que permite a lo
 ## 🛠️ Stack Tecnológico
 
 ### Frontend Framework
+
 - **React 18.3.1** - Biblioteca de UI
 - **TypeScript 5.8.3** - Tipado estático
 - **Vite 5.4.19** - Build tool y dev server (puerto 8080)
 
 ### Routing
+
 - **React Router DOM 6.30.1** - Navegación SPA
 
 ### UI Components
+
 - **shadcn/ui** - Sistema de componentes basado en Radix UI
 - **Radix UI** - Componentes primitivos accesibles
 - **Lucide React** - Iconos
 
 ### Estilos
+
 - **Tailwind CSS 3.4.17** - Framework CSS utility-first
 - **tailwindcss-animate** - Animaciones
 - **@tailwindcss/typography** - Estilos tipográficos
 - **PostCSS** - Procesamiento de CSS
 
 ### Fuentes
+
 - **Playfair Display** (serif) - Títulos y encabezados
 - **Work Sans** (sans-serif) - Texto del cuerpo
 
 ### Estado y Datos
+
 - **TanStack Query 5.83.0** - Gestión de estado del servidor
 - **React Hook Form 7.61.1** - Manejo de formularios
 - **Zod 3.25.76** - Validación de esquemas
 
 ### Utilidades
+
 - **class-variance-authority** - Variantes de componentes
 - **clsx** - Utilidad para clases condicionales
 - **tailwind-merge** - Merge de clases de Tailwind
@@ -98,24 +107,29 @@ fisiolaura-reyes-clone-enhance/
 ## 🎨 Diseño y Estilo
 
 ### Paleta de Colores
+
 El proyecto utiliza un sistema de colores basado en variables CSS con soporte para modo claro y oscuro:
 
 **Modo Claro:**
+
 - **Primary**: `hsl(187 78% 42%)` - Turquesa/azul verdoso
 - **Accent**: `hsl(35 90% 55%)` - Naranja/amarillo
 - **Background**: `hsl(195 30% 98%)` - Blanco azulado muy claro
 - **Foreground**: `hsl(200 25% 15%)` - Azul oscuro
 
 **Gradientes Personalizados:**
+
 - `gradient-hero`: Gradiente principal para secciones hero
 - `gradient-card`: Gradiente sutil para tarjetas
 - `gradient-cta`: Gradiente para botones de llamada a la acción
 
 ### Tipografía
+
 - **Display Font**: Playfair Display (serif) - Para títulos y encabezados
 - **Body Font**: Work Sans (sans-serif) - Para texto del cuerpo
 
 ### Animaciones
+
 - `fade-up`: Entrada desde abajo con fade
 - `fade-in`: Fade simple
 - `slide-in`: Deslizamiento desde la izquierda
@@ -127,6 +141,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 ## 📄 Secciones del Sitio
 
 ### 1. **Navbar** (`Navbar.tsx`)
+
 - Navegación fija con efecto de scroll
 - Menú responsive (hamburguesa en móvil)
 - Enlaces de navegación: Inicio, Sobre mí, Servicios, Precios, Opiniones, Contacto
@@ -134,6 +149,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 - Teléfono visible: +52 55 6505 3202
 
 ### 2. **Hero Section** (`HeroSection.tsx`)
+
 - Sección principal con información destacada
 - Presentación de la fisioterapeuta: **Lic. Analaura Reyes Priego**
 - Credenciales: Doble titulación México & España
@@ -143,6 +159,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 - Cédula Profesional: No. 10909109
 
 ### 3. **About Section** (`AboutSection.tsx`)
+
 - Información sobre la profesional
 - Enfoque: Fisioterapia humana y de calidad
 - Valores:
@@ -155,7 +172,9 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
   - Instituto Nacional de Neurología - Diplomado en Abordaje Integral del Dolor
 
 ### 4. **Services Section** (`ServicesSection.tsx`)
+
 **Especialidades:**
+
 1. Traumatológica
 2. Electroterapia
 3. Terapias Manuales
@@ -166,6 +185,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 8. Adulto Mayor
 
 **Condiciones Tratadas:**
+
 - Ciática, Lesiones deportivas, Tendinitis, Dolor muscular
 - Contractura cervical, Manguito rotador, Pinzamiento de hombro
 - Radiculopatía lumbar, Dolor de cuello/espalda
@@ -174,34 +194,41 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 - Reeducación postural
 
 ### 5. **Pricing Section** (`PricingSection.tsx`)
+
 **Planes Principales:**
-- **Consulta en Línea**: $400 MXN
+
+- **Consulta en Línea**: $450 MXN (valor normal $600)
   - Videollamada 45 min, Evaluación, Plan de ejercicios, Seguimiento WhatsApp
-  
-- **Primera Visita**: $550 MXN (Más Popular)
+- **Primera Visita**: $700 MXN (Más Popular, valor normal $850)
   - Evaluación integral 60 min, Diagnóstico, Plan de tratamiento, Primera sesión
-  
-- **Sesión de Fisioterapia**: $500 MXN
+- **Sesión de Fisioterapia**: $650 MXN
   - Sesión 45-60 min, Terapia manual, Electroterapia, Ejercicios terapéuticos
 
 **Servicios Adicionales:**
-- Ejercicios Hipopresivos: $500 MXN
-- Fisioterapia ATM: $500 MXN
-- Fisioterapia para Dolor: $500 MXN
-- Fisioterapia Ortopédica: $500 MXN
-- Fisioterapia Post-Quirúrgica: $500 MXN
-- Masaje de Descarga Muscular: $800 MXN
+
+- Cita de primera vez Fisioterapia: $700 MXN
+- Consulta y sesiones subsecuentes: $650 MXN
+- Ejercicios Hipopresivos: $650 MXN
+- Fisioterapia ATM: $650 MXN
+- Fisioterapia para Dolor: $650 MXN
+- Fisioterapia Ortopédica: $650 MXN
+- Fisioterapia Post-Quirúrgica: $650 MXN
+- Masaje de Descarga Muscular: $900 MXN
 
 ### 6. **Testimonials Section** (`TestimonialsSection.tsx`)
+
 - Sección para testimonios de pacientes (implementación pendiente de revisar)
 
 ### 7. **Contact Section** (`ContactSection.tsx`)
+
 **Métodos de Contacto:**
+
 - **Teléfono**: +52 55 6505 3202
 - **WhatsApp**: +52 55 6505 3202
 - **Doctoralia**: Enlace para reservar en línea
 
 **Ubicaciones:**
+
 1. **Consultorio Iztapalapa**
    - Dirección: Andres Tutino 25c, 09360 Iztapalapa, CDMX
    - Horario: Lun - Vie: 9:00 AM - 7:00 PM
@@ -211,10 +238,12 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
    - Horario: Lun - Vie: 9:00 AM - 7:00 PM
 
 **Consulta Online:**
+
 - Opción de consulta virtual por videollamada
 - Enlace directo a WhatsApp para agendar
 
 ### 8. **Footer** (`Footer.tsx`)
+
 - Información adicional y enlaces (implementación pendiente de revisar)
 
 ---
@@ -222,6 +251,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 ## ⚙️ Configuración Técnica
 
 ### Vite Configuration
+
 - **Puerto**: 8080
 - **Host**: `::` (todas las interfaces)
 - **Alias**: `@` apunta a `./src`
@@ -229,12 +259,14 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 - **Lovable Tagger**: Activado en modo desarrollo
 
 ### TypeScript Configuration
+
 - **Base URL**: `.`
 - **Path Mapping**: `@/*` → `./src/*`
 - **Strict Mode**: Deshabilitado (configuración relajada)
 - **Skip Lib Check**: Habilitado
 
 ### Tailwind Configuration
+
 - **Dark Mode**: Basado en clase `dark`
 - **Content**: Escanea todos los archivos `.tsx` y `.ts`
 - **Container**: Centrado con padding de 2rem
@@ -245,6 +277,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 ## 📦 Dependencias Principales
 
 ### Producción
+
 - React & React DOM
 - React Router DOM
 - TanStack Query
@@ -254,6 +287,7 @@ El proyecto utiliza un sistema de colores basado en variables CSS con soporte pa
 - Tailwind CSS + plugins
 
 ### Desarrollo
+
 - Vite + plugins
 - TypeScript + ESLint
 - PostCSS + Autoprefixer
@@ -331,5 +365,4 @@ Proyecto privado - Todos los derechos reservados
 
 ---
 
-*Última actualización: Generado automáticamente mediante análisis del código fuente*
-
+_Última actualización: Generado automáticamente mediante análisis del código fuente_

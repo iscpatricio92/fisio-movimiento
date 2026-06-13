@@ -136,7 +136,7 @@ export const useMetaTags = (config: MetaTagsConfig) => {
         updateMetaTag('title', document.title);
         updateMetaTag(
           'description',
-          'Fisioterapeuta con doble titulación México-España. Especialista en dolor de espalda, ATM e hipopresivos. CDMX y Metepec. Primera cita $600. ¡Reserva hoy!',
+          'Fisioterapeuta con doble titulación México-España. Especialista en dolor de espalda, ATM e hipopresivos. CDMX y Metepec. Primera cita $700. ¡Reserva hoy!',
         );
       }
     };
