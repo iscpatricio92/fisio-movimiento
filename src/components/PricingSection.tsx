@@ -34,8 +34,8 @@ const plans = [
   },
   {
     name: 'Primera Visita',
-    price: '600',
-    originalPrice: '800',
+    price: '700',
+    originalPrice: '850',
     description: 'Evaluación completa presencial',
     features: [
       'Evaluación integral 60 min',
@@ -48,7 +48,7 @@ const plans = [
   },
   {
     name: 'Sesión de Fisioterapia',
-    price: '550',
+    price: '650',
     description: 'Tratamiento personalizado',
     features: [
       'Sesión de 45-60 min',
@@ -91,13 +91,13 @@ const serviceCategories = [
     services: [
       {
         name: 'Cita de primera vez Fisioterapia',
-        price: '600',
+        price: '700',
         description:
           'Evaluación completa inicial con diagnóstico y plan de tratamiento',
       },
       {
         name: 'Consulta subsecuente',
-        price: '550',
+        price: '650',
         description: 'Seguimiento y ajuste del plan de tratamiento',
       },
     ],
@@ -108,22 +108,22 @@ const serviceCategories = [
     services: [
       {
         name: 'Sesión de fisioterapia subsecuente',
-        price: '550',
+        price: '650',
         description: 'Tratamiento continuo personalizado',
       },
       {
         name: 'Sesión de fisioterapia y rehabilitación',
-        price: '550',
+        price: '650',
         description: 'Sesión de fisioterapia estándar',
       },
       {
         name: 'Fisioterapia Ortopédica',
-        price: '550',
+        price: '650',
         description: 'Tratamiento de lesiones musculoesqueléticas',
       },
       {
         name: 'Fisioterapia Post-Quirúrgica',
-        price: '550',
+        price: '650',
         description: 'Rehabilitación después de cirugía',
       },
     ],
@@ -134,27 +134,27 @@ const serviceCategories = [
     services: [
       {
         name: 'Rehabilitación de Columna (Cervical, Dorsal, Lumbar)',
-        price: '550',
+        price: '650',
         description: 'Tratamiento especializado para problemas de columna',
       },
       {
         name: 'Fisioterapia ATM',
-        price: '550',
+        price: '650',
         description: 'Terapia para articulación temporomandibular y bruxismo',
       },
       {
         name: 'Fisioterapia para Dolor',
-        price: '550',
+        price: '650',
         description: 'Manejo integral del dolor agudo y crónico',
       },
       {
         name: 'Terapia física y readaptación deportiva',
-        price: '550',
+        price: '650',
         description: 'Recuperación funcional para deportistas',
       },
       {
         name: 'Prevención de caídas en adulto mayor',
-        price: '550',
+        price: '650',
         description: 'Programa de fortalecimiento y equilibrio',
       },
     ],
@@ -165,27 +165,27 @@ const serviceCategories = [
     services: [
       {
         name: 'Ejercicio terapéutico',
-        price: '550',
+        price: '650',
         description: 'Programa de ejercicios terapéuticos',
       },
       {
         name: 'Ejercicio terapéutico individualizado',
-        price: '550',
+        price: '650',
         description: 'Programa de ejercicios personalizado',
       },
       {
         name: 'Ejercicios de fortalecimiento muscular',
-        price: '550',
+        price: '650',
         description: 'Rutina de fortalecimiento adaptada',
       },
       {
         name: 'Ejercicios Hipopresivos',
-        price: '550',
+        price: '650',
         description: 'Técnica para suelo pélvico y faja abdominal',
       },
       {
         name: 'Reeducación postural',
-        price: '550',
+        price: '650',
         description: 'Corrección de postura y alineación corporal',
       },
       {

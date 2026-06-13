@@ -150,7 +150,7 @@ export const HeroSection = () => {
             {/* Badge de garantía */}
             <div className="flex items-center gap-2 text-xs sm:text-sm opacity-85 bg-primary-foreground/10 backdrop-blur-sm px-3 py-2 rounded-full border border-primary-foreground/20 w-fit">
               <Check className="w-4 h-4 text-accent" />
-              <span>Primera cita $600 MXN</span>
+              <span>Primera cita $700 MXN</span>
             </div>
 
             {/* Locations - Simplified on mobile */}
