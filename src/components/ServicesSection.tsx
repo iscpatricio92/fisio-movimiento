@@ -57,56 +57,56 @@ const specialties = [
     title: 'Traumatológica',
     description:
       '¿Sufriste una lesión o saliste de cirugía? Te ayudo a recuperar tu movilidad paso a paso.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Zap,
     title: 'Electroterapia',
     description:
       'Alivia el dolor rápidamente con técnicas de electroterapia de última generación.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Activity,
     title: 'Terapias Manuales',
     description:
       '¿Contracturas o tensión muscular? Libera la rigidez con técnicas manuales especializadas.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Target,
     title: 'Readaptación Deportiva',
     description:
       '¿Lesión deportiva te detuvo? Vuelve a entrenar con un plan de recuperación personalizado.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Brain,
     title: 'Tratamiento ATM',
     description:
       '¿Dolor de mandíbula o bruxismo? Tratamiento especializado para que mastiques sin dolor.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Sparkles,
     title: 'Hipopresivos',
     description:
       'Fortalece tu suelo pélvico y abdomen con ejercicios que realmente funcionan.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Heart,
     title: 'Manejo del Dolor',
     description:
       '¿Dolor crónico que no cede? Tratamiento integral basado en la evidencia más actual.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
   {
     icon: Users,
     title: 'Adulto Mayor',
     description:
       'Mantén tu independencia y prevén caídas con un programa diseñado para ti.',
-    priceFrom: '550',
+    priceFrom: '650',
   },
 ];
 

@@ -90,7 +90,7 @@ const Index = () => {
   useMetaTags({
     title: 'Fisioterapeuta CDMX y Metepec | Analaura Reyes - ATM, Dolor',
     description:
-      'Fisioterapeuta con doble titulación México-España. Especialista en dolor de espalda, ATM e hipopresivos. CDMX y Metepec. Primera cita $600. ¡Reserva hoy!',
+      'Fisioterapeuta con doble titulación México-España. Especialista en dolor de espalda, ATM e hipopresivos. CDMX y Metepec. Primera cita $700. ¡Reserva hoy!',
     url: 'https://fisio-movimiento.com/',
     type: 'website',
     twitterTitle: 'Lic. Analaura Reyes Priego | Fisioterapeuta Especializada',
