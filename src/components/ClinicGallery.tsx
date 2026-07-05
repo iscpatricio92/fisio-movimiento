@@ -20,28 +20,28 @@ import {
 // Aspect ratio 4:3 para mantener consistencia
 
 // CDMX 1 - Múltiples tamaños
-import clinicCdmx1Small from '@/assets/clinics/physioholistic cdmx.jpeg?w=400&h=300&format=webp';
-import clinicCdmx1Medium from '@/assets/clinics/physioholistic cdmx.jpeg?w=665&h=499&format=webp';
-import clinicCdmx1Large from '@/assets/clinics/physioholistic cdmx.jpeg?w=800&h=600&format=webp';
-import clinicCdmx1Fallback from '@/assets/clinics/physioholistic cdmx.jpeg?w=800&h=600';
+import clinicCdmx1Small from '@/assets/clinics/physioholistic-cdmx.jpeg?w=400&h=300&format=webp';
+import clinicCdmx1Medium from '@/assets/clinics/physioholistic-cdmx.jpeg?w=665&h=499&format=webp';
+import clinicCdmx1Large from '@/assets/clinics/physioholistic-cdmx.jpeg?w=800&h=600&format=webp';
+import clinicCdmx1Fallback from '@/assets/clinics/physioholistic-cdmx.jpeg?w=800&h=600';
 
 // CDMX 2 - Múltiples tamaños
-import clinicCdmx2Small from '@/assets/clinics/physioholistic cdmx 2.jpeg?w=400&h=300&format=webp';
-import clinicCdmx2Medium from '@/assets/clinics/physioholistic cdmx 2.jpeg?w=665&h=499&format=webp';
-import clinicCdmx2Large from '@/assets/clinics/physioholistic cdmx 2.jpeg?w=800&h=600&format=webp';
-import clinicCdmx2Fallback from '@/assets/clinics/physioholistic cdmx 2.jpeg?w=800&h=600';
+import clinicCdmx2Small from '@/assets/clinics/physioholistic-cdmx-2.jpeg?w=400&h=300&format=webp';
+import clinicCdmx2Medium from '@/assets/clinics/physioholistic-cdmx-2.jpeg?w=665&h=499&format=webp';
+import clinicCdmx2Large from '@/assets/clinics/physioholistic-cdmx-2.jpeg?w=800&h=600&format=webp';
+import clinicCdmx2Fallback from '@/assets/clinics/physioholistic-cdmx-2.jpeg?w=800&h=600';
 
 // Toluca 1 - Múltiples tamaños
-import clinicToluca1Small from '@/assets/clinics/physioholistic consultorio toluca.jpeg?w=400&h=300&format=webp';
-import clinicToluca1Medium from '@/assets/clinics/physioholistic consultorio toluca.jpeg?w=665&h=499&format=webp';
-import clinicToluca1Large from '@/assets/clinics/physioholistic consultorio toluca.jpeg?w=800&h=600&format=webp';
-import clinicToluca1Fallback from '@/assets/clinics/physioholistic consultorio toluca.jpeg?w=800&h=600';
+import clinicToluca1Small from '@/assets/clinics/physioholistic-consultorio-toluca.jpeg?w=400&h=300&format=webp';
+import clinicToluca1Medium from '@/assets/clinics/physioholistic-consultorio-toluca.jpeg?w=665&h=499&format=webp';
+import clinicToluca1Large from '@/assets/clinics/physioholistic-consultorio-toluca.jpeg?w=800&h=600&format=webp';
+import clinicToluca1Fallback from '@/assets/clinics/physioholistic-consultorio-toluca.jpeg?w=800&h=600';
 
 // Toluca 2 - Múltiples tamaños
-import clinicToluca2Small from '@/assets/clinics/physioholistic consultorio toluca calle.jpeg?w=400&h=300&format=webp';
-import clinicToluca2Medium from '@/assets/clinics/physioholistic consultorio toluca calle.jpeg?w=665&h=499&format=webp';
-import clinicToluca2Large from '@/assets/clinics/physioholistic consultorio toluca calle.jpeg?w=800&h=600&format=webp';
-import clinicToluca2Fallback from '@/assets/clinics/physioholistic consultorio toluca calle.jpeg?w=800&h=600';
+import clinicToluca2Small from '@/assets/clinics/physioholistic-consultorio-toluca-calle.jpeg?w=400&h=300&format=webp';
+import clinicToluca2Medium from '@/assets/clinics/physioholistic-consultorio-toluca-calle.jpeg?w=665&h=499&format=webp';
+import clinicToluca2Large from '@/assets/clinics/physioholistic-consultorio-toluca-calle.jpeg?w=800&h=600&format=webp';
+import clinicToluca2Fallback from '@/assets/clinics/physioholistic-consultorio-toluca-calle.jpeg?w=800&h=600';
 
 interface GalleryImage {
   srcSet: string;
