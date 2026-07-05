@@ -14,9 +14,8 @@ Convertir **visita → reserva de cita**. El punto de conversión principal es e
 ## Marcas y sedes
 
 - **FisioMovimiento** — nombre del sitio (no se cambia).
-- **physio holistic** — consultorio en CDMX (Iztapalapa).
-- **Zenag** — clínica en Metepec.
-- Identidad visual por sede: **en pausa** hasta go/no-go de la especialista. No implementar sin confirmación.
+- **physio holistic** (CDMX) / **Zenag** (Metepec) — clínicas donde atiende.
+- **Identidad por sede: DESCARTADA** (decisión de la especialista). Comunicación **unificada**; **no** surfacear "physio holistic" ni "Zenag" como marcas visibles. El logo se usa como **mark** (isotipo/emblema); evitar el wordmark "physio holistic" en superficies públicas (favicon/OG usan el isotipo `public/logo-isotipo.svg`).
 
 ## Paleta (3 colores de marca + neutros)
 

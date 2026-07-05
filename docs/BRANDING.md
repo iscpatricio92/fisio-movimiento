@@ -12,13 +12,20 @@
 | **Zenag**           | Clínica donde atiende            | Metepec, Edo. de México |
 
 > El rebrand adopta los **colores** de physio holistic; **no** cambia el nombre del sitio.
-> El logotipo de **Zenag** está pendiente de entrega (se sumará a esta guía cuando esté disponible).
+
+> **🛑 Identidad por sede: DESCARTADA** (decisión de la especialista). No se
+> implementa identidad visual por consultorio y **no se incluyen "Zenag" ni
+> "physio holistic" como marcas visibles**; se mantiene comunicación unificada.
+> El logo se usa como **mark de marca** (emblema), evitando surfacear el
+> wordmark "physio holistic" en superficies públicas (p. ej. las OG usan el
+> isotipo). El logo de Zenag ya **no** se requiere.
 
 ## 🖼️ Logotipo
 
-- Archivo base: [`../public/logo.svg`](../public/logo.svg) — **physio holistic** (imagotipo: emblema romboidal tipo mandala + wordmark).
-- **Vectorización a 3 colores planos**: el SVG se generó a partir del PNG original **cuantizando a exactamente los 3 colores de marca** (2 azules + 1 verde), sin gradientes ni artefactos tipo "acuarela". Fiel a la forma y listo como asset base (~34 KB). Pendiente: variantes **emblema-solo (isotipo)** y **monocromática** (y, si se desea, una versión con gradientes reales).
-- `viewBox="0 0 1112 1111"`, accesible (`role="img"` + `<title>`).
+- **Imagotipo** (emblema + wordmark): [`../public/logo.svg`](../public/logo.svg). Uso interno/documentación; **evitar** el wordmark "physio holistic" en superficies públicas.
+- **Isotipo** (solo emblema, sin texto): [`../public/logo-isotipo.svg`](../public/logo-isotipo.svg) — **variante recomendada** como mark de marca (favicon, OG, avatares). No surfacea "physio holistic".
+- **Monocromo** (una tinta, `fill="currentColor"`): [`../public/logo-mono.svg`](../public/logo-mono.svg) — hereda el color vía CSS; ideal para fondos oscuros o usos de 1 color.
+- Todas las variantes: 3 colores planos de marca, `viewBox` cuadrado, accesibles (`role="img"` + `<title>`).
 
 ## 🎨 Paleta de color
 
@@ -71,8 +78,8 @@ Valores aplicados en `:root` (light). Decisión de accesibilidad: el azul brilla
 
 ## ⏳ Pendientes
 
-- [ ] Logotipo **Zenag** (Metepec) + su rol en la UI.
-- [ ] Refinar SVG con gradientes reales + variantes isotipo/mono.
-- [ ] Afinar stops exactos de gradiente desde el vector definitivo.
+- [x] ~~Logotipo **Zenag**~~ — **descartado** (identidad por sede no va).
+- [x] Variantes **isotipo** y **monocromática** del logo (#101, ✅).
+- [ ] (Opcional) Versión con gradientes reales del logo.
 - [x] Aplicar tokens a `tailwind.config.ts` + `src/index.css` (#99, ✅ aplicado).
-- [ ] Actualizar favicon, OG images, `manifest.json` (`theme_color`) e iconos PWA.
+- [x] Favicon, OG images, `manifest.json` (`theme_color`) e iconos PWA (#100/#101, ✅).
