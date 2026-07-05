@@ -14,12 +14,13 @@ import {
   trackPhoneClick,
   trackWhatsAppClick,
   trackExternalLink,
+  trackEvent,
 } from '@/lib/analytics';
 import {
   getPhysicalAddresses,
   getAllAddresses,
 } from '@/lib/doctoralia-addresses';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Obtener direcciones físicas desde la configuración centralizada
 const physicalAddresses = getPhysicalAddresses();
@@ -103,6 +104,27 @@ const generateContactPageSchema = () => ({
 });
 
 export const ContactSection = () => {
+  const agendaRef = useRef<HTMLDivElement>(null);
+
+  // GA4: registrar (una sola vez) cuando el usuario llega al calendario de
+  // Doctoralia. Al ser un iframe cross-origin no podemos detectar clicks
+  // internos, así que medimos la visualización del widget como proxy de intención.
+  useEffect(() => {
+    const el = agendaRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          trackEvent('agenda_view', { location: 'Contact Section' });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Inyectar schema ContactPage para SEO
   useEffect(() => {
     const existingScript = document.querySelector(
@@ -245,7 +267,11 @@ export const ContactSection = () => {
 
         {/* Instrucciones y Widget de Doctoralia en 2 columnas */}
         <ScrollAnimated animation="fade-up" delay={200}>
-          <div className="mb-8 md:mb-16">
+          <div
+            ref={agendaRef}
+            id="agenda"
+            className="scroll-mt-28 mb-8 md:mb-16"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               {/* Columna izquierda: Instrucciones simplificadas */}
               <div className="bg-card rounded-2xl p-4 md:p-6 lg:p-8 shadow-soft border border-border/50">

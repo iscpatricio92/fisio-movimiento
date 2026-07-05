@@ -316,7 +316,7 @@ export const PricingSection = () => {
                           className="h-8 px-3 text-xs"
                           asChild
                         >
-                          <a href="#contacto">Agendar</a>
+                          <a href="#agenda">Agendar</a>
                         </Button>
                       </div>
                     </div>
@@ -428,7 +428,7 @@ export const PricingSection = () => {
                       className="w-full"
                       asChild
                     >
-                      <a href="#contacto">Solicitar Cita</a>
+                      <a href="#agenda">Solicitar Cita</a>
                     </Button>
                   </div>
                 </div>

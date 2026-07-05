@@ -17,7 +17,7 @@ export const MobileBottomCTA = () => {
             asChild
           >
             <a
-              href="#contacto"
+              href="#agenda"
               onClick={() => trackCTAClick('Agendar Cita', 'Mobile Bottom CTA')}
             >
               <Calendar className="w-5 h-5" />

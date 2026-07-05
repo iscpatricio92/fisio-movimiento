@@ -29,6 +29,7 @@ export const useHashNavigation = () => {
         '#opiniones': 'Opiniones',
         '#faqs': 'FAQs',
         '#contacto': 'Contacto',
+        '#agenda': 'Agenda',
       };
       return sectionMap[hash] || hash.substring(1);
     };
@@ -86,6 +87,7 @@ export const useHashNavigation = () => {
         '#opiniones': 'Opiniones',
         '#faqs': 'FAQs',
         '#contacto': 'Contacto',
+        '#agenda': 'Agenda',
       };
       return sectionMap[hash] || hash.substring(1);
     };
