@@ -17,7 +17,7 @@
 ## 🖼️ Logotipo
 
 - Archivo base: [`../public/logo.svg`](../public/logo.svg) — **physio holistic** (imagotipo: emblema romboidal tipo mandala + wordmark).
-- **⚠️ Base auto-vectorizada**: el SVG se generó por trazado automático (VTracer) a partir del PNG original. Es fiel a la forma y sirve como **base de trabajo**; los gradientes se aproximaron como capas de color plano. Pendiente: versión vectorial refinada por diseño con gradientes reales, y variantes **emblema-solo (isotipo)** y **monocromática**.
+- **Vectorización a 3 colores planos**: el SVG se generó a partir del PNG original **cuantizando a exactamente los 3 colores de marca** (2 azules + 1 verde), sin gradientes ni artefactos tipo "acuarela". Fiel a la forma y listo como asset base (~34 KB). Pendiente: variantes **emblema-solo (isotipo)** y **monocromática** (y, si se desea, una versión con gradientes reales).
 - `viewBox="0 0 1112 1111"`, accesible (`role="img"` + `<title>`).
 
 ## 🎨 Paleta de color
