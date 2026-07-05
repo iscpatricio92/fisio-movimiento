@@ -20,13 +20,14 @@ Convertir **visita → reserva de cita**. El punto de conversión principal es e
 
 ## Paleta (3 colores de marca + neutros)
 
-| Rol                              | HEX       | HSL (token)   |
-| -------------------------------- | --------- | ------------- |
-| Azul primario (`--primary`)      | `#2BA6DB` | `198 71% 51%` |
-| Azul profundo (`--primary-deep`) | `#1876B6` | `204 77% 40%` |
-| Verde acento (`--accent`)        | `#78B342` | `91 46% 48%`  |
-| Verde bosque (`--accent-deep`)   | `#4F8B2E` | `95 50% 36%`  |
-| Cian claro (`--primary-light`)   | `#3EB4E4` | `198 75% 57%` |
+| Rol                                | HEX       | HSL (token)   |
+| ---------------------------------- | --------- | ------------- |
+| Azul profundo (`--primary`, UI)    | `#1876B6` | `204 77% 40%` |
+| Azul brillante (`--primary-light`) | `#2BA6DB` | `198 71% 51%` |
+| Verde acento (`--accent`)          | `#78B342` | `91 46% 48%`  |
+| Verde bosque (`--accent-deep`)     | `#4F8B2E` | `95 50% 36%`  |
+
+> `--primary` (interactivo/botones) usa el **azul profundo** #1876B6 porque cumple AA con texto blanco; el azul brillante #2BA6DB es `--primary-light` (fills/gradientes/hero).
 
 Gradientes de marca: `linear-gradient(135deg,#2BA6DB,#1876B6)` (azul) y `…,#78B342,#4F8B2E` (verde).
 
@@ -45,7 +46,7 @@ Gradientes de marca: `linear-gradient(135deg,#2BA6DB,#1876B6)` (azul) y `…,#78
 ## Accesibilidad (obligatorio)
 
 - Contraste **WCAG AA** en todo par texto/fondo.
-- Texto sobre `--primary` (`#2BA6DB`): usar **blanco**.
+- Texto blanco sobre `--primary` (`#1876B6`): **AA** ✓. El azul brillante `--primary-light` (`#2BA6DB`) con blanco **no** es AA → solo fills/gradientes.
 - El **verde** `#78B342` sobre blanco **no** cumple AA para texto pequeño → úsalo para acentos/íconos; para texto pequeño usa `--accent-deep` `#4F8B2E`.
 - Soportar `prefers-reduced-motion`; foco de teclado siempre visible; targets táctiles ≥ 44px.
 

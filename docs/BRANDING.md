@@ -24,15 +24,14 @@
 
 Colores muestreados directamente del logotipo original.
 
-| Rol               | Token propuesto             | HEX       | HSL           | Uso                                      |
-| ----------------- | --------------------------- | --------- | ------------- | ---------------------------------------- |
-| **Azul primario** | `--primary`                 | `#2BA6DB` | `198 71% 51%` | CTAs, enlaces, marca, "physio"           |
-| **Azul profundo** | `--primary-deep` _(nuevo)_  | `#1876B6` | `204 77% 40%` | Contraste, pétalos centrales, gradientes |
-| **Verde acento**  | `--accent`                  | `#78B342` | `91 46% 48%`  | Acento natural/salud, detalles           |
-| **Verde bosque**  | `--accent-deep` _(nuevo)_   | `#4F8B2E` | `95 50% 36%`  | Fin de gradiente verde                   |
-| **Cian claro**    | `--primary-light` _(nuevo)_ | `#3EB4E4` | `198 75% 57%` | Hover, "holistic", acentos suaves        |
-| Blanco            | —                           | `#FFFFFF` | `0 0% 100%`   | Fondos                                   |
-| Texto oscuro      | `--foreground`              | `#1F2A37` | `210 29% 17%` | Texto principal                          |
+| Rol                    | Token             | HEX       | HSL           | Uso                                       |
+| ---------------------- | ----------------- | --------- | ------------- | ----------------------------------------- |
+| **Azul profundo** (UI) | `--primary`       | `#1876B6` | `204 77% 40%` | CTAs, enlaces, botones (AA con blanco)    |
+| **Azul brillante**     | `--primary-light` | `#2BA6DB` | `198 71% 51%` | Fills, gradientes, hero, "physio"         |
+| **Verde acento**       | `--accent`        | `#78B342` | `91 46% 48%`  | Acentos/íconos (con foreground oscuro)    |
+| **Verde bosque**       | `--accent-deep`   | `#4F8B2E` | `95 50% 36%`  | Verde para texto/íconos sobre fondo claro |
+| Blanco                 | —                 | `#FFFFFF` | `0 0% 100%`   | Fondos                                    |
+| Texto oscuro           | `--foreground`    | `#1F2A37` | `210 29% 17%` | Texto principal                           |
 
 ### Gradientes de marca
 
@@ -66,14 +65,14 @@ Valores aplicados en `:root` (light). Decisión de accesibilidad: el azul brilla
 
 ## ♿ Accesibilidad
 
-- Texto sobre `--primary` (`#2BA6DB`): usar **texto blanco** (contraste AA en tamaños ≥ 18px/bold; validar botones pequeños).
-- El **verde** `#78B342` sobre blanco **no** cumple AA para texto pequeño → usarlo para acentos/gráficos, no para texto pequeño sobre blanco. Para texto usar `--accent-deep` `#4F8B2E`.
-- Validar todos los pares con un checker AA antes de mergear el rebrand.
+- Texto blanco sobre `--primary` (`#1876B6`): **AA** (~4.8). ⚠️ El azul brillante `--primary-light` (`#2BA6DB`) con blanco **no** cumple AA (~2.7) → usarlo solo para fills/gradientes, no como fondo de texto pequeño.
+- El **verde** `--accent` (`#78B342`) usa `--accent-foreground` **oscuro** para cumplir AA cuando es fondo. Como **texto** sobre blanco no cumple AA → usar `--accent-deep` (`#4F8B2E`) o reservarlo para íconos/acentos grandes.
+- Validar todos los pares con un checker AA en cada sección del rebrand (issue #102).
 
 ## ⏳ Pendientes
 
 - [ ] Logotipo **Zenag** (Metepec) + su rol en la UI.
 - [ ] Refinar SVG con gradientes reales + variantes isotipo/mono.
 - [ ] Afinar stops exactos de gradiente desde el vector definitivo.
-- [ ] Aplicar tokens a `tailwind.config.ts` + `src/index.css` (ver issue #92).
+- [x] Aplicar tokens a `tailwind.config.ts` + `src/index.css` (#99, ✅ aplicado).
 - [ ] Actualizar favicon, OG images, `manifest.json` (`theme_color`) e iconos PWA.
