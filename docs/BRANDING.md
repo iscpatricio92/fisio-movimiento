@@ -43,16 +43,19 @@ El emblema usa transiciones azul→azul-profundo y verde→verde-bosque:
 --gradient-accent: linear-gradient(135deg, #78b342 0%, #4f8b2e 100%);
 ```
 
-## 🔁 Mapeo al sistema de tokens actual (`src/index.css`)
+## 🔁 Mapeo al sistema de tokens (`src/index.css`) — ✅ aplicado (#99)
 
-El rebrand consiste en actualizar las variables HSL. Cambios principales:
+Valores aplicados en `:root` (light). Decisión de accesibilidad: el azul brillante `#2BA6DB` **no** cumple AA con texto blanco (contraste ~2.7), así que el token **interactivo** `--primary` usa el **azul profundo `#1876B6`** (AA ~4.8 con blanco) y el azul brillante se expone como **`--primary-light`** para fills/gradientes.
 
-| Token            | Antes (actual)             | Después (marca) | Nota                                                                      |
-| ---------------- | -------------------------- | --------------- | ------------------------------------------------------------------------- |
-| `--primary`      | `187 78% 42%` (cian)       | `198 71% 51%`   | Azul physio                                                               |
-| `--accent`       | `35 90% 55%` (**naranja**) | `91 46% 48%`    | ⚠️ El acento naranja actual **no** pertenece a la marca; pasa a **verde** |
-| `--ring`         | `187 78% 42%`              | `198 71% 51%`   | Acompaña a `--primary`                                                    |
-| `--primary-deep` | —                          | `204 77% 40%`   | Nuevo, para gradientes/contraste                                          |
+| Token             | Antes                      | Ahora                     | Nota                                              |
+| ----------------- | -------------------------- | ------------------------- | ------------------------------------------------- |
+| `--primary`       | `187 78% 42%` (cian)       | `204 77% 40%` (`#1876B6`) | Interactivo (botones/links): AA con texto blanco  |
+| `--primary-light` | —                          | `198 71% 51%` (`#2BA6DB`) | Azul brillante para fills/gradientes/hero         |
+| `--accent`        | `35 90% 55%` (**naranja**) | `91 46% 48%` (`#78B342`)  | Verde de marca; `--accent-foreground` oscuro (AA) |
+| `--accent-deep`   | —                          | `95 50% 36%` (`#4F8B2E`)  | Verde para texto/íconos sobre fondo claro         |
+| `--ring`          | `187 78% 42%`              | `204 77% 40%`             | Acompaña a `--primary`                            |
+
+> En dark se sube la luminosidad del azul (`--primary: 198 74% 56%`) y del verde (`--accent: 95 46% 55%`). Gradientes y sombras migrados de cian/naranja legacy a azul de marca.
 
 > Verificar el modo oscuro (`.dark`) por separado (aumentar luminosidad ~6–8% en primary/accent).
 
