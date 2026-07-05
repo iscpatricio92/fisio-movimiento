@@ -380,7 +380,7 @@ export const TestimonialsSection = () => {
               className="min-h-[52px] px-8"
               asChild
             >
-              <a href="#contacto">Reservar Mi Cita Ahora</a>
+              <a href="#agenda">Reservar Mi Cita Ahora</a>
             </Button>
           </div>
         </ScrollAnimated>

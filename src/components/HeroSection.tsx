@@ -116,7 +116,7 @@ export const HeroSection = () => {
                 asChild
               >
                 <a
-                  href="#contacto"
+                  href="#agenda"
                   onClick={() => trackCTAClick('Reservar Cita', 'Hero Section')}
                 >
                   <Calendar className="w-5 h-5" />

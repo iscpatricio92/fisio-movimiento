@@ -125,7 +125,7 @@ export const Navbar = () => {
               <span>+52 55 6505 3202</span>
             </a>
             <Button variant="cta" size="sm" asChild>
-              <a href={getNavHref('contacto')}>
+              <a href={getNavHref('agenda')}>
                 <Calendar className="w-4 h-4" />
                 Reservar Cita
               </a>
@@ -204,7 +204,7 @@ export const Navbar = () => {
                 </a>
                 <Button variant="cta" className="w-full" asChild>
                   <a
-                    href={getNavHref('contacto')}
+                    href={getNavHref('agenda')}
                     onClick={() => setIsOpen(false)}
                   >
                     <Calendar className="w-4 h-4" />
