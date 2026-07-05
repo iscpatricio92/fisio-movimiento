@@ -7,16 +7,13 @@ import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton';
-import { PWAUpdatePrompt } from '@/components/PWAUpdatePrompt';
 import { SentryTestPanel } from '@/components/SentryTestPanel';
 
 // Root layout: the page content (<Outlet />) is prerendered for SEO; the
-// interactive chrome below is client-only. Several of these widgets touch
-// browser globals during render (e.g. PWAUpdatePrompt → useRegisterSW reads
-// `navigator`), which is undefined during the SSG prerender, so we mount them
-// only after hydration. Gating them keeps server and first-client render
-// identical (no hydration mismatch) and keeps them out of the static HTML,
-// where they add no SEO value anyway.
+// interactive chrome below is client-only. These widgets touch browser globals
+// during render or rely on effects, so we mount them only after hydration.
+// Gating them keeps server and first-client render identical (no hydration
+// mismatch) and keeps them out of the static HTML, where they add no SEO value.
 const Layout = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -29,7 +26,6 @@ const Layout = () => {
           <Toaster />
           <Sonner />
           <WhatsAppFloatingButton />
-          <PWAUpdatePrompt />
           <SentryTestPanel />
           <Analytics />
           <SpeedInsights />

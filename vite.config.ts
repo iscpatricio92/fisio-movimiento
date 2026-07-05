@@ -169,6 +169,15 @@ export default defineConfig(({ mode }) => ({
     ...(mode === 'production' ? [generate404Plugin()] : []),
     VitePWA({
       registerType: 'autoUpdate',
+      // Service worker retirado: el sitio es de captación (marketing → reserva
+      // en Doctoralia, que es externo y no cachea). El caché de repetición lo
+      // cubren el CDN de Vercel + assets con hash `immutable`, y el SSG mejora
+      // la primera carga/SEO. `selfDestroying` publica un SW que se
+      // desregistra y limpia sus cachés en los navegadores que ya lo tenían.
+      // Se conserva el manifest (public/manifest.json + <link> en index.html)
+      // para el tematizado móvil e iconos. Bajo este modo, el bloque `workbox`
+      // de abajo queda inerte (no hay precache).
+      selfDestroying: true,
       includeAssets: [
         'favicon/favicon.ico',
         'favicon/favicon-16x16.png',
