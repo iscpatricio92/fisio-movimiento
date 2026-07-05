@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import * as Sentry from '@sentry/react';
 import { Outlet } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
@@ -9,20 +10,34 @@ import { WhatsAppFloatingButton } from '@/components/WhatsAppFloatingButton';
 import { PWAUpdatePrompt } from '@/components/PWAUpdatePrompt';
 import { SentryTestPanel } from '@/components/SentryTestPanel';
 
-// Root layout: providers + shared chrome. Each route renders into <Outlet />.
-// Rendered on the server during prerender (vite-react-ssg) and hydrated on the client.
-const Layout = () => (
-  <TooltipProvider>
-    <Toaster />
-    <Sonner />
-    <Outlet />
-    <WhatsAppFloatingButton />
-    <PWAUpdatePrompt />
-    <SentryTestPanel />
-    <Analytics />
-    <SpeedInsights />
-  </TooltipProvider>
-);
+// Root layout: the page content (<Outlet />) is prerendered for SEO; the
+// interactive chrome below is client-only. Several of these widgets touch
+// browser globals during render (e.g. PWAUpdatePrompt → useRegisterSW reads
+// `navigator`), which is undefined during the SSG prerender, so we mount them
+// only after hydration. Gating them keeps server and first-client render
+// identical (no hydration mismatch) and keeps them out of the static HTML,
+// where they add no SEO value anyway.
+const Layout = () => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  return (
+    <TooltipProvider>
+      <Outlet />
+      {mounted && (
+        <>
+          <Toaster />
+          <Sonner />
+          <WhatsAppFloatingButton />
+          <PWAUpdatePrompt />
+          <SentryTestPanel />
+          <Analytics />
+          <SpeedInsights />
+        </>
+      )}
+    </TooltipProvider>
+  );
+};
 
 // Error fallback component for Sentry Error Boundary
 const ErrorFallback = ({ resetError }: { resetError: () => void }) => (
