@@ -304,7 +304,7 @@ export const ServicesSection = () => {
           <div className="text-center mb-12 lg:mb-20">
             <a
               href="#precios"
-              className="inline-flex items-center gap-2 px-6 py-3.5 lg:py-3 rounded-xl gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 group min-h-[48px]"
+              className="inline-flex items-center gap-2 px-6 py-3.5 lg:py-3 rounded-xl gradient-cta text-white font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 group min-h-[48px]"
               onClick={(e) => {
                 e.preventDefault();
                 document

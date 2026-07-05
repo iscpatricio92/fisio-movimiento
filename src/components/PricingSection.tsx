@@ -234,9 +234,9 @@ export const PricingSection = () => {
             </p>
             {/* Garantía visible */}
             {/*   <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20">
-              <Check className="w-4 h-4 text-accent" />
+              <Check className="w-4 h-4 text-accent-deep" />
               <span className="text-sm font-medium text-foreground">
-                Garantía: Si no ves mejoría en 3 sesiones, la 4ta es <span className="text-accent font-bold">GRATIS</span>
+                Garantía: Si no ves mejoría en 3 sesiones, la 4ta es <span className="text-accent-deep font-bold">GRATIS</span>
               </span>
             </div> */}
           </div>
@@ -261,7 +261,7 @@ export const PricingSection = () => {
                   {/* Popular badge */}
                   {plan.popular && (
                     <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 z-10">
-                      <span className="gradient-cta text-accent-foreground text-[10px] lg:text-xs font-semibold px-2.5 py-0.5 lg:px-3 lg:py-1 rounded-full whitespace-nowrap">
+                      <span className="gradient-cta text-white text-[10px] lg:text-xs font-semibold px-2.5 py-0.5 lg:px-3 lg:py-1 rounded-full whitespace-nowrap">
                         Más Popular
                       </span>
                     </div>
@@ -380,7 +380,9 @@ export const PricingSection = () => {
                       {'originalPrice' in plan && plan.originalPrice && (
                         <div
                           className={`text-xs mt-1 font-semibold ${
-                            plan.popular ? 'text-accent' : 'text-accent'
+                            plan.popular
+                              ? 'text-primary-foreground'
+                              : 'text-accent-deep'
                           }`}
                         >
                           Ahorras $

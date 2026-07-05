@@ -140,7 +140,7 @@ export const ContactSection = () => {
             {/*  <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 animate-pulse-soft">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-medium text-foreground">
-                Próxima cita disponible: <span className="text-accent font-bold">Mañana a las 10:00 AM</span>
+                Próxima cita disponible: <span className="text-accent-deep font-bold">Mañana a las 10:00 AM</span>
               </span>
             </div> */}
           </div>

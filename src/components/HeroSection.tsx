@@ -43,7 +43,7 @@ export const HeroSection = () => {
             <div className="space-y-4 lg:space-y-6">
               {/* Badge - smaller on mobile */}
               <div className="inline-flex items-center gap-2 bg-primary-foreground/15 backdrop-blur-md px-4 py-2 lg:px-5 lg:py-2.5 rounded-full border border-primary-foreground/20 shadow-soft animate-scale-in">
-                <Award className="w-4 h-4 text-accent" />
+                <Award className="w-4 h-4 text-white" />
                 <span className="text-xs lg:text-sm font-semibold">
                   Doble Titulación • México & España
                 </span>
@@ -53,7 +53,7 @@ export const HeroSection = () => {
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight">
                 Fisioterapeuta en
                 <br />
-                <span className="text-accent drop-shadow-lg">
+                <span className="text-white drop-shadow-lg">
                   CDMX y Metepec
                 </span>
               </h1>
@@ -81,7 +81,7 @@ export const HeroSection = () => {
             {/* Stats - horizontal scroll on mobile, grid on desktop */}
             <div className="flex gap-3 lg:gap-8 pt-2 lg:pt-4 overflow-x-auto pb-2 -mx-4 px-4 lg:mx-0 lg:px-0 lg:overflow-visible scrollbar-hide">
               <div className="flex-shrink-0 text-center bg-primary-foreground/10 backdrop-blur-sm px-4 py-3 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl border border-primary-foreground/20 shadow-soft hover:scale-105 transition-transform duration-300 min-w-[100px] lg:min-w-0">
-                <div className="text-2xl lg:text-4xl font-extrabold text-accent mb-0.5 lg:mb-1">
+                <div className="text-2xl lg:text-4xl font-extrabold text-white mb-0.5 lg:mb-1">
                   10+
                 </div>
                 <div className="text-xs lg:text-sm font-medium opacity-90">
@@ -89,16 +89,16 @@ export const HeroSection = () => {
                 </div>
               </div>
               <div className="flex-shrink-0 text-center bg-primary-foreground/10 backdrop-blur-sm px-4 py-3 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl border border-primary-foreground/20 shadow-soft hover:scale-105 transition-transform duration-300 min-w-[100px] lg:min-w-0">
-                <div className="text-2xl lg:text-4xl font-extrabold text-accent mb-0.5 lg:mb-1">
+                <div className="text-2xl lg:text-4xl font-extrabold text-white mb-0.5 lg:mb-1">
                   5.0
                 </div>
                 <div className="text-xs lg:text-sm font-medium opacity-90 flex items-center justify-center gap-1">
-                  <Star className="w-3 h-3 lg:w-3.5 lg:h-3.5 fill-accent text-accent" />
+                  <Star className="w-3 h-3 lg:w-3.5 lg:h-3.5 fill-white text-white" />
                   Rating
                 </div>
               </div>
               <div className="flex-shrink-0 text-center bg-primary-foreground/10 backdrop-blur-sm px-4 py-3 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl border border-primary-foreground/20 shadow-soft hover:scale-105 transition-transform duration-300 min-w-[100px] lg:min-w-0">
-                <div className="text-2xl lg:text-4xl font-extrabold text-accent mb-0.5 lg:mb-1">
+                <div className="text-2xl lg:text-4xl font-extrabold text-white mb-0.5 lg:mb-1">
                   500+
                 </div>
                 <div className="text-xs lg:text-sm font-medium opacity-90">
@@ -149,7 +149,7 @@ export const HeroSection = () => {
 
             {/* Badge de garantía */}
             <div className="flex items-center gap-2 text-xs sm:text-sm opacity-85 bg-primary-foreground/10 backdrop-blur-sm px-3 py-2 rounded-full border border-primary-foreground/20 w-fit">
-              <Check className="w-4 h-4 text-accent" />
+              <Check className="w-4 h-4 text-white" />
               <span>Primera cita $700 MXN</span>
             </div>
 

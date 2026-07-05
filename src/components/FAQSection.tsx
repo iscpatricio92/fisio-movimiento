@@ -219,7 +219,7 @@ export const FAQSection = () => {
                 href="https://wa.me/525565053202?text=Hola,%20tengo%20una%20pregunta%20sobre%20fisioterapia"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-xl gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 active:scale-95"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 min-h-[48px] rounded-xl gradient-cta text-white font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 active:scale-95"
                 onClick={() => {
                   trackCTAClick('Escribir por WhatsApp', 'FAQ Section');
                   trackWhatsAppClick(

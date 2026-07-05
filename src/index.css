@@ -16,8 +16,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 200 25% 15%;
 
-    --primary: 187 78% 42%;
+    /* Marca physio holistic: primary = azul profundo #1876B6 (AA con texto
+       blanco), primary-light = azul brillante #2BA6DB (fills/gradientes) */
+    --primary: 204 77% 40%;
     --primary-foreground: 0 0% 100%;
+    --primary-light: 198 71% 51%;
 
     --secondary: 195 40% 95%;
     --secondary-foreground: 200 25% 20%;
@@ -25,51 +28,56 @@
     --muted: 195 25% 93%;
     --muted-foreground: 200 15% 45%;
 
-    --accent: 35 90% 55%;
-    --accent-foreground: 0 0% 100%;
+    /* Acento de marca: verde #78B342. Foreground oscuro para AA sobre verde.
+       accent-deep #4F8B2E para verde como texto/íconos sobre fondo claro. */
+    --accent: 91 46% 48%;
+    --accent-foreground: 200 25% 12%;
+    /* Verde oscuro AA-safe para texto sobre fondo claro (contraste ~5.4:1) */
+    --accent-deep: 96 56% 30%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 195 25% 88%;
     --input: 195 25% 88%;
-    --ring: 187 78% 42%;
+    --ring: 204 77% 40%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
+    /* Gradiente de marca: azul brillante #2BA6DB → azul profundo #1876B6 */
     --gradient-hero: linear-gradient(
       135deg,
-      hsl(187 78% 42%) 0%,
-      hsl(195 70% 50%) 50%,
-      hsl(200 65% 55%) 100%
+      hsl(198 71% 51%) 0%,
+      hsl(201 74% 45%) 50%,
+      hsl(204 77% 40%) 100%
     );
     --gradient-hero-alt: linear-gradient(
       135deg,
-      hsl(187 85% 45%) 0%,
-      hsl(195 75% 52%) 50%,
-      hsl(200 70% 58%) 100%
+      hsl(198 75% 55%) 0%,
+      hsl(204 77% 44%) 100%
     );
     --gradient-card: linear-gradient(
       145deg,
       hsl(0 0% 100%) 0%,
-      hsl(195 30% 98%) 100%
+      hsl(198 30% 98%) 100%
     );
+    /* CTA primario = azul de marca (la acción principal es reservar) */
     --gradient-cta: linear-gradient(
       135deg,
-      hsl(35 90% 55%) 0%,
-      hsl(25 85% 50%) 100%
+      hsl(198 71% 51%) 0%,
+      hsl(204 77% 40%) 100%
     );
     --gradient-cta-hover: linear-gradient(
       135deg,
-      hsl(35 95% 60%) 0%,
-      hsl(25 90% 55%) 100%
+      hsl(198 74% 55%) 0%,
+      hsl(204 80% 44%) 100%
     );
     --shadow-soft: 0 4px 20px -4px hsl(200 25% 15% / 0.08);
     --shadow-medium: 0 8px 30px -8px hsl(200 25% 15% / 0.12);
-    --shadow-card: 0 12px 50px -12px hsl(187 78% 42% / 0.18);
-    --shadow-glow: 0 0 40px hsl(187 78% 42% / 0.25);
-    --shadow-glow-strong: 0 0 60px hsl(187 78% 42% / 0.35);
+    --shadow-card: 0 12px 50px -12px hsl(204 77% 40% / 0.18);
+    --shadow-glow: 0 0 40px hsl(204 77% 40% / 0.25);
+    --shadow-glow-strong: 0 0 60px hsl(204 77% 40% / 0.35);
 
     --font-display: 'Poppins', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -94,8 +102,10 @@
     --popover: 200 25% 12%;
     --popover-foreground: 195 30% 95%;
 
-    --primary: 187 78% 48%;
+    /* En dark subimos luminosidad del azul de marca para contraste sobre fondo oscuro */
+    --primary: 198 74% 56%;
     --primary-foreground: 200 25% 8%;
+    --primary-light: 198 78% 64%;
 
     --secondary: 200 25% 18%;
     --secondary-foreground: 195 30% 90%;
@@ -103,15 +113,16 @@
     --muted: 200 25% 18%;
     --muted-foreground: 195 20% 60%;
 
-    --accent: 35 90% 55%;
+    --accent: 95 46% 55%;
     --accent-foreground: 200 25% 8%;
+    --accent-deep: 95 50% 44%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 200 25% 20%;
     --input: 200 25% 20%;
-    --ring: 187 78% 48%;
+    --ring: 198 74% 56%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;

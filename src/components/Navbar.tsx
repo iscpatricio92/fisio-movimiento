@@ -89,7 +89,10 @@ export const Navbar = () => {
                 isScrolled ? 'text-primary' : 'text-white drop-shadow-md'
               }`}
             >
-              Fisio<span className="text-accent">Analaura</span>
+              Fisio
+              <span className={isScrolled ? 'text-accent-deep' : 'text-white'}>
+                Analaura
+              </span>
             </span>
           </a>
 
