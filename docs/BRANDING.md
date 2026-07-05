@@ -1,17 +1,17 @@
-# 🎨 Guía de Marca — FisioMovimiento
+# 🎨 Guía de Marca — FisioAnalaura
 
-> Sistema de identidad visual del sitio **FisioMovimiento** (`fisio-movimiento.com`).
-> El sitio **conserva el nombre "FisioMovimiento"** y adopta la **paleta de color de `physio holistic`** como sistema visual.
+> Sistema de identidad visual del sitio **FisioAnalaura** (`fisio-movimiento.com`).
+> El sitio usa el nombre de marca **"FisioAnalaura"** (decisión de la especialista) y adopta la **paleta de color de `physio holistic`** como sistema visual.
 
 ## 🏷️ Marcas y sedes
 
 | Marca               | Rol                              | Sede                    |
 | ------------------- | -------------------------------- | ----------------------- |
-| **FisioMovimiento** | Nombre del sitio / marca digital | —                       |
+| **FisioAnalaura**   | Nombre del sitio / marca digital | —                       |
 | **physio holistic** | Consultorio de la especialista   | CDMX (Iztapalapa)       |
 | **Zenag**           | Clínica donde atiende            | Metepec, Edo. de México |
 
-> El rebrand adopta los **colores** de physio holistic; **no** cambia el nombre del sitio.
+> El dominio se mantiene en `fisio-movimiento.com` (infraestructura); la **marca visible** del sitio es **FisioAnalaura**. El rebrand adopta los **colores** de physio holistic.
 
 > **🛑 Identidad por sede: DESCARTADA** (decisión de la especialista). No se
 > implementa identidad visual por consultorio y **no se incluyen "Zenag" ni

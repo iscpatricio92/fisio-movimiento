@@ -1,11 +1,11 @@
 ---
 name: design-system
-description: Sistema de diseño y marca de FisioMovimiento (identidad physio holistic). Úsalo SIEMPRE antes de crear o modificar UI, elegir colores, componer secciones, ajustar tipografía/espaciado, o construir un mockup/artifact del sitio. Garantiza que cualquier cambio visual use los tokens y patrones de marca de forma consistente.
+description: Sistema de diseño y marca de FisioAnalaura (identidad physio holistic). Úsalo SIEMPRE antes de crear o modificar UI, elegir colores, componer secciones, ajustar tipografía/espaciado, o construir un mockup/artifact del sitio. Garantiza que cualquier cambio visual use los tokens y patrones de marca de forma consistente.
 ---
 
-# Sistema de diseño — FisioMovimiento
+# Sistema de diseño — FisioAnalaura
 
-Marca digital **FisioMovimiento** (`fisio-movimiento.com`). Fuente de verdad ampliada: [`docs/BRANDING.md`](../../../docs/BRANDING.md). Esta skill es el resumen operativo.
+Marca digital **FisioAnalaura** (dominio `fisio-movimiento.com`). Fuente de verdad ampliada: [`docs/BRANDING.md`](../../../docs/BRANDING.md). Esta skill es el resumen operativo.
 
 ## Objetivo del sitio (no perder el foco)
 
@@ -13,7 +13,7 @@ Convertir **visita → reserva de cita**. El punto de conversión principal es e
 
 ## Marcas y sedes
 
-- **FisioMovimiento** — nombre del sitio (no se cambia).
+- **FisioAnalaura** — nombre de marca del sitio (el dominio sigue siendo `fisio-movimiento.com`).
 - **physio holistic** (CDMX) / **Zenag** (Metepec) — clínicas donde atiende.
 - **Identidad por sede: DESCARTADA** (decisión de la especialista). Comunicación **unificada**; **no** surfacear "physio holistic" ni "Zenag" como marcas visibles. El logo se usa como **mark** (isotipo/emblema); evitar el wordmark "physio holistic" en superficies públicas (favicon/OG usan el isotipo `public/logo-isotipo.svg`).
 
@@ -62,7 +62,7 @@ Gradientes de marca: `linear-gradient(135deg,#2BA6DB,#1876B6)` (azul) y `…,#78
 ## Do / Don't
 
 - ✅ Usa tokens, gradientes y patrones de arriba. ✅ Prioriza la reserva. ✅ Mantén el gran performance (lazy, imágenes optimizadas).
-- ❌ No introduzcas naranjas ni colores fuera de paleta. ❌ No entierres el widget de Doctoralia. ❌ No cambies el nombre "FisioMovimiento". ❌ No implementes identidad por sede sin el go/no-go.
+- ❌ No introduzcas naranjas ni colores fuera de paleta. ❌ No entierres el widget de Doctoralia. ❌ No cambies el nombre de marca "FisioAnalaura". ❌ No implementes identidad por sede sin el go/no-go.
 
 ## Datos reales (para copy, no usar placeholders)
 
