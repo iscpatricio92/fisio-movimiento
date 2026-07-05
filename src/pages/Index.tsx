@@ -79,11 +79,6 @@ const FAQSection = lazy(() =>
     default: module.FAQSection,
   })),
 );
-const SocialMediaSection = lazy(() =>
-  import('@/components/SocialMediaSection').then((module) => ({
-    default: module.SocialMediaSection,
-  })),
-);
 
 const Index = () => {
   // Meta tags para la página principal (unifica con index.html)
@@ -134,7 +129,6 @@ const Index = () => {
   });
   const contactRef = useSectionTracking({ sectionName: 'Contact Section' });
   const faqRef = useSectionTracking({ sectionName: 'FAQ Section' });
-  const socialRef = useSectionTracking({ sectionName: 'Social Media Section' });
 
   // Loading fallback component
   const SectionLoader = () => (
@@ -177,13 +171,6 @@ const Index = () => {
               <ContactSection />
             </Suspense>
           </section>
-          {/* <section id="redes-sociales" ref={socialRef} className="py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <Suspense fallback={<SectionLoader />}>
-              <SocialMediaSection />
-            </Suspense>
-          </div>
-        </section> */}
           <section ref={faqRef}>
             <Suspense fallback={<SectionLoader />}>
               <FAQSection />
