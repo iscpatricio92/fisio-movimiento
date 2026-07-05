@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import {
   Calendar,
-  Phone,
+  MessageCircle,
   MapPin,
   Award,
   Star,
@@ -13,7 +13,7 @@ import therapistImage from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg'
 import therapistImageWebP400 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg?w=400&format=webp';
 import therapistImageWebP800 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg?w=800&format=webp';
 import therapistImageWebP1200 from '@/assets/Lic. Analaura Reyes - Fisioterapeuta+1.jpg?w=1200&format=webp';
-import { trackCTAClick, trackPhoneClick } from '@/lib/analytics';
+import { trackCTAClick, trackWhatsAppClick } from '@/lib/analytics';
 
 export const HeroSection = () => {
   return (
@@ -94,7 +94,7 @@ export const HeroSection = () => {
                 </div>
                 <div className="text-xs lg:text-sm font-medium opacity-90 flex items-center justify-center gap-1">
                   <Star className="w-3 h-3 lg:w-3.5 lg:h-3.5 fill-white text-white" />
-                  Rating
+                  en Doctoralia
                 </div>
               </div>
               <div className="flex-shrink-0 text-center bg-primary-foreground/10 backdrop-blur-sm px-4 py-3 lg:px-6 lg:py-4 rounded-xl lg:rounded-2xl border border-primary-foreground/20 shadow-soft hover:scale-105 transition-transform duration-300 min-w-[100px] lg:min-w-0">
@@ -135,14 +135,18 @@ export const HeroSection = () => {
                 asChild
               >
                 <a
-                  href="tel:+525565053202"
-                  onClick={() => {
-                    trackCTAClick('Llamar Ahora', 'Hero Section');
-                    trackPhoneClick('+525565053202', 'Hero Section');
-                  }}
+                  href={`https://wa.me/525565053202?text=${encodeURIComponent('Hola, me gustaría agendar una cita de fisioterapia')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackWhatsAppClick(
+                      'Hola, me gustaría agendar una cita de fisioterapia',
+                      'Hero Section',
+                    )
+                  }
                 >
-                  <Phone className="w-5 h-5" />
-                  Llamar Ahora
+                  <MessageCircle className="w-5 h-5" />
+                  WhatsApp
                 </a>
               </Button>
             </div>
