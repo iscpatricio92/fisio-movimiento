@@ -124,7 +124,7 @@ const TestimonialCard = ({
     {/* Transformation badge */}
     {'transformation' in testimonial && testimonial.transformation && (
       <div className="mb-3 -mt-1">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold border border-accent/20">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent/10 text-accent-deep text-xs font-semibold border border-accent/20">
           ✨ {testimonial.transformation}
         </span>
       </div>
