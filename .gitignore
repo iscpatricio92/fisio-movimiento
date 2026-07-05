@@ -13,6 +13,9 @@ dist-ssr
 dev-dist
 *.local
 
+# Este proyecto usa npm (package.json + package-lock.json). No usar bun.
+bun.lockb
+
 # Bundle analysis output
 dist/stats.html
 

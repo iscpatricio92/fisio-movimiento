@@ -83,7 +83,7 @@ npm run preview      # Preview del build de producción localmente
 ## 📁 Estructura del Proyecto
 
 ```
-fisiolaura-reyes-clone-enhance/
+fisio-movimiento/
 ├── public/                 # Archivos estáticos
 │   ├── favicon/           # Favicons optimizados
 │   ├── manifest.json      # PWA manifest
@@ -117,9 +117,8 @@ fisiolaura-reyes-clone-enhance/
 │   ├── main.tsx          # Entry point
 │   └── index.css         # Estilos globales
 ├── docs/                  # Documentación del proyecto
-├── .github/
-│   └── workflows/
-│       └── deploy.yml     # GitHub Actions para deploy
+├── scripts/               # Scripts de build (sitemap, versionado)
+├── vercel.json            # Configuración de deploy y headers (Vercel)
 ├── vite.config.ts         # Configuración de Vite
 ├── tailwind.config.ts     # Configuración de Tailwind
 ├── tsconfig.json          # Configuración de TypeScript
@@ -163,23 +162,31 @@ fisiolaura-reyes-clone-enhance/
 
 ## 🚀 Despliegue
 
-El proyecto está configurado para desplegarse automáticamente en **GitHub Pages** mediante GitHub Actions cuando se hace push a la rama `main`.
+El proyecto se despliega automáticamente en **Vercel**. Cada push o merge a la rama `main` genera un despliegue de producción, y cada Pull Request genera un despliegue de _preview_ para revisión.
 
-### Configuración de GitHub Pages
+### Flujo de ramas
 
-1. Ve a **Settings** > **Pages** en tu repositorio
-2. En **Source**, selecciona **GitHub Actions**
-3. El workflow `.github/workflows/deploy.yml` se ejecutará automáticamente
+- Todo cambio se desarrolla en una rama de feature y se integra a `develop` mediante Pull Request.
+- Nunca se hace push directo a `main`: los cambios llegan a `main` (producción) vía PR desde `develop`.
+
+### Configuración en Vercel
+
+La configuración de build y los headers HTTP se definen en [`vercel.json`](vercel.json):
+
+- **Headers de seguridad**: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`.
+- **Caché**: `assets/` y `favicon/` con `max-age` de 1 año (immutable); `index.html` con `must-revalidate`.
+- **SPA rewrites**: todas las rutas se reescriben a `/index.html` para el enrutamiento del lado del cliente.
+
+Vercel detecta automáticamente Vite y usa el script `npm run build`.
 
 ### Dominio Personalizado
 
-El proyecto está configurado para usar `fisio-movimiento.com`:
+El proyecto usa `fisio-movimiento.com`, configurado como dominio personalizado en el panel de Vercel:
 
-- Archivo `CNAME` en `public/`
 - `vite.config.ts` configurado con `base: '/'`
 - `BrowserRouter` usa `import.meta.env.BASE_URL`
 
-Ver documentación completa en [`docs/DEPLOY_GITHUB_PAGES.md`](docs/DEPLOY_GITHUB_PAGES.md)
+Ver documentación completa en [`docs/DEPLOY_VERCEL.md`](docs/DEPLOY_VERCEL.md)
 
 ---
 
@@ -188,14 +195,7 @@ Ver documentación completa en [`docs/DEPLOY_GITHUB_PAGES.md`](docs/DEPLOY_GITHU
 La documentación detallada está disponible en el directorio `docs/`:
 
 - **[CONTEXTO_PROYECTO.md](docs/CONTEXTO_PROYECTO.md)** - Información general del proyecto
-- **[DEPLOY_GITHUB_PAGES.md](docs/DEPLOY_GITHUB_PAGES.md)** - Guía de despliegue
-- **[PLAN_OPTIMIZACION_PAGESPEED.md](docs/PLAN_OPTIMIZACION_PAGESPEED.md)** - Optimizaciones de performance
-- **[ANALISIS_MARKETING_DIGITAL.md](docs/ANALISIS_MARKETING_DIGITAL.md)** - Análisis SEO, UX/UI, CRO
-- **[DOCTORALIA_ADDRESSES.md](docs/DOCTORALIA_ADDRESSES.md)** - Configuración de direcciones Doctoralia
-- **[ESTRATEGIA_CACHE.md](docs/ESTRATEGIA_CACHE.md)** - Estrategia de caché con Service Worker
-- **[GESTION_ACTUALIZACIONES_CACHE.md](docs/GESTION_ACTUALIZACIONES_CACHE.md)** - Sistema de actualizaciones PWA
-- **[CONFIGURAR_ANALYTICS.md](docs/CONFIGURAR_ANALYTICS.md)** - Configuración de Google Analytics 4
-- **[OG_IMAGE_GUIDE.md](docs/OG_IMAGE_GUIDE.md)** - Guía para crear Open Graph images
+- **[DEPLOY_VERCEL.md](docs/DEPLOY_VERCEL.md)** - Guía de despliegue en Vercel
 
 ---
 
@@ -212,12 +212,14 @@ cp .env.example .env
 **Variables disponibles:**
 
 - `VITE_SENTRY_DSN` (Opcional) - DSN de Sentry para error tracking en producción
-  - **Para producción (GitHub Pages)**: Agrega como secret en GitHub (Settings > Secrets > Actions)
+  - **Para producción (Vercel)**: Agrégala en **Project Settings > Environment Variables** en el panel de Vercel
   - **Para desarrollo local**: Agrega en archivo `.env`
   - Obtén tu DSN en [Sentry.io](https://sentry.io/settings/{org}/projects/{project}/keys/)
   - Si no se configura, el error tracking estará deshabilitado (el sitio funciona normalmente)
 
-**Nota sobre GitHub Pages**: Como GitHub Pages es hosting estático, las variables de entorno se inyectan durante el **build** (no en runtime). El workflow de GitHub Actions ya está configurado para usar `VITE_SENTRY_DSN` como secret. Ver [`docs/GITHUB_PAGES_VARIABLES_ENTORNO.md`](docs/GITHUB_PAGES_VARIABLES_ENTORNO.md) para más detalles.
+**Nota sobre variables de entorno**: Vite inyecta las variables `VITE_*` durante el **build**, no en runtime. En Vercel, las variables definidas en el panel se aplican automáticamente al build de cada despliegue.
+
+**Sentry solo se activa en producción**: la inicialización de Sentry está condicionada a `import.meta.env.PROD` (ver `src/main.tsx`). En desarrollo solo se habilita de forma explícita con `VITE_SENTRY_TEST=true`, y el `SentryTestPanel` únicamente se muestra bajo esa misma condición. En producción no se renderiza ningún panel de pruebas.
 
 **Otras configuraciones** (no requieren variables de entorno):
 
@@ -276,4 +278,4 @@ Este proyecto es privado y confidencial. Todos los derechos reservados.
 
 ---
 
-**Última actualización**: Enero 2025
+**Última actualización**: Julio 2026
