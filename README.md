@@ -1,4 +1,4 @@
-# FisioMovimiento - Sitio Web Profesional
+# FisioAnalaura - Sitio Web Profesional
 
 Sitio web profesional para **Lic. Analaura Reyes Priego**, fisioterapeuta con doble titulación (México y España). Plataforma moderna y responsive para presentar servicios, credenciales, precios y facilitar el contacto con pacientes.
 
