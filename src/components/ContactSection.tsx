@@ -198,8 +198,8 @@ export const ContactSection = () => {
                 }
                 className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-10 h-10 rounded-lg bg-[hsl(142,70%,45%)] flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-lg bg-[#25D366] flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">
                   WhatsApp
@@ -217,8 +217,8 @@ export const ContactSection = () => {
                 }
                 className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-accent-foreground" />
+                <div className="w-10 h-10 rounded-lg gradient-cta flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">
                   Reservar

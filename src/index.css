@@ -26,7 +26,8 @@
     --secondary-foreground: 200 25% 20%;
 
     --muted: 195 25% 93%;
-    --muted-foreground: 200 15% 45%;
+    /* 40% en vez de 45% para cumplir AA (~5:1) del copy secundario sobre fondo claro */
+    --muted-foreground: 200 15% 40%;
 
     /* Acento de marca: verde #78B342. Foreground oscuro para AA sobre verde.
        accent-deep #4F8B2E para verde como texto/íconos sobre fondo claro. */
@@ -544,8 +545,12 @@
 
   /* Better focus styles - Enhanced for accessibility */
   *:focus-visible {
-    outline: 2px solid hsl(var(--ring));
+    outline: 2px solid transparent; /* visible en modo forced-colors */
     outline-offset: 2px;
+    /* Halo claro + anillo de marca: foco visible sobre fondos claros Y azules */
+    box-shadow:
+      0 0 0 2px hsl(var(--background)),
+      0 0 0 4px hsl(var(--ring));
   }
 
   /* High contrast focus for interactive elements */
@@ -555,9 +560,17 @@
   textarea:focus-visible,
   select:focus-visible,
   [role='button']:focus-visible {
-    outline: 3px solid hsl(var(--primary));
+    outline: 2px solid transparent;
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+    box-shadow:
+      0 0 0 3px hsl(var(--background)),
+      0 0 0 5px hsl(var(--primary));
+  }
+
+  /* Target táctil mínimo (44px) para controles compactos en móvil */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
 
   /* Focus ring for cards and interactive containers */

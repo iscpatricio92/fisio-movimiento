@@ -117,9 +117,11 @@ export const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:+525565053202"
-              className={`flex items-center gap-2 text-sm ${
-                isScrolled ? 'text-primary' : 'text-white'
-              } hover:text-primary transition-colors`}
+              className={`flex items-center gap-2 text-sm transition-colors ${
+                isScrolled
+                  ? 'text-primary hover:text-primary/80'
+                  : 'text-white hover:text-white/80'
+              }`}
             >
               <Phone className="w-4 h-4" />
               <span>+52 55 6505 3202</span>
