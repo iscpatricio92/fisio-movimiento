@@ -158,14 +158,15 @@ const Index = () => {
               <ServicesSection />
             </Suspense>
           </section>
-          <section ref={pricingRef}>
-            <Suspense fallback={<SectionLoader />}>
-              <PricingSection />
-            </Suspense>
-          </section>
+          {/* Testimonios antes de Precios: la prueba social reduce la fricción del precio */}
           <section ref={testimonialsRef}>
             <Suspense fallback={<SectionLoader />}>
               <TestimonialsSection />
+            </Suspense>
+          </section>
+          <section ref={pricingRef}>
+            <Suspense fallback={<SectionLoader />}>
+              <PricingSection />
             </Suspense>
           </section>
           <section ref={contactRef}>
