@@ -101,10 +101,9 @@ fisio-movimiento/
 │   │   ├── ContactSection.tsx
 │   │   ├── TestimonialsSection.tsx
 │   │   ├── ClinicGallery.tsx
-│   │   ├── PWAUpdatePrompt.tsx
 │   │   └── ...
 │   ├── hooks/            # Custom React hooks
-│   │   ├── use-pwa-update.tsx
+│   │   ├── use-hash-navigation.tsx
 │   │   └── ...
 │   ├── lib/              # Utilidades y configuraciones
 │   │   ├── analytics.ts  # Google Analytics 4
@@ -232,7 +231,7 @@ El proyecto usa path aliases para imports más limpios:
 
 ```typescript
 import { Button } from '@/components/ui/button';
-import { usePWAUpdate } from '@/hooks/use-pwa-update';
+import { useHapticFeedback } from '@/hooks/use-haptic-feedback';
 ```
 
 Configurado en `tsconfig.json` y `vite.config.ts`.
