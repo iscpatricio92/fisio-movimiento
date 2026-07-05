@@ -137,7 +137,7 @@ const TerminosCondiciones = () => {
             {/* Servicios médicos */}
             <section className="bg-card rounded-2xl p-6 lg:p-8 shadow-soft border border-border/50">
               <div className="flex items-center gap-3 mb-4">
-                <AlertTriangle className="w-6 h-6 text-accent" />
+                <AlertTriangle className="w-6 h-6 text-accent-deep" />
                 <h2 className="font-display text-2xl font-bold text-foreground">
                   4. Información Médica y Deslinde de Responsabilidad
                 </h2>
