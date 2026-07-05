@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
+import { TrustBar } from '@/components/TrustBar';
 import { Footer } from '@/components/Footer';
 import { MobileBottomCTA } from '@/components/MobileBottomCTA';
 import { SkipToContent } from '@/components/SkipToContent';
@@ -146,6 +147,7 @@ const Index = () => {
           <section ref={heroRef}>
             <HeroSection />
           </section>
+          <TrustBar />
           <section ref={aboutRef}>
             <Suspense fallback={<SectionLoader />}>
               <AboutSection />
