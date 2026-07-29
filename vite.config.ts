@@ -178,6 +178,12 @@ export default defineConfig(({ mode }) => ({
       // para el tematizado móvil e iconos. Bajo este modo, el bloque `workbox`
       // de abajo queda inerte (no hay precache).
       selfDestroying: true,
+      // No inyectar `registerSW.js`: con `selfDestroying` su llamada a
+      // navigator.serviceWorker.register() rechaza y genera un unhandled
+      // rejection (visible en Sentry). Los usuarios nuevos no necesitan
+      // registrar nada; los que aún tienen el SW viejo se limpian igual
+      // cuando el navegador actualiza sw.js (el auto-destructivo) por su cuenta.
+      injectRegister: false,
       includeAssets: [
         'favicon/favicon.ico',
         'favicon/favicon-16x16.png',
