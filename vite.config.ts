@@ -338,7 +338,6 @@ export default defineConfig(({ mode }) => ({
       // Optimize tree shaking - remove unused code
       treeshake: {
         moduleSideEffects: 'no-external',
-        preset: 'smallest',
         propertyReadSideEffects: false,
       },
       output: {
