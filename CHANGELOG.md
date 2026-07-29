@@ -9,6 +9,24 @@ y el proyecto usa [Versionado Semántico](https://semver.org/lang/es/).
 
 _Sin cambios aún._
 
+## [1.0.28] - 2026-07-29
+
+Release de infraestructura: actualización del toolchain de build.
+
+### Changed
+
+- **Migración a Vite 8** (rolldown) manteniendo el SSG: `vite` 7.3.1 → 8.1.5,
+  `vite-react-ssg` 0.9.0 → 0.9.2 (soporte Vite 8), `@vitejs/plugin-react-swc`
+  3 → 4.3.2, `vite-plugin-pwa` 1.2 → 1.3, `vite-imagetools` 9 → 10,
+  `lovable-tagger` 1.1 → 1.3. Se añade `esbuild` (devDep) y se elimina
+  `treeshake.preset` (incompatible con rolldown).
+- **Node 24**: CI en Node 24, `engines.node` `>=22` y `.nvmrc` (Node 20 quedó
+  deprecado en Vercel).
+
+### Removed
+
+- `public/sitemap.xml` deja de versionarse; se regenera en cada build.
+
 ## [1.0.27] - 2026-07-29
 
 Primer release en producción del **epic FisioAnalaura**: rebrand completo,
@@ -59,5 +77,6 @@ mejoras de SEO/rendimiento y tooling.
 - Pendiente de infraestructura: subir **Vercel + CI a Node 24** (Node 20 se
   deprecará el 2026-10-01).
 
-[Unreleased]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.27...HEAD
+[Unreleased]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.28...HEAD
+[1.0.28]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.27...v1.0.28
 [1.0.27]: https://github.com/iscpatricio92/fisio-movimiento/releases/tag/v1.0.27
