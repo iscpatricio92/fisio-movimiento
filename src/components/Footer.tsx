@@ -36,7 +36,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="text-center">
             <span className="font-display text-2xl font-bold">
-              Fisio<span className="text-accent">Analaura</span>
+              Fisio<span className="text-primary-light">Analaura</span>
             </span>
             <p className="mt-3 text-sm text-primary-foreground/70 max-w-xs mx-auto">
               Fisioterapia humana y de calidad para tu bienestar integral.
@@ -95,7 +95,7 @@ export const Footer = () => {
               <a
                 key={item}
                 href={getNavHref(item)}
-                className="text-sm text-primary-foreground/60 hover:text-accent transition-colors py-2 text-center"
+                className="text-sm text-primary-foreground/60 hover:text-white transition-colors py-2 text-center"
               >
                 {item}
               </a>
@@ -111,7 +111,7 @@ export const Footer = () => {
               <Link
                 to="/aviso-privacidad"
                 onClick={handleLegalLinkClick}
-                className="text-primary-foreground/60 hover:text-accent transition-colors"
+                className="text-primary-foreground/60 hover:text-white transition-colors"
               >
                 Aviso de Privacidad
               </Link>
@@ -119,7 +119,7 @@ export const Footer = () => {
               <Link
                 to="/politica-cancelacion"
                 onClick={handleLegalLinkClick}
-                className="text-primary-foreground/60 hover:text-accent transition-colors"
+                className="text-primary-foreground/60 hover:text-white transition-colors"
               >
                 Política de Cancelación
               </Link>
@@ -127,7 +127,7 @@ export const Footer = () => {
               <Link
                 to="/terminos-condiciones"
                 onClick={handleLegalLinkClick}
-                className="text-primary-foreground/60 hover:text-accent transition-colors"
+                className="text-primary-foreground/60 hover:text-white transition-colors"
               >
                 Términos y Condiciones
               </Link>
@@ -151,7 +151,7 @@ export const Footer = () => {
             {/* Brand */}
             <div className="md:col-span-2">
               <span className="font-display text-2xl font-bold">
-                Fisio<span className="text-accent">Analaura</span>
+                Fisio<span className="text-primary-light">Analaura</span>
               </span>
               <p className="mt-4 text-primary-foreground/70 max-w-md">
                 Fisioterapia humana y de calidad. Tratamientos personalizados,
@@ -198,7 +198,7 @@ export const Footer = () => {
                   <li key={item}>
                     <a
                       href={getNavHref(item)}
-                      className="text-primary-foreground/70 hover:text-accent transition-all duration-300 hover:translate-x-1 inline-block font-medium"
+                      className="text-primary-foreground/70 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block font-medium"
                     >
                       {item}
                     </a>
@@ -216,7 +216,7 @@ export const Footer = () => {
                 <li>
                   <a
                     href="tel:+525565053202"
-                    className="flex items-center gap-3 text-primary-foreground/70 hover:text-accent transition-colors"
+                    className="flex items-center gap-3 text-primary-foreground/70 hover:text-white transition-colors"
                   >
                     <Phone className="w-4 h-4" />
                     +52 55 6505 3202
@@ -247,7 +247,7 @@ export const Footer = () => {
               <Link
                 to="/aviso-privacidad"
                 onClick={handleLegalLinkClick}
-                className="text-primary-foreground/60 hover:text-accent transition-colors"
+                className="text-primary-foreground/60 hover:text-white transition-colors"
               >
                 Aviso de Privacidad
               </Link>
@@ -255,7 +255,7 @@ export const Footer = () => {
               <Link
                 to="/politica-cancelacion"
                 onClick={handleLegalLinkClick}
-                className="text-primary-foreground/60 hover:text-accent transition-colors"
+                className="text-primary-foreground/60 hover:text-white transition-colors"
               >
                 Política de Cancelación
               </Link>
@@ -263,7 +263,7 @@ export const Footer = () => {
               <Link
                 to="/terminos-condiciones"
                 onClick={handleLegalLinkClick}
-                className="text-primary-foreground/60 hover:text-accent transition-colors"
+                className="text-primary-foreground/60 hover:text-white transition-colors"
               >
                 Términos y Condiciones
               </Link>

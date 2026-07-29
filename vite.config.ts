@@ -169,6 +169,15 @@ export default defineConfig(({ mode }) => ({
     ...(mode === 'production' ? [generate404Plugin()] : []),
     VitePWA({
       registerType: 'autoUpdate',
+      // Service worker retirado: el sitio es de captación (marketing → reserva
+      // en Doctoralia, que es externo y no cachea). El caché de repetición lo
+      // cubren el CDN de Vercel + assets con hash `immutable`, y el SSG mejora
+      // la primera carga/SEO. `selfDestroying` publica un SW que se
+      // desregistra y limpia sus cachés en los navegadores que ya lo tenían.
+      // Se conserva el manifest (public/manifest.json + <link> en index.html)
+      // para el tematizado móvil e iconos. Bajo este modo, el bloque `workbox`
+      // de abajo queda inerte (no hay precache).
+      selfDestroying: true,
       includeAssets: [
         'favicon/favicon.ico',
         'favicon/favicon-16x16.png',
@@ -185,8 +194,8 @@ export default defineConfig(({ mode }) => ({
         short_name: 'FisioAnalaura',
         description:
           'Fisioterapeuta con doble titulación (México y España). Especialista en traumatología, ATM, hipopresivos y manejo del dolor.',
-        theme_color: '#2CA3B3',
-        background_color: '#F8FBFB',
+        theme_color: '#1876B6',
+        background_color: '#F7FBFC',
         display: 'standalone',
         start_url: '/',
         scope: '/',
@@ -196,11 +205,13 @@ export default defineConfig(({ mode }) => ({
             src: '/favicon/icon-192x192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any maskable',
           },
           {
             src: '/favicon/icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any maskable',
           },
           {
             src: '/favicon/apple-touch-icon.png',
@@ -338,6 +349,7 @@ export default defineConfig(({ mode }) => ({
       // Optimize tree shaking - remove unused code
       treeshake: {
         moduleSideEffects: 'no-external',
+        preset: 'smallest',
         propertyReadSideEffects: false,
       },
       output: {

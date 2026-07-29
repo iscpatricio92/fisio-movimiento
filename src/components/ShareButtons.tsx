@@ -8,7 +8,7 @@ import {
   Copy,
   Check,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ShareButtonsProps {
   url?: string;
@@ -28,6 +28,15 @@ export const ShareButtons = ({
   variant = 'default',
 }: ShareButtonsProps) => {
   const [copied, setCopied] = useState(false);
+
+  // Web Share API availability is resolved on the client only. Reading
+  // `navigator` during render breaks the SSG prerender (navigator is undefined
+  // in Node < 21); deferring to an effect also keeps hydration consistent
+  // (server and first client render both omit the button).
+  const [canWebShare, setCanWebShare] = useState(false);
+  useEffect(() => {
+    setCanWebShare(typeof navigator !== 'undefined' && !!navigator.share);
+  }, []);
 
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
@@ -123,7 +132,7 @@ export const ShareButtons = ({
               </a>
             );
           })}
-          {navigator.share && (
+          {canWebShare && (
             <button
               onClick={handleShare}
               className="w-8 h-8 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center transition-all duration-300 hover:scale-110"
@@ -180,7 +189,7 @@ export const ShareButtons = ({
                 </>
               )}
             </button>
-            {navigator.share && (
+            {canWebShare && (
               <button
                 onClick={handleShare}
                 className="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 hover:scale-105"
@@ -266,7 +275,7 @@ export const ShareButtons = ({
             </>
           )}
         </button>
-        {navigator.share && (
+        {canWebShare && (
           <button
             onClick={handleShare}
             className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 hover:scale-105 shadow-soft hover:shadow-glow"

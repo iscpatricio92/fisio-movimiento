@@ -304,7 +304,7 @@ export const ServicesSection = () => {
           <div className="text-center mb-12 lg:mb-20">
             <a
               href="#precios"
-              className="inline-flex items-center gap-2 px-6 py-3.5 lg:py-3 rounded-xl gradient-cta text-accent-foreground font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 group min-h-[48px]"
+              className="inline-flex items-center gap-2 px-6 py-3.5 lg:py-3 rounded-xl gradient-cta text-white font-semibold shadow-md hover:shadow-glow hover:scale-105 transition-all duration-300 group min-h-[48px]"
               onClick={(e) => {
                 e.preventDefault();
                 document
@@ -320,27 +320,32 @@ export const ServicesSection = () => {
 
         {/* Conditions Treated */}
         <ScrollAnimated animation="fade-up" delay={200}>
-          <div className="bg-card rounded-2xl lg:rounded-3xl p-6 md:p-8 lg:p-12 shadow-soft border border-border/50">
+          <div
+            id="condiciones"
+            className="scroll-mt-24 bg-card rounded-2xl lg:rounded-3xl p-6 md:p-8 lg:p-12 shadow-soft border border-border/50"
+          >
             <div className="text-center mb-6 lg:mb-8">
               <h3 className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
-                Enfermedades y Condiciones Tratadas
+                Condiciones que tratamos
               </h3>
               <p className="text-muted-foreground mt-2 text-sm lg:text-base">
-                Amplia experiencia en el tratamiento de diversas patologías
+                Amplia experiencia en el tratamiento de diversas patologías:
+                dolor de espalda, cuello, ATM, lesiones deportivas, hipopresivos
+                y más.
               </p>
             </div>
 
             {/* Conditions tags */}
-            <div className="flex flex-wrap justify-center gap-2 lg:gap-3">
+            <ul className="flex flex-wrap justify-center gap-2 lg:gap-3">
               {visibleConditions.map((condition, index) => (
-                <span
+                <li
                   key={index}
                   className="px-3 py-2 lg:px-4 lg:py-2 rounded-full bg-secondary text-secondary-foreground text-xs lg:text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-default shadow-soft min-h-[40px] lg:min-h-0 flex items-center"
                 >
                   {condition}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
 
             {/* Show more/less button - Mobile only */}
             <div className="lg:hidden mt-4 text-center">

@@ -220,7 +220,7 @@ export const AboutSection = () => {
                     {/* Badge "En curso" */}
                     {credential?.inProgress && (
                       <div className="absolute -top-3 -right-3 z-10">
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full gradient-cta text-accent-foreground text-xs font-bold shadow-lg border-2 border-accent-foreground/20">
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full gradient-cta text-white text-xs font-bold shadow-lg border-2 border-accent-foreground/20">
                           <Clock className="w-3 h-3" />
                           <span>{credential.inProgressText}</span>
                         </div>

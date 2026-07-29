@@ -14,12 +14,13 @@ import {
   trackPhoneClick,
   trackWhatsAppClick,
   trackExternalLink,
+  trackEvent,
 } from '@/lib/analytics';
 import {
   getPhysicalAddresses,
   getAllAddresses,
 } from '@/lib/doctoralia-addresses';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Obtener direcciones físicas desde la configuración centralizada
 const physicalAddresses = getPhysicalAddresses();
@@ -103,6 +104,27 @@ const generateContactPageSchema = () => ({
 });
 
 export const ContactSection = () => {
+  const agendaRef = useRef<HTMLDivElement>(null);
+
+  // GA4: registrar (una sola vez) cuando el usuario llega al calendario de
+  // Doctoralia. Al ser un iframe cross-origin no podemos detectar clicks
+  // internos, así que medimos la visualización del widget como proxy de intención.
+  useEffect(() => {
+    const el = agendaRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          trackEvent('agenda_view', { location: 'Contact Section' });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Inyectar schema ContactPage para SEO
   useEffect(() => {
     const existingScript = document.querySelector(
@@ -140,7 +162,7 @@ export const ContactSection = () => {
             {/*  <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 animate-pulse-soft">
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
               <span className="text-sm font-medium text-foreground">
-                Próxima cita disponible: <span className="text-accent font-bold">Mañana a las 10:00 AM</span>
+                Próxima cita disponible: <span className="text-accent-deep font-bold">Mañana a las 10:00 AM</span>
               </span>
             </div> */}
           </div>
@@ -176,8 +198,8 @@ export const ContactSection = () => {
                 }
                 className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-10 h-10 rounded-lg bg-[hsl(142,70%,45%)] flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 text-primary-foreground" />
+                <div className="w-10 h-10 rounded-lg bg-[#25D366] flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">
                   WhatsApp
@@ -195,8 +217,8 @@ export const ContactSection = () => {
                 }
                 className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-200 active:scale-95"
               >
-                <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-accent-foreground" />
+                <div className="w-10 h-10 rounded-lg gradient-cta flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-white" />
                 </div>
                 <span className="text-xs font-semibold text-foreground">
                   Reservar
@@ -245,7 +267,11 @@ export const ContactSection = () => {
 
         {/* Instrucciones y Widget de Doctoralia en 2 columnas */}
         <ScrollAnimated animation="fade-up" delay={200}>
-          <div className="mb-8 md:mb-16">
+          <div
+            ref={agendaRef}
+            id="agenda"
+            className="scroll-mt-28 mb-8 md:mb-16"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               {/* Columna izquierda: Instrucciones simplificadas */}
               <div className="bg-card rounded-2xl p-4 md:p-6 lg:p-8 shadow-soft border border-border/50">

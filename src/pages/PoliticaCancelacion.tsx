@@ -116,7 +116,7 @@ const PoliticaCancelacion = () => {
             {/* Cancelación con menos de 24 horas */}
             <section className="bg-card rounded-2xl p-6 lg:p-8 shadow-soft border border-border/50">
               <div className="flex items-center gap-3 mb-4">
-                <AlertCircle className="w-6 h-6 text-accent" />
+                <AlertCircle className="w-6 h-6 text-accent-deep" />
                 <h2 className="font-display text-2xl font-bold text-foreground">
                   2. Cancelación con Menos de 24 Horas
                 </h2>

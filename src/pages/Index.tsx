@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
+import { TrustBar } from '@/components/TrustBar';
 import { Footer } from '@/components/Footer';
 import { MobileBottomCTA } from '@/components/MobileBottomCTA';
 import { SkipToContent } from '@/components/SkipToContent';
@@ -79,11 +80,6 @@ const FAQSection = lazy(() =>
     default: module.FAQSection,
   })),
 );
-const SocialMediaSection = lazy(() =>
-  import('@/components/SocialMediaSection').then((module) => ({
-    default: module.SocialMediaSection,
-  })),
-);
 
 const Index = () => {
   // Meta tags para la página principal (unifica con index.html)
@@ -134,7 +130,6 @@ const Index = () => {
   });
   const contactRef = useSectionTracking({ sectionName: 'Contact Section' });
   const faqRef = useSectionTracking({ sectionName: 'FAQ Section' });
-  const socialRef = useSectionTracking({ sectionName: 'Social Media Section' });
 
   // Loading fallback component
   const SectionLoader = () => (
@@ -152,6 +147,7 @@ const Index = () => {
           <section ref={heroRef}>
             <HeroSection />
           </section>
+          <TrustBar />
           <section ref={aboutRef}>
             <Suspense fallback={<SectionLoader />}>
               <AboutSection />
@@ -162,14 +158,15 @@ const Index = () => {
               <ServicesSection />
             </Suspense>
           </section>
-          <section ref={pricingRef}>
-            <Suspense fallback={<SectionLoader />}>
-              <PricingSection />
-            </Suspense>
-          </section>
+          {/* Testimonios antes de Precios: la prueba social reduce la fricción del precio */}
           <section ref={testimonialsRef}>
             <Suspense fallback={<SectionLoader />}>
               <TestimonialsSection />
+            </Suspense>
+          </section>
+          <section ref={pricingRef}>
+            <Suspense fallback={<SectionLoader />}>
+              <PricingSection />
             </Suspense>
           </section>
           <section ref={contactRef}>
@@ -177,13 +174,6 @@ const Index = () => {
               <ContactSection />
             </Suspense>
           </section>
-          {/* <section id="redes-sociales" ref={socialRef} className="py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <Suspense fallback={<SectionLoader />}>
-              <SocialMediaSection />
-            </Suspense>
-          </div>
-        </section> */}
           <section ref={faqRef}>
             <Suspense fallback={<SectionLoader />}>
               <FAQSection />

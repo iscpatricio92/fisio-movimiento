@@ -25,10 +25,12 @@ export const useHashNavigation = () => {
         '#inicio': 'Inicio',
         '#sobre-mi': 'Sobre mí',
         '#servicios': 'Servicios',
+        '#condiciones': 'Condiciones',
         '#precios': 'Precios',
         '#opiniones': 'Opiniones',
         '#faqs': 'FAQs',
         '#contacto': 'Contacto',
+        '#agenda': 'Agenda',
       };
       return sectionMap[hash] || hash.substring(1);
     };
@@ -82,10 +84,12 @@ export const useHashNavigation = () => {
         '#inicio': 'Inicio',
         '#sobre-mi': 'Sobre mí',
         '#servicios': 'Servicios',
+        '#condiciones': 'Condiciones',
         '#precios': 'Precios',
         '#opiniones': 'Opiniones',
         '#faqs': 'FAQs',
         '#contacto': 'Contacto',
+        '#agenda': 'Agenda',
       };
       return sectionMap[hash] || hash.substring(1);
     };

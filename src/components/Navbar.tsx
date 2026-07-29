@@ -89,7 +89,10 @@ export const Navbar = () => {
                 isScrolled ? 'text-primary' : 'text-white drop-shadow-md'
               }`}
             >
-              Fisio<span className="text-accent">Analaura</span>
+              Fisio
+              <span className={isScrolled ? 'text-accent-deep' : 'text-white'}>
+                Analaura
+              </span>
             </span>
           </a>
 
@@ -114,15 +117,17 @@ export const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="tel:+525565053202"
-              className={`flex items-center gap-2 text-sm ${
-                isScrolled ? 'text-primary' : 'text-white'
-              } hover:text-primary transition-colors`}
+              className={`flex items-center gap-2 text-sm transition-colors ${
+                isScrolled
+                  ? 'text-primary hover:text-primary/80'
+                  : 'text-white hover:text-white/80'
+              }`}
             >
               <Phone className="w-4 h-4" />
               <span>+52 55 6505 3202</span>
             </a>
             <Button variant="cta" size="sm" asChild>
-              <a href={getNavHref('contacto')}>
+              <a href={getNavHref('agenda')}>
                 <Calendar className="w-4 h-4" />
                 Reservar Cita
               </a>
@@ -201,7 +206,7 @@ export const Navbar = () => {
                 </a>
                 <Button variant="cta" className="w-full" asChild>
                   <a
-                    href={getNavHref('contacto')}
+                    href={getNavHref('agenda')}
                     onClick={() => setIsOpen(false)}
                   >
                     <Calendar className="w-4 h-4" />
