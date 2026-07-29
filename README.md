@@ -10,7 +10,7 @@ Sitio web profesional para **Lic. Analaura Reyes Priego**, fisioterapeuta con do
 
 ### Requisitos Previos
 
-- **Node.js** 20.x o superior
+- **Node.js** 22.x o superior (recomendado **24.x**; Node 20 quedó deprecado)
 - **npm** 9.x o superior
 
 Recomendamos usar [nvm](https://github.com/nvm-sh/nvm) para gestionar versiones de Node.js.
