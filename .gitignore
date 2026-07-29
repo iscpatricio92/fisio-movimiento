@@ -19,6 +19,10 @@ bun.lockb
 # Bundle analysis output
 dist/stats.html
 
+# Sitemap generado en cada build (scripts/generate-sitemap.js -> public/, y
+# Vite lo copia a dist/). Se regenera siempre, no se versiona.
+public/sitemap.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
