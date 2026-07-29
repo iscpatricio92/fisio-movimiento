@@ -27,6 +27,9 @@
   ],
   "main": "index.html",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "npm run generate:sitemap && vite-react-ssg build",
