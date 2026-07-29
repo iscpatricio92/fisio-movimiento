@@ -9,6 +9,17 @@ y el proyecto usa [Versionado Semántico](https://semver.org/lang/es/).
 
 _Sin cambios aún._
 
+## [1.0.29] - 2026-07-29
+
+### Fixed
+
+- **PWA / Sentry**: se deja de inyectar `registerSW.js` (`injectRegister: false`).
+  Con el service worker en modo `selfDestroying`, ese script llamaba a
+  `navigator.serviceWorker.register()`, cuya promesa rechazaba y generaba un
+  _unhandled rejection_ reportado a Sentry en producción (`Error: Rejected` en
+  `/registerSW.js`). Los usuarios nuevos ya no registran ningún SW; los que aún
+  tienen el SW viejo se limpian igual vía la actualización normal del navegador.
+
 ## [1.0.28] - 2026-07-29
 
 Release de infraestructura: actualización del toolchain de build.
@@ -77,6 +88,7 @@ mejoras de SEO/rendimiento y tooling.
 - Pendiente de infraestructura: subir **Vercel + CI a Node 24** (Node 20 se
   deprecará el 2026-10-01).
 
-[Unreleased]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.28...HEAD
+[Unreleased]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.29...HEAD
+[1.0.29]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.28...v1.0.29
 [1.0.28]: https://github.com/iscpatricio92/fisio-movimiento/compare/v1.0.27...v1.0.28
 [1.0.27]: https://github.com/iscpatricio92/fisio-movimiento/releases/tag/v1.0.27
